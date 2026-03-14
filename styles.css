@@ -565,15 +565,35 @@ h2 {
 
 .header.is-compact .nav {
   width: 100%;
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: stretch;
   order: 3;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-8px);
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    max-height 0.28s ease,
+    opacity 0.22s ease,
+    transform 0.28s ease,
+    visibility 0s linear 0.28s;
   padding-bottom: 0.5rem;
 }
 
 .header.is-compact .nav.open {
-  display: flex;
+  max-height: 340px;
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+  pointer-events: auto;
+  transition:
+    max-height 0.32s ease,
+    opacity 0.22s ease,
+    transform 0.32s ease,
+    visibility 0s;
 }
 
 .header.is-compact .search-form {
@@ -631,15 +651,36 @@ h2 {
 
   .nav {
     width: 100%;
-    display: none;
+    display: flex;
     flex-direction: column;
-    align-items: stretch;
+    align-items: flex-end;
+    gap: 0;
     order: 2;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(-8px);
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      max-height 0.28s ease,
+      opacity 0.22s ease,
+      transform 0.28s ease,
+      visibility 0s linear 0.28s;
     padding-bottom: 0.5rem;
   }
 
   .nav.open {
-    display: flex;
+    max-height: 340px;
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    pointer-events: auto;
+    transition:
+      max-height 0.32s ease,
+      opacity 0.22s ease,
+      transform 0.32s ease,
+      visibility 0s;
   }
 
   .search-form {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-depth="1">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,20 +15,33 @@
   <body>
     <div class="site-bg" aria-hidden="true"></div>
     <header class="header">
-      <div class="container nav-wrap">
-        <a class="brand" href="../index.html"><span class="brand-mark"></span><span><strong>ИВЦ ПЛАЗМАИНСТРУМЕНТ</strong><small>Вакуумные технологии</small></span></a>
-        <button class="nav-toggle" aria-label="Открыть меню" aria-expanded="false"><span></span><span></span></button>
-        <nav class="nav" aria-label="Главное меню">
-          <a href="../index.html">Главная</a>
-          <a href="../istos/index.html">Технологические источники</a>
-          <a href="../services/index.html">Услуги</a>
-          <a href="../invprojects/index.html">Инвестиционные и научные проекты</a>
-          <a href="../blog/index.html">Блог</a>
-          <a class="active" href="index.html">Контакты</a>
-        </nav>
-        <div class="lang-switch" aria-label="Переключение языка">
-          <span class="active">RU</span>
-          <a href="../en/contacts/index.html">EN</a>
+      <div class="header-top">
+        <div class="container header-top__wrap">
+          <a class="brand" href="../index.html"><span class="brand-mark"></span><span><strong>ИВЦ ПЛАЗМАИНСТРУМЕНТ</strong><small>Вакуумные технологии</small></span></a>
+          <div class="header-contacts">
+            <a href="tel:+79600851803">+7(960)0851803</a>
+            <a href="mailto:info@plasma-instrument.com">info@plasma-instrument.com</a>
+          </div>
+          <div class="header-top__right">
+            <div class="lang-switch" aria-label="Переключение языка"><span class="active">RU</span><a href="../en/contacts/index.html">EN</a></div>
+            <button class="nav-toggle" aria-label="Открыть меню" aria-expanded="false"><span></span><span></span></button>
+          </div>
+        </div>
+      </div>
+      <div class="header-nav">
+        <div class="container header-nav__wrap">
+          <nav class="nav" aria-label="Главное меню">
+            <a href="../index.html">Главная</a>
+            <a href="../istos/index.html">Технологические источники</a>
+            <a href="../services/index.html">Услуги</a>
+            <a href="../invprojects/index.html">Инвестиционные и научные проекты</a>
+            <a href="../blog/index.html">Блог</a>
+            <a class="active" href="index.html">Контакты</a>
+          </nav>
+          <form class="search-form" role="search">
+            <input class="search-input" type="search" name="q" placeholder="Поиск..." autocomplete="off">
+            <button class="search-btn" type="submit" aria-label="Найти"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+          </form>
         </div>
       </div>
     </header>

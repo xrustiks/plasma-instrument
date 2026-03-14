@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-depth="2">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,18 +15,34 @@
   <body>
     <div class="site-bg" aria-hidden="true"></div>
     <header class="header">
-      <div class="container nav-wrap">
-        <a class="brand" href="../index.html"><span class="brand-mark"></span><span><strong>IVC PLASMAINSTRUMENT</strong><small>Vacuum technologies</small></span></a>
-        <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
-        <nav class="nav" aria-label="Main menu">
-          <a href="../index.html">Home</a>
-          <a href="../istos/index.html">Technological sources</a>
-          <a href="../services/index.html">Services</a>
-          <a href="../invprojects/index.html">Investment and scientific projects</a>
-          <a class="active" href="index.html">Blog</a>
-          <a href="../contacts/index.html">Contacts</a>
-        </nav>
-        <div class="lang-switch" aria-label="Language switch"><a href="../../blog/index.html">RU</a><span class="active">EN</span></div>
+      <div class="header-top">
+        <div class="container header-top__wrap">
+          <a class="brand" href="../index.html"><span class="brand-mark"></span><span><strong>IVC PLASMAINSTRUMENT</strong><small>Vacuum technologies</small></span></a>
+          <div class="header-contacts">
+            <a href="tel:+79600851803">+7(960)0851803</a>
+            <a href="mailto:info@plasma-instrument.com">info@plasma-instrument.com</a>
+          </div>
+          <div class="header-top__right">
+            <div class="lang-switch" aria-label="Language switch"><a href="../../blog/index.html">RU</a><span class="active">EN</span></div>
+            <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+          </div>
+        </div>
+      </div>
+      <div class="header-nav">
+        <div class="container header-nav__wrap">
+          <nav class="nav" aria-label="Main menu">
+            <a href="../index.html">Home</a>
+            <a href="../istos/index.html">Technological sources</a>
+            <a href="../services/index.html">Services</a>
+            <a href="../invprojects/index.html">Investment and scientific projects</a>
+            <a class="active" href="index.html">Blog</a>
+            <a href="../contacts/index.html">Contacts</a>
+          </nav>
+          <form class="search-form" role="search">
+            <input class="search-input" type="search" name="q" placeholder="Search..." autocomplete="off">
+            <button class="search-btn" type="submit" aria-label="Search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+          </form>
+        </div>
       </div>
     </header>
 

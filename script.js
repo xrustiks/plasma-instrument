@@ -1,6 +1,44 @@
 const navToggle = document.querySelector('.nav-toggle');
 const nav = document.querySelector('.nav');
 
+(function () {
+  const header = document.querySelector('.header');
+  const navWrap = document.querySelector('.header-nav__wrap');
+
+  // Keep burger in the navigation row instead of the top header row.
+  if (navToggle && navWrap) {
+    navWrap.insertBefore(navToggle, navWrap.firstChild);
+  }
+
+  if (!header || !navWrap) {
+    return;
+  }
+
+  const checkCompact = () => {
+    const wasCompact = header.classList.contains('is-compact');
+    header.classList.remove('is-compact');
+
+    const overflows = navWrap.scrollWidth > navWrap.clientWidth + 2;
+    header.classList.toggle('is-compact', overflows);
+
+    if (wasCompact && !overflows && nav) {
+      nav.classList.remove('open');
+      if (navToggle) {
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
+    }
+  };
+
+  new ResizeObserver(checkCompact).observe(navWrap);
+
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', checkCompact);
+  }
+
+  window.addEventListener('resize', checkCompact);
+  checkCompact();
+}());
+
 if (navToggle && nav) {
   navToggle.addEventListener('click', () => {
     const isOpen = nav.classList.toggle('open');
@@ -87,3 +125,74 @@ accordions.forEach((accordion) => {
     });
   });
 });
+
+// =============================================================================
+// Search — form submit on any page
+// =============================================================================
+document.querySelectorAll('.search-form').forEach((form) => {
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const q = (form.querySelector('.search-input').value || '').trim();
+    if (!q) return;
+    const lang = document.documentElement.lang || 'ru';
+    const depth = parseInt(document.documentElement.dataset.depth || '0', 10);
+    let searchPage;
+    if (lang === 'en') {
+      // en/search.html — depth 1 = en/, depth 2 = en/sub/
+      searchPage = '../'.repeat(depth - 1) + 'search.html';
+    } else {
+      searchPage = '../'.repeat(depth) + 'search.html';
+    }
+    window.location.href = searchPage + '?q=' + encodeURIComponent(q);
+  });
+});
+
+// =============================================================================
+// Search results page
+// =============================================================================
+const RU_INDEX = [
+  { url: 'index.html',            title: 'О компании ООО ИВЦ Плазмаинструмент', body: 'ионно-плазменные источники магнетроны дуговые испарители вакуумные технологии НИР НИОКР Казань' },
+  { url: 'istos/index.html',      title: 'Технологические источники',            body: 'ионнолучевые источники планарные магнетроны дуговые испарители нанесение покрытий вакуум разряд' },
+  { url: 'services/index.html',   title: 'Услуги',                               body: 'экспорт вакуумного оборудования монтаж запуск нанесение покрытий механообработка модернизация НИОКР гальваника' },
+  { url: 'invprojects/index.html',title: 'Инвестиционные и научные проекты',     body: 'декоративные покрытия керамическая плитка гальванические процессы листовой металл ВЧ ионный источник магнетрон фольга' },
+  { url: 'blog/index.html',       title: 'Блог',                                 body: 'шпиндель пневматический диафрагма камера закалки анод MAP ролик реактор золото серебро вакуумный фильтр' },
+  { url: 'contacts/index.html',   title: 'Контакты',                             body: 'Казань Даурская 41 офис телефон email адрес' },
+];
+
+const EN_INDEX = [
+  { url: 'index.html',            title: 'About IVC PlasmaInstrument',                  body: 'ion plasma sources magnetrons arc evaporators vacuum technologies R&D Kazan thirty years' },
+  { url: 'istos/index.html',      title: 'Technological sources',                        body: 'ion beam sources extended planar magnetrons arc evaporators coating vacuum discharge' },
+  { url: 'services/index.html',   title: 'Services',                                     body: 'export vacuum equipment installation commissioning coating deposition machining modernization galvanic' },
+  { url: 'invprojects/index.html',title: 'Investment and scientific projects',            body: 'decorative coatings ceramic tiles galvanic vacuum RF ion source magnetron foil carbon electrode' },
+  { url: 'blog/index.html',       title: 'Blog',                                         body: 'spindle diaphragm hardening chamber anode MAP roller reactor gold silver vacuum filter' },
+  { url: 'contacts/index.html',   title: 'Contacts',                                     body: 'Kazan Daurskaya 41 office phone email address' },
+];
+
+const resultsEl = document.getElementById('search-results');
+if (resultsEl) {
+  const params = new URLSearchParams(window.location.search);
+  const q = params.get('q') || '';
+  const queryInput = document.getElementById('search-query');
+  if (queryInput) queryInput.value = q;
+
+  const isEn = (document.documentElement.lang || 'ru') === 'en';
+  const index = isEn ? EN_INDEX : RU_INDEX;
+
+  if (q.trim()) {
+    const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+    const hits = index.filter(({ title, body }) => {
+      const hay = (title + ' ' + body).toLowerCase();
+      return terms.some((t) => hay.includes(t));
+    });
+    if (hits.length) {
+      resultsEl.innerHTML = hits
+        .map((h) => `<div class="search-result"><a href="${h.url}">${h.title}</a><p>${h.body.slice(0, 90)}…</p></div>`)
+        .join('');
+    } else {
+      const msg = isEn
+        ? `Nothing found for «${q}».`
+        : `Ничего не найдено по запросу «${q}».`;
+      resultsEl.innerHTML = `<p class="search-empty">${msg}</p>`;
+    }
+  }
+}

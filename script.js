@@ -36,7 +36,7 @@ const openNavMenu = () => {
   const header = document.querySelector('.header');
   const navWrap = document.querySelector('.header-nav__wrap');
 
-  // Keep burger in the navigation row instead of the top header row.
+  // Keep burger in the navigation row instead of the top header row
   if (navToggle && navWrap) {
     navWrap.insertBefore(navToggle, navWrap.firstChild);
   }
@@ -46,8 +46,20 @@ const openNavMenu = () => {
   }
 
   const checkCompact = () => {
+    const forceCompact = window.matchMedia('(max-width: 988px)').matches;
     const wasCompact = header.classList.contains('is-compact');
-    header.classList.remove('is-compact');
+
+    // In forced compact range keep state stable to avoid resize flicker.
+    if (forceCompact) {
+      if (!wasCompact) {
+        header.classList.add('is-compact');
+      }
+      return;
+    }
+
+    if (wasCompact) {
+      header.classList.remove('is-compact');
+    }
 
     const overflows = navWrap.scrollWidth > navWrap.clientWidth + 2;
     header.classList.toggle('is-compact', overflows);

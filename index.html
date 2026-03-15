@@ -18,42 +18,7 @@
   </head>
   <body>
     <div class="site-bg" aria-hidden="true"></div>
-    <header class="header" id="top">
-      <div class="header-top">
-        <div class="container header-top__wrap">
-          <a class="brand" href="index.html">
-            <span class="brand-mark"></span>
-            <span><strong>ИВЦ ПЛАЗМАИНСТРУМЕНТ</strong><small>Вакуумные технологии</small></span>
-          </a>
-          <div class="header-contacts">
-            <a href="tel:+79600851803">+7(960)0851803</a>
-            <a href="mailto:info@plasma-instrument.com">info@plasma-instrument.com</a>
-          </div>
-          <div class="header-top__right">
-            <div class="lang-switch" aria-label="Переключение языка"><span class="active">RU</span><a href="en/index.html">EN</a></div>
-            <button class="nav-toggle" aria-label="Открыть меню" aria-expanded="false"><span></span><span></span></button>
-          </div>
-        </div>
-      </div>
-      <div class="header-nav">
-        <div class="container header-nav__wrap">
-          <nav class="nav" aria-label="Главное меню">
-            <a class="active" href="index.html">Главная</a>
-            <a href="istos/index.html">Технологические источники</a>
-            <a href="services/index.html">Услуги</a>
-            <a href="invprojects/index.html">Инвестиционные и научные проекты</a>
-            <a href="blog/index.html">Блог</a>
-            <a href="contacts/index.html">Контакты</a>
-          </nav>
-          <form class="search-form" role="search">
-            <input class="search-input" type="search" name="q" placeholder="Поиск..." autocomplete="off">
-            <button class="search-btn" type="submit" aria-label="Найти">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            </button>
-          </form>
-        </div>
-      </div>
-    </header>
+    <div data-site-header></div>
 
     <main>
       <section class="slider section reveal" aria-label="Ионно-плазменные источники">
@@ -227,33 +192,8 @@
       </section>
     </main>
 
-    <footer class="footer">
-      <div class="container footer-grid">
-        <div>
-          <h3>ИВЦ ПЛАЗМАИНСТРУМЕНТ</h3>
-          <p>420087, РТ, г.Казань, ул.Даурская 41,оф. 7</p>
-          <p><a href="mailto:info@plasma-instrument.com">info@plasma-instrument.com</a></p>
-          <p><a href="tel:+79600851803">+7(960)0851803</a></p>
-        </div>
-        <div>
-          <h3>Меню</h3>
-          <ul>
-            <li><a href="index.html">Главная</a></li>
-            <li><a href="istos/index.html">Технологические источники</a></li>
-            <li><a href="services/index.html">Услуги</a></li>
-            <li><a href="invprojects/index.html">Инвестиционные и научные проекты</a></li>
-            <li><a href="blog/index.html">Блог</a></li>
-            <li><a href="contacts/index.html">Контакты</a></li>
-          </ul>
-        </div>
-        <div>
-          <h3>Преимущества</h3>
-          <p>Профессиональная команда инженеров</p>
-          <p>Использование современных CAD и CAE систем</p>
-          <p>Гарантийное и послегарантийное обслуживание</p>
-        </div>
-      </div>
-    </footer>
+    <div data-site-footer></div>
+    <script src="layout.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

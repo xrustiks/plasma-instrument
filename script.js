@@ -49,10 +49,12 @@ const openNavMenu = () => {
     const wasCompact = header.classList.contains('is-compact');
     header.classList.remove('is-compact');
 
+    const forceCompact = window.matchMedia('(max-width: 988px)').matches;
     const overflows = navWrap.scrollWidth > navWrap.clientWidth + 2;
-    header.classList.toggle('is-compact', overflows);
+    const shouldCompact = forceCompact || overflows;
+    header.classList.toggle('is-compact', shouldCompact);
 
-    if (wasCompact && !overflows && nav) {
+    if (wasCompact && !shouldCompact && nav) {
       closeNavMenu();
     }
   };

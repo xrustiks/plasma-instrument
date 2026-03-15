@@ -18,42 +18,7 @@
   </head>
   <body>
     <div class="site-bg" aria-hidden="true"></div>
-    <header class="header" id="top">
-      <div class="header-top">
-        <div class="container header-top__wrap">
-          <a class="brand" href="index.html">
-            <span class="brand-mark"></span>
-            <span><strong>ИВЦ ПЛАЗМАИНСТРУМЕНТ</strong><small>Вакуумные технологии</small></span>
-          </a>
-          <div class="header-contacts">
-            <a href="tel:+79600851803">+7(960)0851803</a>
-            <a href="mailto:info@plasma-instrument.com">info@plasma-instrument.com</a>
-          </div>
-          <div class="header-top__right">
-            <div class="lang-switch" aria-label="Переключение языка"><span class="active">RU</span><a href="en/index.html">EN</a></div>
-            <button class="nav-toggle" aria-label="Открыть меню" aria-expanded="false"><span></span><span></span></button>
-          </div>
-        </div>
-      </div>
-      <div class="header-nav">
-        <div class="container header-nav__wrap">
-          <nav class="nav" aria-label="Главное меню">
-            <a class="active" href="index.html">Главная</a>
-            <a href="istos/index.html">Технологические источники</a>
-            <a href="services/index.html">Услуги</a>
-            <a href="invprojects/index.html">Инвестиционные и научные проекты</a>
-            <a href="blog/index.html">Блог</a>
-            <a href="contacts/index.html">Контакты</a>
-          </nav>
-          <form class="search-form" role="search">
-            <input class="search-input" type="search" name="q" placeholder="Поиск..." autocomplete="off">
-            <button class="search-btn" type="submit" aria-label="Найти">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            </button>
-          </form>
-        </div>
-      </div>
-    </header>
+    <div data-site-header></div>
 
     <main>
       <section class="slider section reveal" aria-label="Ионно-плазменные источники">
@@ -111,18 +76,18 @@
         <div class="container section-head">
           <h2>Технологические источники</h2>
         </div>
-        <div class="container cards-grid">
-          <article class="card">
-            <h3>Ионнолучевые источники</h3>
-            <a href="istos/index.html">ПОДРОБНЕЕ</a>
+        <div class="container topic-grid">
+          <article class="topic-card" data-href="istos/ionnoluchevye-istochniki/index.html" role="link" tabindex="0">
+            <span class="topic-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M4 12h16"/><path d="M12 4c3 2.2 3 13.8 0 16"/></svg></span>
+            <h3 class="topic-card__title"><a href="istos/ionnoluchevye-istochniki/index.html">Ионнолучевые источники</a></h3>
           </article>
-          <article class="card">
-            <h3>Протяженные планарные магнетроны</h3>
-            <a href="istos/index.html">ПОДРОБНЕЕ</a>
+          <article class="topic-card" data-href="istos/magnetronnye-raspyliteli/index.html" role="link" tabindex="0">
+            <span class="topic-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M8 10h8"/><path d="M8 14h5"/></svg></span>
+            <h3 class="topic-card__title"><a href="istos/magnetronnye-raspyliteli/index.html">Протяженные планарные магнетроны</a></h3>
           </article>
-          <article class="card">
-            <h3>Дуговые испарители</h3>
-            <a href="istos/index.html">ПОДРОБНЕЕ</a>
+          <article class="topic-card" data-href="istos/dugovye-ispariteli/index.html" role="link" tabindex="0">
+            <span class="topic-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v7"/><path d="M8 12c0-2.2 1.8-4 4-4s4 1.8 4 4c0 3.1-4 3.5-4 8"/></svg></span>
+            <h3 class="topic-card__title"><a href="istos/dugovye-ispariteli/index.html">Дуговые испарители</a></h3>
           </article>
         </div>
       </section>
@@ -134,28 +99,28 @@
         <div class="container svc-grid">
           <article class="svc-card">
             <div class="svc-card__img-wrap">
-              <img class="svc-card__img" src="https://plasma-instrument.com/storage/zapusk.svg" alt="">
+              <img class="svc-card__img" src="images/services/zapusk.svg" alt="">
             </div>
             <a class="svc-card__title" href="services/index.html">Запуск вакуумного оборудования и отработка технологических процессов</a>
             <p class="svc-card__desc">Пусконаладка и технологическое сопровождение оборудования с настройкой параметров процесса под требования производства.</p>
           </article>
           <article class="svc-card">
             <div class="svc-card__img-wrap">
-              <img class="svc-card__img" src="https://plasma-instrument.com/storage/color-1.png" alt="">
+              <img class="svc-card__img" src="images/services/color-1.png" alt="">
             </div>
             <a class="svc-card__title" href="services/index.html">Нанесения покрытий</a>
             <p class="svc-card__desc">Вакуумная металлизация магнетронными и дуговыми источниками для расширения ассортимента выпускаемой продукции.</p>
           </article>
           <article class="svc-card">
             <div class="svc-card__img-wrap">
-              <img class="svc-card__img" src="https://plasma-instrument.com/storage/niokr.svg" alt="">
+              <img class="svc-card__img" src="images/services/niokr.svg" alt="">
             </div>
             <a class="svc-card__title" href="services/index.html">Высокотехнологичная механообработка с применением термических и гальванических процессов</a>
             <p class="svc-card__desc">Изготовление деталей с применением современного оборудования и контролем качества на каждом этапе.</p>
           </article>
           <article class="svc-card">
             <div class="svc-card__img-wrap">
-              <img class="svc-card__img" src="https://plasma-instrument.com/storage/import-export-512.png" alt="">
+              <img class="svc-card__img" src="images/services/import-export-512.png" alt="">
             </div>
             <a class="svc-card__title" href="services/index.html">Экспорт вакуумного оборудования</a>
             <p class="svc-card__desc">Логистика, сертификация, экспертиза для ФСТЭК, переводы контрактов и технической документации.</p>
@@ -167,18 +132,18 @@
         <div class="container section-head">
           <h2>Инвестиционные и научные проекты</h2>
         </div>
-        <div class="container cards-grid">
-          <article class="card">
-            <h3>Нанесение декоративных покрытий на керамическую плитку</h3>
-            <a href="invprojects/index.html">ПОДРОБНЕЕ</a>
+        <div class="container topic-grid">
+          <article class="topic-card" data-href="invprojects/pro1/index.html" role="link" tabindex="0">
+            <span class="topic-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 17h16"/><path d="M7 17V9l5-3 5 3v8"/></svg></span>
+            <h3 class="topic-card__title"><a href="invprojects/pro1/index.html">Нанесение декоративных покрытий на керамическую плитку</a></h3>
           </article>
-          <article class="card">
-            <h3>Замена гальванических процессов высокопроизводительными методами покрытия в вакууме</h3>
-            <a href="invprojects/index.html">ПОДРОБНЕЕ</a>
+          <article class="topic-card" data-href="invprojects/zamena-galvanicheskih-processov-vysokoproizvoditelnymi-metodami-pokrytiya-v-vakuume/index.html" role="link" tabindex="0">
+            <span class="topic-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span>
+            <h3 class="topic-card__title"><a href="invprojects/zamena-galvanicheskih-processov-vysokoproizvoditelnymi-metodami-pokrytiya-v-vakuume/index.html">Замена гальванических процессов высокопроизводительными методами покрытия в вакууме</a></h3>
           </article>
-          <article class="card">
-            <h3>ВЧ протяженный ионный источник</h3>
-            <a href="invprojects/index.html">ПОДРОБНЕЕ</a>
+          <article class="topic-card" data-href="invprojects/vch-protyazhennyy-ionnyy-istochnik/index.html" role="link" tabindex="0">
+            <span class="topic-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h6"/><path d="M15 12h6"/><circle cx="12" cy="12" r="3"/></svg></span>
+            <h3 class="topic-card__title"><a href="invprojects/vch-protyazhennyy-ionnyy-istochnik/index.html">ВЧ протяженный ионный источник</a></h3>
           </article>
         </div>
       </section>
@@ -227,33 +192,8 @@
       </section>
     </main>
 
-    <footer class="footer">
-      <div class="container footer-grid">
-        <div>
-          <h3>ИВЦ ПЛАЗМАИНСТРУМЕНТ</h3>
-          <p>420087, РТ, г.Казань, ул.Даурская 41,оф. 7</p>
-          <p><a href="mailto:info@plasma-instrument.com">info@plasma-instrument.com</a></p>
-          <p><a href="tel:+79600851803">+7(960)0851803</a></p>
-        </div>
-        <div>
-          <h3>Меню</h3>
-          <ul>
-            <li><a href="index.html">Главная</a></li>
-            <li><a href="istos/index.html">Технологические источники</a></li>
-            <li><a href="services/index.html">Услуги</a></li>
-            <li><a href="invprojects/index.html">Инвестиционные и научные проекты</a></li>
-            <li><a href="blog/index.html">Блог</a></li>
-            <li><a href="contacts/index.html">Контакты</a></li>
-          </ul>
-        </div>
-        <div>
-          <h3>Преимущества</h3>
-          <p>Профессиональная команда инженеров</p>
-          <p>Использование современных CAD и CAE систем</p>
-          <p>Гарантийное и послегарантийное обслуживание</p>
-        </div>
-      </div>
-    </footer>
+    <div data-site-footer></div>
+    <script src="layout.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

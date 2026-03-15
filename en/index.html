@@ -18,40 +18,7 @@
   </head>
   <body>
     <div class="site-bg" aria-hidden="true"></div>
-    <header class="header" id="top">
-      <div class="header-top">
-        <div class="container header-top__wrap">
-          <a class="brand" href="index.html">
-            <span class="brand-mark"></span>
-            <span><strong>IVC PLASMAINSTRUMENT</strong><small>Vacuum technologies</small></span>
-          </a>
-          <div class="header-contacts">
-            <a href="tel:+79600851803">+7(960)0851803</a>
-            <a href="mailto:info@plasma-instrument.com">info@plasma-instrument.com</a>
-          </div>
-          <div class="header-top__right">
-            <div class="lang-switch" aria-label="Language switch"><a href="../index.html">RU</a><span class="active">EN</span></div>
-            <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
-          </div>
-        </div>
-      </div>
-      <div class="header-nav">
-        <div class="container header-nav__wrap">
-          <nav class="nav" aria-label="Main menu">
-            <a class="active" href="index.html">Home</a>
-            <a href="istos/index.html">Technological sources</a>
-            <a href="services/index.html">Services</a>
-            <a href="invprojects/index.html">Investment and scientific projects</a>
-            <a href="blog/index.html">Blog</a>
-            <a href="contacts/index.html">Contacts</a>
-          </nav>
-          <form class="search-form" role="search">
-            <input class="search-input" type="search" name="q" placeholder="Search..." autocomplete="off">
-            <button class="search-btn" type="submit" aria-label="Search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
-          </form>
-        </div>
-      </div>
-    </header>
+    <div data-site-header></div>
 
     <main>
       <section class="slider section reveal" aria-label="Ion-plasma sources">
@@ -106,10 +73,10 @@
 
       <section class="section reveal">
         <div class="container section-head"><h2>Technological sources</h2></div>
-        <div class="container cards-grid">
-          <article class="card"><h3>Ion beam sources</h3><a href="istos/index.html">READ MORE</a></article>
-          <article class="card"><h3>Extended planar magnetrons</h3><a href="istos/index.html">READ MORE</a></article>
-          <article class="card"><h3>Arc evaporators</h3><a href="istos/index.html">READ MORE</a></article>
+        <div class="container topic-grid">
+          <article class="topic-card" data-href="istos/ionnoluchevye-istochniki/index.html" role="link" tabindex="0"><span class="topic-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M4 12h16"/><path d="M12 4c3 2.2 3 13.8 0 16"/></svg></span><h3 class="topic-card__title"><a href="istos/ionnoluchevye-istochniki/index.html">Ion beam sources</a></h3></article>
+          <article class="topic-card" data-href="istos/magnetronnye-raspyliteli/index.html" role="link" tabindex="0"><span class="topic-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M8 10h8"/><path d="M8 14h5"/></svg></span><h3 class="topic-card__title"><a href="istos/magnetronnye-raspyliteli/index.html">Extended planar magnetrons</a></h3></article>
+          <article class="topic-card" data-href="istos/dugovye-ispariteli/index.html" role="link" tabindex="0"><span class="topic-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v7"/><path d="M8 12c0-2.2 1.8-4 4-4s4 1.8 4 4c0 3.1-4 3.5-4 8"/></svg></span><h3 class="topic-card__title"><a href="istos/dugovye-ispariteli/index.html">Arc evaporators</a></h3></article>
         </div>
       </section>
 
@@ -123,6 +90,15 @@
         </div>
       </section>
 
+      <section class="section reveal">
+        <div class="container section-head"><h2>Investment and scientific projects</h2></div>
+        <div class="container topic-grid">
+          <article class="topic-card" data-href="invprojects/pro1/index.html" role="link" tabindex="0"><span class="topic-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 17h16"/><path d="M7 17V9l5-3 5 3v8"/></svg></span><h3 class="topic-card__title"><a href="invprojects/pro1/index.html">Decorative coating deposition on ceramic tiles</a></h3></article>
+          <article class="topic-card" data-href="invprojects/zamena-galvanicheskih-processov-vysokoproizvoditelnymi-metodami-pokrytiya-v-vakuume/index.html" role="link" tabindex="0"><span class="topic-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span><h3 class="topic-card__title"><a href="invprojects/zamena-galvanicheskih-processov-vysokoproizvoditelnymi-metodami-pokrytiya-v-vakuume/index.html">Replacing electroplating with high-performance vacuum coating methods</a></h3></article>
+          <article class="topic-card" data-href="invprojects/vch-protyazhennyy-ionnyy-istochnik/index.html" role="link" tabindex="0"><span class="topic-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h6"/><path d="M15 12h6"/><circle cx="12" cy="12" r="3"/></svg></span><h3 class="topic-card__title"><a href="invprojects/vch-protyazhennyy-ionnyy-istochnik/index.html">RF extended ion source</a></h3></article>
+        </div>
+      </section>
+
       <section class="section cta reveal">
         <div class="container cta-box">
           <h2>Send a request and we will offer the best solution for your task</h2>
@@ -131,9 +107,8 @@
       </section>
     </main>
 
-    <footer class="footer">
-      <div class="container footer-bottom"><p>© 2026 IVC PLASMAINSTRUMENT</p></div>
-    </footer>
+    <div data-site-footer></div>
+    <script src="../layout.js"></script>
     <script src="../script.js"></script>
   </body>
 </html>

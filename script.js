@@ -178,10 +178,10 @@ accordions.forEach((accordion) => {
   });
 });
 
-const serviceCards = document.querySelectorAll('.svc-card[data-href]');
+const clickableCards = document.querySelectorAll('[data-href]');
 
-serviceCards.forEach((card) => {
-  const openService = () => {
+clickableCards.forEach((card) => {
+  const openCard = () => {
     const href = card.dataset.href;
     if (!href) return;
     window.location.href = href;
@@ -191,13 +191,13 @@ serviceCards.forEach((card) => {
     if (event.target.closest('a, button, input')) {
       return;
     }
-    openService();
+    openCard();
   });
 
   card.addEventListener('keydown', (event) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
-      openService();
+      openCard();
     }
   });
 });

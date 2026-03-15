@@ -189,7 +189,7 @@ a {
   font-size: 0.85rem;
   width: 160px;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, width 0.2s ease;
 }
 
 .search-input::placeholder {
@@ -626,7 +626,7 @@ h2 {
 }
 
 .header.is-compact .search-input {
-  width: 120px;
+  width: clamp(110px, 28vw, 300px);
 }
 
 body.nav-overlay-open {

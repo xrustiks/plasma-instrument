@@ -79,8 +79,8 @@ a {
 .header-contacts {
   display: flex;
   gap: 1.5rem;
-  flex: 1;
-  justify-content: center;
+  margin-left: auto;
+  justify-content: flex-end;
 }
 
 .header-contacts a {

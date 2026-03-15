@@ -624,7 +624,7 @@ body.nav-overlay-open .nav.open {
   padding: 5.5rem 1.5rem 2rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
   gap: 1rem;
   overflow: auto;
@@ -659,68 +659,6 @@ body.nav-overlay-open .nav.open .nav-close {
 }
 
 @media (max-width: 868px) {
-  .nav-toggle {
-    display: inline-flex;
-    width: 44px;
-    height: 44px;
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    background: transparent;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .nav-toggle span {
-    width: 18px;
-    height: 2px;
-    background: #d8e2eb;
-  }
-
-  .nav {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0;
-    order: 2;
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transform: translateY(-8px);
-    visibility: hidden;
-    pointer-events: none;
-    transition:
-      max-height 0.28s ease,
-      opacity 0.22s ease,
-      transform 0.28s ease,
-      visibility 0s linear 0.28s;
-    padding-bottom: 0.5rem;
-  }
-
-  .nav.open {
-    max-height: 340px;
-    opacity: 1;
-    transform: translateY(0);
-    visibility: visible;
-    pointer-events: auto;
-    transition:
-      max-height 0.32s ease,
-      opacity 0.22s ease,
-      transform 0.32s ease,
-      visibility 0s;
-  }
-
-  .search-form {
-    margin-left: auto;
-    order: 1;
-  }
-
-  .search-input {
-    width: 120px;
-  }
-
   .section {
     padding: 4rem 0;
   }
@@ -737,13 +675,27 @@ body.nav-overlay-open .nav.open .nav-close {
     padding: 0.35rem 0;
   }
 
+  .header-top__right {
+    margin-left: auto;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.3rem;
+  }
+
+  .lang-switch {
+    justify-content: flex-end;
+  }
+
   .header-contacts {
     display: flex;
-    order: 3;
-    width: 100%;
-    justify-content: flex-start;
-    gap: 1rem;
-    padding-bottom: 0.2rem;
+    order: 4;
+    width: auto;
+    margin-left: auto;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 0.2rem;
+    padding-bottom: 0;
   }
 
   .header-contacts a {

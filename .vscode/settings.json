@@ -1,0 +1,8 @@
+{
+  "chat.tools.terminal.autoApprove": {
+    "/^node m:/Development/plasma-instrument/\\.tmp_scan_original_cards\\.js$/": {
+      "approve": true,
+      "matchCommandLine": true
+    }
+  }
+}

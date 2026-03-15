@@ -1,4 +1,5 @@
 (function () {
+  // This script dynamically builds the site header and footer based on the current page's depth and language.
   function getDepth() {
     const raw = document.documentElement.dataset.depth || '0';
     const n = parseInt(raw, 10);
@@ -115,4 +116,4 @@
   }
 
   mountLayout();
-}());
+} ());

@@ -20,6 +20,7 @@
 
 html {
   scroll-behavior: smooth;
+  height: 100%;
 }
 
 body {
@@ -28,6 +29,13 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.4;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+body > main {
+  flex: 1 0 auto;
 }
 
 .site-bg {
@@ -691,7 +699,7 @@ h2 {
 .footer {
   border-top: 1px solid rgba(121, 144, 160, 0.32);
   background: rgba(241, 246, 249, 0.96);
-  margin-top: 2rem;
+  margin-top: 0;
 }
 
 .footer-grid {

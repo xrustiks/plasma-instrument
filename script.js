@@ -178,6 +178,30 @@ accordions.forEach((accordion) => {
   });
 });
 
+const serviceCards = document.querySelectorAll('.svc-card[data-href]');
+
+serviceCards.forEach((card) => {
+  const openService = () => {
+    const href = card.dataset.href;
+    if (!href) return;
+    window.location.href = href;
+  };
+
+  card.addEventListener('click', (event) => {
+    if (event.target.closest('a, button, input')) {
+      return;
+    }
+    openService();
+  });
+
+  card.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      openService();
+    }
+  });
+});
+
 // =============================================================================
 // Search — form submit on any page
 // =============================================================================

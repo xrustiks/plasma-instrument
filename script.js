@@ -108,6 +108,11 @@ if (navToggle && nav) {
 const revealItems = document.querySelectorAll('.reveal');
 
 if (revealItems.length) {
+  const isInViewport = (el) => {
+    const rect = el.getBoundingClientRect();
+    return rect.top < window.innerHeight && rect.bottom > 0;
+  };
+
   const observer = new IntersectionObserver(
     (entries, obs) => {
       entries.forEach((entry) => {
@@ -117,11 +122,16 @@ if (revealItems.length) {
         }
       });
     },
-    { threshold: 0.14 }
+    { threshold: 0.01 }
   );
 
   revealItems.forEach((item, index) => {
     item.style.transitionDelay = `${Math.min(index * 70, 280)}ms`;
+    // Ensure long sections are visible on first paint without waiting for scroll.
+    if (isInViewport(item)) {
+      item.classList.add('is-visible');
+      return;
+    }
     observer.observe(item);
   });
 }

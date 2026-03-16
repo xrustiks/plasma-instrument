@@ -646,6 +646,12 @@ h2 {
   margin: 0 0 0.95rem;
 }
 
+.article-gallery-title {
+  margin: 1.35rem 0 0.7rem;
+  font-size: clamp(1.2rem, 2.2vw, 1.55rem);
+  line-height: 1.2;
+}
+
 .article-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));

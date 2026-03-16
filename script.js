@@ -203,6 +203,84 @@ clickableCards.forEach((card) => {
 });
 
 // =============================================================================
+// Article gallery lightbox
+// =============================================================================
+(() => {
+  const galleries = document.querySelectorAll('.article-gallery');
+  if (!galleries.length) return;
+
+  const modal = document.createElement('div');
+  modal.className = 'lightbox';
+  modal.setAttribute('aria-hidden', 'true');
+  modal.innerHTML = `
+    <button class="lightbox__close" type="button" aria-label="Close">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Previous">‹</button>
+    <img class="lightbox__img" alt="" />
+    <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Next">›</button>
+  `;
+  document.body.appendChild(modal);
+
+  const closeBtn = modal.querySelector('.lightbox__close');
+  const prevBtn = modal.querySelector('.lightbox__nav--prev');
+  const nextBtn = modal.querySelector('.lightbox__nav--next');
+  const modalImg = modal.querySelector('.lightbox__img');
+
+  let items = [];
+  let index = 0;
+
+  const setImage = (i) => {
+    if (!items.length) return;
+    index = (i + items.length) % items.length;
+    const link = items[index];
+    const img = link.querySelector('img');
+    modalImg.src = link.getAttribute('href') || img?.src || '';
+    modalImg.alt = img?.alt || '';
+  };
+
+  const open = (galleryLinks, startIndex) => {
+    items = galleryLinks;
+    setImage(startIndex);
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('lightbox-open');
+  };
+
+  const close = () => {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('lightbox-open');
+    modalImg.src = '';
+  };
+
+  galleries.forEach((gallery) => {
+    const links = [...gallery.querySelectorAll('a[href]')];
+    links.forEach((link, i) => {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        open(links, i);
+      });
+    });
+  });
+
+  closeBtn.addEventListener('click', close);
+  prevBtn.addEventListener('click', () => setImage(index - 1));
+  nextBtn.addEventListener('click', () => setImage(index + 1));
+
+  modal.addEventListener('click', (event) => {
+    if (event.target === modal) {
+      close();
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (!modal.classList.contains('is-open')) return;
+    if (event.key === 'Escape') close();
+    if (event.key === 'ArrowLeft') setImage(index - 1);
+    if (event.key === 'ArrowRight') setImage(index + 1);
+  });
+})();
+
+// =============================================================================
 // Search — form submit on any page
 // =============================================================================
 document.querySelectorAll('.search-form').forEach((form) => {

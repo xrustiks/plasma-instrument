@@ -108,6 +108,11 @@ if (navToggle && nav) {
 const revealItems = document.querySelectorAll('.reveal');
 
 if (revealItems.length) {
+  const isInViewport = (el) => {
+    const rect = el.getBoundingClientRect();
+    return rect.top < window.innerHeight && rect.bottom > 0;
+  };
+
   const observer = new IntersectionObserver(
     (entries, obs) => {
       entries.forEach((entry) => {
@@ -117,11 +122,16 @@ if (revealItems.length) {
         }
       });
     },
-    { threshold: 0.14 }
+    { threshold: 0.01 }
   );
 
   revealItems.forEach((item, index) => {
     item.style.transitionDelay = `${Math.min(index * 70, 280)}ms`;
+    // Ensure long sections are visible on first paint without waiting for scroll.
+    if (isInViewport(item)) {
+      item.classList.add('is-visible');
+      return;
+    }
     observer.observe(item);
   });
 }
@@ -304,49 +314,93 @@ document.querySelectorAll('.search-form').forEach((form) => {
 // =============================================================================
 // Search results page
 // =============================================================================
-const RU_INDEX = [
-  { url: 'index.html',            title: 'О компании ООО ИВЦ Плазмаинструмент', body: 'ионно-плазменные источники магнетроны дуговые испарители вакуумные технологии НИР НИОКР Казань' },
-  { url: 'istos/index.html',      title: 'Технологические источники',            body: 'ионнолучевые источники планарные магнетроны дуговые испарители нанесение покрытий вакуум разряд' },
-  { url: 'services/index.html',   title: 'Услуги',                               body: 'экспорт вакуумного оборудования монтаж запуск нанесение покрытий механообработка модернизация НИОКР гальваника' },
-  { url: 'invprojects/index.html',title: 'Инвестиционные и научные проекты',     body: 'декоративные покрытия керамическая плитка гальванические процессы листовой металл ВЧ ионный источник магнетрон фольга' },
-  { url: 'blog/index.html',       title: 'Блог',                                 body: 'шпиндель пневматический диафрагма камера закалки анод MAP ролик реактор золото серебро вакуумный фильтр' },
-  { url: 'contacts/index.html',   title: 'Контакты',                             body: 'Казань Даурская 41 офис телефон email адрес' },
-];
+const getSearchIndexPath = () => {
+  const depth = parseInt(document.documentElement.dataset.depth || '0', 10);
+  const safeDepth = Number.isNaN(depth) ? 0 : Math.max(0, depth);
+  return '../'.repeat(safeDepth) + 'search-index.json';
+};
 
-const EN_INDEX = [
-  { url: 'index.html',            title: 'About IVC PlasmaInstrument',                  body: 'ion plasma sources magnetrons arc evaporators vacuum technologies R&D Kazan thirty years' },
-  { url: 'istos/index.html',      title: 'Technological sources',                        body: 'ion beam sources extended planar magnetrons arc evaporators coating vacuum discharge' },
-  { url: 'services/index.html',   title: 'Services',                                     body: 'export vacuum equipment installation commissioning coating deposition machining modernization galvanic' },
-  { url: 'invprojects/index.html',title: 'Investment and scientific projects',            body: 'decorative coatings ceramic tiles galvanic vacuum RF ion source magnetron foil carbon electrode' },
-  { url: 'blog/index.html',       title: 'Blog',                                         body: 'spindle diaphragm hardening chamber anode MAP roller reactor gold silver vacuum filter' },
-  { url: 'contacts/index.html',   title: 'Contacts',                                     body: 'Kazan Daurskaya 41 office phone email address' },
-];
+const loadSearchIndex = async () => {
+  const response = await fetch(getSearchIndexPath(), { cache: 'no-store' });
+  if (!response.ok) {
+    throw new Error(`Search index request failed: ${response.status}`);
+  }
+  return response.json();
+};
+
+const escapeHtml = (value) => value
+  .replaceAll('&', '&amp;')
+  .replaceAll('<', '&lt;')
+  .replaceAll('>', '&gt;')
+  .replaceAll('"', '&quot;')
+  .replaceAll("'", '&#39;');
+
+const renderGroupedHits = (hits, sections, sectionTitlePrefix) => sections
+  .map(({ key, label }) => {
+    const groupHits = hits.filter((hit) => hit.section === key);
+    if (!groupHits.length) {
+      return '';
+    }
+
+    const visibleHits = groupHits.filter((hit) => groupHits.length === 1 || hit.title !== label);
+
+    return `
+      <section class="search-group">
+        <h2 class="search-group__title">${sectionTitlePrefix}: ${label}</h2>
+        <div class="search-group__items">
+          ${visibleHits.map((hit) => `
+            <div class="search-result">
+              <a href="${hit.url}">${hit.title}</a>
+            </div>
+          `).join('')}
+        </div>
+      </section>
+    `;
+  })
+  .filter(Boolean)
+  .join('');
 
 const resultsEl = document.getElementById('search-results');
 if (resultsEl) {
-  const params = new URLSearchParams(window.location.search);
-  const q = params.get('q') || '';
-  const queryInput = document.getElementById('search-query');
-  if (queryInput) queryInput.value = q;
+  (async () => {
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('q') || '';
+    const queryInput = document.getElementById('search-query');
+    if (queryInput) queryInput.value = q;
 
-  const isEn = (document.documentElement.lang || 'ru') === 'en';
-  const index = isEn ? EN_INDEX : RU_INDEX;
-
-  if (q.trim()) {
-    const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
-    const hits = index.filter(({ title, body }) => {
-      const hay = (title + ' ' + body).toLowerCase();
-      return terms.some((t) => hay.includes(t));
-    });
-    if (hits.length) {
-      resultsEl.innerHTML = hits
-        .map((h) => `<div class="search-result"><a href="${h.url}">${h.title}</a><p>${h.body.slice(0, 90)}…</p></div>`)
-        .join('');
-    } else {
-      const msg = isEn
-        ? `Nothing found for «${q}».`
-        : `Ничего не найдено по запросу «${q}».`;
-      resultsEl.innerHTML = `<p class="search-empty">${msg}</p>`;
+    if (!q.trim()) {
+      return;
     }
-  }
+
+    const isEn = (document.documentElement.lang || 'ru') === 'en';
+    const sectionTitlePrefix = isEn ? 'Section' : 'Раздел';
+
+    try {
+      const payload = await loadSearchIndex();
+      const data = isEn ? payload.en : payload.ru;
+      const index = Array.isArray(data?.entries) ? data.entries : [];
+      const sections = Array.isArray(data?.sections) ? data.sections : [];
+
+      const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+      const hits = index.filter(({ title, body }) => {
+        const hay = `${title || ''} ${body || ''}`.toLowerCase();
+        return terms.some((t) => hay.includes(t));
+      });
+
+      if (hits.length) {
+        resultsEl.innerHTML = renderGroupedHits(hits, sections, sectionTitlePrefix);
+      } else {
+        const msg = isEn
+          ? `Nothing found for «${escapeHtml(q)}».`
+          : `Ничего не найдено по запросу «${escapeHtml(q)}».`;
+        resultsEl.innerHTML = `<p class="search-empty">${msg}</p>`;
+      }
+    } catch (error) {
+      const msg = isEn
+        ? 'Search index is unavailable. Please try again later.'
+        : 'Поисковый индекс недоступен. Повторите попытку позже.';
+      resultsEl.innerHTML = `<p class="search-empty">${msg}</p>`;
+      console.error(error);
+    }
+  })();
 }

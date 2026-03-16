@@ -646,6 +646,27 @@ h2 {
   margin: 0 0 0.95rem;
 }
 
+.article-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.7rem;
+  margin: 0 0 1.1rem;
+}
+
+.article-gallery a {
+  display: block;
+}
+
+.article-gallery img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel-soft);
+}
+
 .article-content p:last-child {
   margin-bottom: 0;
 }

@@ -20,7 +20,7 @@
     const normalized = lang === 'en' ? localPath.replace(/^en\//, '') : localPath;
 
     if (normalized === 'index.html') return 'home';
-    if (normalized.startsWith('istos/')) return 'istos';
+    if (normalized.startsWith('sources/')) return 'sources';
     if (normalized.startsWith('services/')) return 'services';
     if (normalized.startsWith('invprojects/')) return 'invprojects';
     if (normalized.startsWith('blog/')) return 'blog';
@@ -47,7 +47,7 @@
 
     const isEn = lang === 'en';
     const home = isEn ? `${base}en/index.html` : `${base}index.html`;
-    const istos = isEn ? `${base}en/istos/index.html` : `${base}istos/index.html`;
+    const sources = isEn ? `${base}en/sources/index.html` : `${base}sources/index.html`;
     const services = isEn ? `${base}en/services/index.html` : `${base}services/index.html`;
     const inv = isEn ? `${base}en/invprojects/index.html` : `${base}invprojects/index.html`;
     const blog = isEn ? `${base}en/blog/index.html` : `${base}blog/index.html`;
@@ -81,7 +81,7 @@
         <div class="container header-nav__wrap">
           <nav class="nav" aria-label="${menuAria}">
             ${navLink(home, isEn ? 'Home' : 'Главная', section === 'home')}
-            ${navLink(istos, isEn ? 'Technological sources' : 'Технологические источники', section === 'istos')}
+            ${navLink(sources, isEn ? 'Technological sources' : 'Технологические источники', section === 'sources')}
             ${navLink(services, isEn ? 'Services' : 'Услуги', section === 'services')}
             ${navLink(inv, isEn ? 'Investment and scientific projects' : 'Инвестиционные и научные проекты', section === 'invprojects')}
             ${navLink(blog, isEn ? 'Blog' : 'Блог', section === 'blog')}

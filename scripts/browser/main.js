@@ -1,4 +1,3 @@
-import { initAccordionGroups } from './ui/accordion-groups.js';
 import { initArticleGalleryLightbox } from './ui/article-gallery-lightbox.js';
 import { initClickableCardLinks } from './ui/clickable-card-links.js';
 import { initHomeCarousel } from './ui/home-carousel.js';
@@ -11,7 +10,6 @@ import { initSearchResults } from './search/search-results.js';
 initNavigationMenu();
 initRevealOnScroll();
 initHomeCarousel();
-initAccordionGroups();
 initClickableCardLinks();
 initArticleGalleryLightbox();
 initSearchForm();

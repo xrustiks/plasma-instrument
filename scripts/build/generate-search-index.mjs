@@ -4,19 +4,19 @@ import path from 'node:path';
 const ROOT = process.cwd();
 const OUT_FILE = path.join(ROOT, 'search-index.json');
 
-const SECTION_ORDER = ['sources', 'services', 'invprojects', 'blog', 'contacts'];
+const SECTION_ORDER = ['sources', 'services', 'projects', 'blog', 'contacts'];
 const SECTION_LABELS = {
   ru: {
     sources: 'Технологические источники',
     services: 'Услуги',
-    invprojects: 'Инвестиционные и научные проекты',
+    projects: 'Инвестиционные и научные проекты',
     blog: 'Блог',
     contacts: 'Контакты',
   },
   en: {
     sources: 'Technological sources',
     services: 'Services',
-    invprojects: 'Investment and scientific projects',
+    projects: 'Investment and scientific projects',
     blog: 'Blog',
     contacts: 'Contacts',
   },
@@ -31,7 +31,7 @@ function toPosix(filePath) {
 function sectionFromLocal(localPath) {
   if (localPath.startsWith('sections/sources/')) return 'sources';
   if (localPath.startsWith('sections/services/')) return 'services';
-  if (localPath.startsWith('sections/invprojects/')) return 'invprojects';
+  if (localPath.startsWith('sections/projects/')) return 'projects';
   if (localPath.startsWith('sections/blog/')) return 'blog';
   if (localPath.startsWith('sections/contacts/')) return 'contacts';
   return '';

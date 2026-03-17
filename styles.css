@@ -482,7 +482,7 @@ h2 {
   text-decoration: underline;
 }
 
-/* Istos / Invprojects cards ------------------------------- */
+/* Sources / Projects cards -------------------------------- */
 .topic-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(220px, 1fr));

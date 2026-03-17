@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-17T04:27:13.910Z",
+  "generatedAt": "2026-03-17T12:33:35.189Z",
   "ru": {
     "sections": [
       {
@@ -11,7 +11,7 @@
         "label": "Услуги"
       },
       {
-        "key": "invprojects",
+        "key": "projects",
         "label": "Инвестиционные и научные проекты"
       },
       {
@@ -91,56 +91,56 @@
         "body": "Главная / Контакты Контакты Посетите наш офис в Казани 420087, РТ, г.Казань, ул.Даурская 41,оф. 7 Телефон: +7(960)0851803 Email: info@plasma-instrument.com Понед. - пятн. 9.00 до 18.00 Отправьте заявку Мы предложим оптимальное решение Вашей задачи и подготовим техническое предложение. ОТПРАВИТЬ ЗАЯВКУ"
       },
       {
-        "section": "invprojects",
-        "url": "sections/invprojects/index.html",
+        "section": "projects",
+        "url": "sections/projects/index.html",
         "title": "Инвестиционные и научные проекты",
         "body": "Главная / Инвестиционные и научные проекты Инвестиционные и научные проекты Нанесение декоративных покрытий на керамическую плитку Замена гальванических процессов высокопроизводительными методами покрытия в вакууме Нанесение защитно-декоративных покрытий на тонкий листовой метал в рулонных машинах ВЧ протяженный ионный источник Магнетрон с разогретой мишенью Нанесение двухстороннего углеродного покрытия на электродную фольгу ионно-плазменным методом Высокопроизводительная установка нанесения покрытий на проволку Получение покрытий на узкодиапазонные оптические фильтры с высокой повторяемостью"
       },
       {
-        "section": "invprojects",
-        "url": "sections/invprojects/magnetron-s-razogretoy-mishenyu/index.html",
+        "section": "projects",
+        "url": "sections/projects/magnetron-s-razogretoy-mishenyu/index.html",
         "title": "Магнетрон с разогретой мишенью",
         "body": "Главная / Инвестиционные и научные проекты / Магнетрон с разогретой мишенью Магнетрон с разогретой мишенью Специалистами нашей компании разработан, изготовлен и испытан магнетрон с разогретой мишенью. Испытания показали хорошие результаты по нанесению керамических покрытий: оксидов и нитридов. Стадия проекта : Изготовлен опытный образец, получены технико-экономические параметры, зарегистрирован патент на полезную модель № 183113 \"Узел катода магнетронного распылителя\"."
       },
       {
-        "section": "invprojects",
-        "url": "sections/invprojects/nanesenie-dvuhstoronnego-uglerodnogo-pokrytiya-na-elektrodnuyu-folgu-ionno-plazmennym-metodom/index.html",
+        "section": "projects",
+        "url": "sections/projects/nanesenie-dvuhstoronnego-uglerodnogo-pokrytiya-na-elektrodnuyu-folgu-ionno-plazmennym-metodom/index.html",
         "title": "Нанесение двухстороннего углеродного покрытия на электродную фольгу ионно-плазменным методом",
         "body": "Главная / Инвестиционные и научные проекты / Нанесение двухстороннего углеродного покрытия на электродную фольгу ионно-плазменным методом Нанесение двухстороннего углеродного покрытия на электродную фольгу ионно-плазменным методом Нанесение двухстороннего углеродного покрытия на электродную фольгу ионно-плазменным методом , предназначенного для применения в составе электрохимических источников тока ( супер конденсаторов) с неводным электролитом в качестве электродного материала высокой удельной емкостью."
       },
       {
-        "section": "invprojects",
-        "url": "sections/invprojects/nanesenie-zaschitno-dekorativnyh-pokrytiy-na-tonkiy-listovoy-metal-v-rulonnyh-mashinah/index.html",
+        "section": "projects",
+        "url": "sections/projects/nanesenie-zaschitno-dekorativnyh-pokrytiy-na-tonkiy-listovoy-metal-v-rulonnyh-mashinah/index.html",
         "title": "Нанесение защитно-декоративных покрытий на тонкий листовой метал в рулонных машинах",
         "body": "Главная / Инвестиционные и научные проекты / Нанесение защитно-декоративных покрытий на тонкий листовой метал в рулонных машинах Нанесение защитно-декоративных покрытий на тонкий листовой метал в рулонных машинах Нанесение защитно-декоративных покрытий на тонкий листовой метал в рулонных машинах, Стадия проекта : отработанная лабораторная технология."
       },
       {
-        "section": "invprojects",
-        "url": "sections/invprojects/poluchenie-pokrytiy-na-uzkodiapazonnye-opticheskie-filtry-s-vysokoy-povtoryaemostyu/index.html",
+        "section": "projects",
+        "url": "sections/projects/poluchenie-pokrytiy-na-uzkodiapazonnye-opticheskie-filtry-s-vysokoy-povtoryaemostyu/index.html",
         "title": "Получение покрытий на узкодиапазонные оптические фильтры с высокой повторяемостью",
         "body": "Главная / Инвестиционные и научные проекты / Получение покрытий на узкодиапазонные оптические фильтры с высокой повторяемостью Получение покрытий на узкодиапазонные оптические фильтры с высокой повторяемостью Получение покрытий на узкодиапазонные оптические фильтры с высокой повторяемостью, тепловой стойкостью в ультрафиолетовом и видимом диапазоне. Стадия проекта: эскизный проект, моделирование покрытия, отработка лабораторной технологии."
       },
       {
-        "section": "invprojects",
-        "url": "sections/invprojects/pro1/index.html",
+        "section": "projects",
+        "url": "sections/projects/pro1/index.html",
         "title": "Нанесение декоративных покрытий на керамическую плитку",
         "body": "Главная / Инвестиционные и научные проекты / Нанесение декоративных покрытий на керамическую плитку Нанесение декоративных покрытий на керамическую плитку Нанесение декоративных покрытий на керамическую плитку тонов &laquo;золото&raquo;, &laquo;серебро&raquo;, &laquo;антрацит&raquo;, &laquo;бронза&raquo;. Специалистами нашей компании разработан, изготовлен и испытан магнетрон с разогретой мишенью. Испытания показали хорошие результаты по нанесению керамических покрытий: оксидов и нитридов. Изготовлен опытный образец, получены технико-экономические параметры, подана заявка на патент. Стадия проекта : отработанная масштабируемая технология, внедренная в производство."
       },
       {
-        "section": "invprojects",
-        "url": "sections/invprojects/vch-protyazhennyy-ionnyy-istochnik/index.html",
+        "section": "projects",
+        "url": "sections/projects/vch-protyazhennyy-ionnyy-istochnik/index.html",
         "title": "ВЧ протяженный ионный источник",
         "body": "Главная / Инвестиционные и научные проекты / ВЧ протяженный ионный источник ВЧ протяженный ионный источник ВЧ протяженный ионный источник, ионный источник с квазинейтральным пучком потока, Стадия проекта : проведены теоретические изыскания, эскизный проект."
       },
       {
-        "section": "invprojects",
-        "url": "sections/invprojects/vysokoproizvoditelnaya-ustanovka-naneseniya-pokrytiy-na-provolku/index.html",
+        "section": "projects",
+        "url": "sections/projects/vysokoproizvoditelnaya-ustanovka-naneseniya-pokrytiy-na-provolku/index.html",
         "title": "Высокопроизводительная установка нанесения покрытий на проволку",
         "body": "Главная / Инвестиционные и научные проекты / Высокопроизводительная установка нанесения покрытий на проволку Высокопроизводительная установка нанесения покрытий на проволку Высокопроизводительная установка нанесения покрытий на проволку, в том числе на корд автомобильных шин. Стадия проекта: отработанная промышленная технология, внедренная в производство."
       },
       {
-        "section": "invprojects",
-        "url": "sections/invprojects/zamena-galvanicheskih-processov-vysokoproizvoditelnymi-metodami-pokrytiya-v-vakuume/index.html",
+        "section": "projects",
+        "url": "sections/projects/zamena-galvanicheskih-processov-vysokoproizvoditelnymi-metodami-pokrytiya-v-vakuume/index.html",
         "title": "Замена гальванических процессов высокопроизводительными методами покрытия в вакууме",
         "body": "Главная / Инвестиционные и научные проекты / Замена гальванических процессов высокопроизводительными методами покрытия в вакууме Замена гальванических процессов высокопроизводительными методами покрытия в вакууме Замена гальванических процессов высокопроизводительными методами покрытия в вакууме, Стадия проекта : отработанная лабораторная технология, получены технико-экономические параметры покрытия."
       },
@@ -235,7 +235,7 @@
         "label": "Services"
       },
       {
-        "key": "invprojects",
+        "key": "projects",
         "label": "Investment and scientific projects"
       },
       {
@@ -315,56 +315,56 @@
         "body": "Home / Contacts Contacts Visit our office in Kazan 420087, Republic of Tatarstan, Kazan, Daurskaya st. 41, office 7 Phone: +7(960)0851803 Email: info@plasma-instrument.com Mon - Fri: 9:00 - 18:00 Send a request We will offer the optimal solution for your task and prepare a technical proposal. SEND REQUEST"
       },
       {
-        "section": "invprojects",
-        "url": "sections/invprojects/index.html",
+        "section": "projects",
+        "url": "sections/projects/index.html",
         "title": "Investment and scientific projects",
         "body": "Home / Investment and scientific projects Investment and scientific projects Decorative coating deposition on ceramic tiles Replacing galvanic processes with high-performance vacuum methods Protective-decorative coating on thin sheet metal in roll-to-roll machines RF extended ion source Heated-target magnetron Double-sided carbon coating on electrode foil using ion-plasma method High-performance wire coating system High-repeatability coatings for narrow-band optical filters"
       },
       {
-        "section": "invprojects",
-        "url": "sections/invprojects/magnetron-s-razogretoy-mishenyu/index.html",
+        "section": "projects",
+        "url": "sections/projects/magnetron-s-razogretoy-mishenyu/index.html",
         "title": "Магнетрон с разогретой мишенью",
         "body": "Home / Investment and scientific projects / Магнетрон с разогретой мишенью Магнетрон с разогретой мишенью Специалистами нашей компании разработан, изготовлен и испытан магнетрон с разогретой мишенью. Испытания показали хорошие результаты по нанесению керамических покрытий: оксидов и нитридов. Стадия проекта : Изготовлен опытный образец, получены технико-экономические параметры, зарегистрирован патент на полезную модель № 183113 \"Узел катода магнетронного распылителя\"."
       },
       {
-        "section": "invprojects",
-        "url": "sections/invprojects/nanesenie-dvuhstoronnego-uglerodnogo-pokrytiya-na-elektrodnuyu-folgu-ionno-plazmennym-metodom/index.html",
+        "section": "projects",
+        "url": "sections/projects/nanesenie-dvuhstoronnego-uglerodnogo-pokrytiya-na-elektrodnuyu-folgu-ionno-plazmennym-metodom/index.html",
         "title": "Нанесение двухстороннего углеродного покрытия на электродную фольгу ионно-плазменным методом",
         "body": "Home / Investment and scientific projects / Нанесение двухстороннего углеродного покрытия на электродную фольгу ионно-плазменным методом Нанесение двухстороннего углеродного покрытия на электродную фольгу ионно-плазменным методом Нанесение двухстороннего углеродного покрытия на электродную фольгу ионно-плазменным методом , предназначенного для применения в составе электрохимических источников тока ( супер конденсаторов) с неводным электролитом в качестве электродного материала высокой удельной емкостью."
       },
       {
-        "section": "invprojects",
-        "url": "sections/invprojects/nanesenie-zaschitno-dekorativnyh-pokrytiy-na-tonkiy-listovoy-metal-v-rulonnyh-mashinah/index.html",
+        "section": "projects",
+        "url": "sections/projects/nanesenie-zaschitno-dekorativnyh-pokrytiy-na-tonkiy-listovoy-metal-v-rulonnyh-mashinah/index.html",
         "title": "Нанесение защитно-декоративных покрытий на тонкий листовой метал в рулонных машинах",
         "body": "Home / Investment and scientific projects / Нанесение защитно-декоративных покрытий на тонкий листовой метал в рулонных машинах Нанесение защитно-декоративных покрытий на тонкий листовой метал в рулонных машинах Нанесение защитно-декоративных покрытий на тонкий листовой метал в рулонных машинах, Стадия проекта : отработанная лабораторная технология."
       },
       {
-        "section": "invprojects",
-        "url": "sections/invprojects/poluchenie-pokrytiy-na-uzkodiapazonnye-opticheskie-filtry-s-vysokoy-povtoryaemostyu/index.html",
+        "section": "projects",
+        "url": "sections/projects/poluchenie-pokrytiy-na-uzkodiapazonnye-opticheskie-filtry-s-vysokoy-povtoryaemostyu/index.html",
         "title": "High-repeatability coatings for narrow-band optical filters",
         "body": "Home / Investment and scientific projects / High-repeatability coatings for narrow-band optical filters High-repeatability coatings for narrow-band optical filters Deposition of coatings for narrow-band optical filters with high repeatability and thermal stability in UV and visible ranges. Project stage: preliminary design, coating simulation, laboratory technology development."
       },
       {
-        "section": "invprojects",
-        "url": "sections/invprojects/pro1/index.html",
+        "section": "projects",
+        "url": "sections/projects/pro1/index.html",
         "title": "Нанесение декоративных покрытий на керамическую плитку",
         "body": "Home / Investment and scientific projects / Нанесение декоративных покрытий на керамическую плитку Нанесение декоративных покрытий на керамическую плитку Нанесение декоративных покрытий на керамическую плитку тонов &laquo;золото&raquo;, &laquo;серебро&raquo;, &laquo;антрацит&raquo;, &laquo;бронза&raquo;. Специалистами нашей компании разработан, изготовлен и испытан магнетрон с разогретой мишенью. Испытания показали хорошие результаты по нанесению керамических покрытий: оксидов и нитридов. Изготовлен опытный образец, получены технико-экономические параметры, подана заявка на патент. Стадия проекта : отработанная масштабируемая технология, внедренная в производство."
       },
       {
-        "section": "invprojects",
-        "url": "sections/invprojects/vch-protyazhennyy-ionnyy-istochnik/index.html",
+        "section": "projects",
+        "url": "sections/projects/vch-protyazhennyy-ionnyy-istochnik/index.html",
         "title": "ВЧ протяженный ионный источник",
         "body": "Home / Investment and scientific projects / ВЧ протяженный ионный источник ВЧ протяженный ионный источник ВЧ протяженный ионный источник, ионный источник с квазинейтральным пучком потока, Стадия проекта : проведены теоретические изыскания, эскизный проект."
       },
       {
-        "section": "invprojects",
-        "url": "sections/invprojects/vysokoproizvoditelnaya-ustanovka-naneseniya-pokrytiy-na-provolku/index.html",
+        "section": "projects",
+        "url": "sections/projects/vysokoproizvoditelnaya-ustanovka-naneseniya-pokrytiy-na-provolku/index.html",
         "title": "High-performance wire coating system",
         "body": "Home / Investment and scientific projects / High-performance wire coating system High-performance wire coating system High-performance wire coating system, including automotive tire cord. Project stage: proven industrial technology, implemented in production."
       },
       {
-        "section": "invprojects",
-        "url": "sections/invprojects/zamena-galvanicheskih-processov-vysokoproizvoditelnymi-metodami-pokrytiya-v-vakuume/index.html",
+        "section": "projects",
+        "url": "sections/projects/zamena-galvanicheskih-processov-vysokoproizvoditelnymi-metodami-pokrytiya-v-vakuume/index.html",
         "title": "Замена гальванических процессов высокопроизводительными методами покрытия в вакууме",
         "body": "Home / Investment and scientific projects / Замена гальванических процессов высокопроизводительными методами покрытия в вакууме Замена гальванических процессов высокопроизводительными методами покрытия в вакууме Замена гальванических процессов высокопроизводительными методами покрытия в вакууме, Стадия проекта : отработанная лабораторная технология, получены технико-экономические параметры покрытия."
       },

@@ -21,7 +21,7 @@ function getSectionFromPath(localPath, lang) {
   if (normalized === 'index.html') return 'home';
   if (normalized.startsWith('sections/sources/')) return 'sources';
   if (normalized.startsWith('sections/services/')) return 'services';
-  if (normalized.startsWith('sections/invprojects/')) return 'invprojects';
+  if (normalized.startsWith('sections/projects/')) return 'projects';
   if (normalized.startsWith('sections/blog/')) return 'blog';
   if (normalized.startsWith('sections/contacts/')) return 'contacts';
   return '';
@@ -49,7 +49,7 @@ function buildHeader() {
   const home = isEn ? `${base}en/index.html` : `${base}index.html`;
   const sources = isEn ? `${base}en/sections/sources/index.html` : `${base}sections/sources/index.html`;
   const services = isEn ? `${base}en/sections/services/index.html` : `${base}sections/services/index.html`;
-  const invprojects = isEn ? `${base}en/sections/invprojects/index.html` : `${base}sections/invprojects/index.html`;
+  const projects = isEn ? `${base}en/sections/projects/index.html` : `${base}sections/projects/index.html`;
   const blog = isEn ? `${base}en/sections/blog/index.html` : `${base}sections/blog/index.html`;
   const contacts = isEn ? `${base}en/sections/contacts/index.html` : `${base}sections/contacts/index.html`;
 
@@ -82,7 +82,7 @@ function buildHeader() {
           ${renderNavLink(home, isEn ? 'Home' : 'Главная', section === 'home')}
           ${renderNavLink(sources, isEn ? 'Technological sources' : 'Технологические источники', section === 'sources')}
           ${renderNavLink(services, isEn ? 'Services' : 'Услуги', section === 'services')}
-          ${renderNavLink(invprojects, isEn ? 'Investment and scientific projects' : 'Инвестиционные и научные проекты', section === 'invprojects')}
+          ${renderNavLink(projects, isEn ? 'Investment and scientific projects' : 'Инвестиционные и научные проекты', section === 'projects')}
           ${renderNavLink(blog, isEn ? 'Blog' : 'Блог', section === 'blog')}
           ${renderNavLink(contacts, isEn ? 'Contacts' : 'Контакты', section === 'contacts')}
         </nav>

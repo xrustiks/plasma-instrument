@@ -29,11 +29,11 @@ function toPosix(filePath) {
 }
 
 function sectionFromLocal(localPath) {
-  if (localPath.startsWith('sources/')) return 'sources';
-  if (localPath.startsWith('services/')) return 'services';
-  if (localPath.startsWith('invprojects/')) return 'invprojects';
-  if (localPath.startsWith('blog/')) return 'blog';
-  if (localPath.startsWith('contacts/')) return 'contacts';
+  if (localPath.startsWith('sections/sources/')) return 'sources';
+  if (localPath.startsWith('sections/services/')) return 'services';
+  if (localPath.startsWith('sections/invprojects/')) return 'invprojects';
+  if (localPath.startsWith('sections/blog/')) return 'blog';
+  if (localPath.startsWith('sections/contacts/')) return 'contacts';
   return '';
 }
 
@@ -65,7 +65,18 @@ function extractBody(html) {
 }
 
 async function walk(dirPath) {
-  const items = await fs.readdir(dirPath, { withFileTypes: true });
+  let items;
+
+  try {
+    items = await fs.readdir(dirPath, { withFileTypes: true });
+  } catch (error) {
+    // Skip unreadable directories instead of aborting whole index generation.
+    if (error && (error.code === 'EPERM' || error.code === 'EACCES')) {
+      return [];
+    }
+    throw error;
+  }
+
   const files = [];
 
   for (const item of items) {

@@ -19,11 +19,11 @@ function getSectionFromPath(localPath, lang) {
   const normalized = lang === 'en' ? localPath.replace(/^en\//, '') : localPath;
 
   if (normalized === 'index.html') return 'home';
-  if (normalized.startsWith('sources/')) return 'sources';
-  if (normalized.startsWith('services/')) return 'services';
-  if (normalized.startsWith('invprojects/')) return 'invprojects';
-  if (normalized.startsWith('blog/')) return 'blog';
-  if (normalized.startsWith('contacts/')) return 'contacts';
+  if (normalized.startsWith('sections/sources/')) return 'sources';
+  if (normalized.startsWith('sections/services/')) return 'services';
+  if (normalized.startsWith('sections/invprojects/')) return 'invprojects';
+  if (normalized.startsWith('sections/blog/')) return 'blog';
+  if (normalized.startsWith('sections/contacts/')) return 'contacts';
   return '';
 }
 
@@ -47,11 +47,11 @@ function buildHeader() {
   const isEn = lang === 'en';
 
   const home = isEn ? `${base}en/index.html` : `${base}index.html`;
-  const sources = isEn ? `${base}en/sources/index.html` : `${base}sources/index.html`;
-  const services = isEn ? `${base}en/services/index.html` : `${base}services/index.html`;
-  const invprojects = isEn ? `${base}en/invprojects/index.html` : `${base}invprojects/index.html`;
-  const blog = isEn ? `${base}en/blog/index.html` : `${base}blog/index.html`;
-  const contacts = isEn ? `${base}en/contacts/index.html` : `${base}contacts/index.html`;
+  const sources = isEn ? `${base}en/sections/sources/index.html` : `${base}sections/sources/index.html`;
+  const services = isEn ? `${base}en/sections/services/index.html` : `${base}sections/services/index.html`;
+  const invprojects = isEn ? `${base}en/sections/invprojects/index.html` : `${base}sections/invprojects/index.html`;
+  const blog = isEn ? `${base}en/sections/blog/index.html` : `${base}sections/blog/index.html`;
+  const contacts = isEn ? `${base}en/sections/contacts/index.html` : `${base}sections/contacts/index.html`;
 
   const languageSwitchHref = `${base}${getLanguageSwitchPath(localPath, lang)}`;
   const searchPlaceholder = isEn ? 'Search...' : 'Поиск...';

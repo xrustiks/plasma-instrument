@@ -4,17 +4,17 @@ import path from 'node:path';
 const ROOT = process.cwd();
 const OUT_FILE = path.join(ROOT, 'search-index.json');
 
-const SECTION_ORDER = ['istos', 'services', 'invprojects', 'blog', 'contacts'];
+const SECTION_ORDER = ['sources', 'services', 'invprojects', 'blog', 'contacts'];
 const SECTION_LABELS = {
   ru: {
-    istos: 'Технологические источники',
+    sources: 'Технологические источники',
     services: 'Услуги',
     invprojects: 'Инвестиционные и научные проекты',
     blog: 'Блог',
     contacts: 'Контакты',
   },
   en: {
-    istos: 'Technological sources',
+    sources: 'Technological sources',
     services: 'Services',
     invprojects: 'Investment and scientific projects',
     blog: 'Blog',
@@ -29,7 +29,7 @@ function toPosix(filePath) {
 }
 
 function sectionFromLocal(localPath) {
-  if (localPath.startsWith('istos/')) return 'istos';
+  if (localPath.startsWith('sources/')) return 'sources';
   if (localPath.startsWith('services/')) return 'services';
   if (localPath.startsWith('invprojects/')) return 'invprojects';
   if (localPath.startsWith('blog/')) return 'blog';
@@ -70,10 +70,12 @@ async function walk(dirPath) {
 
   for (const item of items) {
     const absolute = path.join(dirPath, item.name);
+
     if (item.isDirectory()) {
       if (SKIP_DIRS.has(item.name)) {
         continue;
       }
+
       files.push(...await walk(absolute));
       continue;
     }
@@ -109,6 +111,7 @@ async function main() {
 
     const html = await fs.readFile(filePath, 'utf8');
     const title = extractTitle(html);
+
     if (!title) {
       continue;
     }
@@ -122,8 +125,8 @@ async function main() {
     });
   }
 
-  data.ru.entries.sort((a, b) => a.url.localeCompare(b.url, 'ru'));
-  data.en.entries.sort((a, b) => a.url.localeCompare(b.url, 'en'));
+  data.ru.entries.sort((left, right) => left.url.localeCompare(right.url, 'ru'));
+  data.en.entries.sort((left, right) => left.url.localeCompare(right.url, 'en'));
 
   await fs.writeFile(OUT_FILE, JSON.stringify(data, null, 2) + '\n', 'utf8');
 

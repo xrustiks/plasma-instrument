@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-16T01:07:33.104Z",
+  "generatedAt": "2026-03-17T01:41:49.693Z",
   "ru": {
     "sections": [
       {
@@ -34,7 +34,7 @@
         "section": "blog",
         "url": "blog/index.html",
         "title": "Блог",
-        "body": "Главная / Блог Блог Шпиндель пневматический 27 июля 2020 Механизм управления диафрагмой 23 марта 2020 Камера закалки 14 октября 2019 Анод для установки серии МАП-1 12 апреля 2019 Ролик шагонаправляющий 2 апреля 2019 Реактор 20 декабря 2018"
+        "body": "Главная / Блог Блог Шпиндель пневматический 27 июля 2020 Механизм управления диафрагмой 23 марта 2020 Камера закалки 14 октября 2019 Анод для установки серии МАП-1 12 апреля 2019 Ролик шагонаправляющий 2 апреля 2019 Реактор 20 декабря 2018 Технологические источники для нанесения золота, серебра и других драгоценных металлов и сплавов 29 октября 2018 Поставка вакуумного фильтра 29 августа 2018 Примение высокоскоростной электроэрозионной резки 16 июля 2018"
       },
       {
         "section": "blog",
@@ -47,6 +47,18 @@
         "url": "blog/mehanizm-upravleniya-diafragmoy/index.html",
         "title": "Механизм управления диафрагмой",
         "body": "Главная / Блог / Механизм управления диафрагмой Механизм управления диафрагмой Компания ИВЦ Плазмаинструмент изготовила и отгрузила механизм управления диафрагмой форматора-вулканизатора для одного из лидеров шинного производства России. Механизм комплектовался высокотемпературными уплотнителями компании Trelleborg, гидро и пневмоприводами, высокоточными датчиками положения. В процессе изготовления были использованы технологические процессы ТВЧ обработки, хромирования и шлифования, прецизионного точения , глубокого сверления, а также другие процессы."
+      },
+      {
+        "section": "blog",
+        "url": "blog/otgruzka/index.html",
+        "title": "Примение высокоскоростной электроэрозионной резки",
+        "body": "Главная / Блог / Примение высокоскоростной электроэрозионной резки Примение высокоскоростной электроэрозионной резки Компания ИВЦ Плазмаинструмент отгрузила ведущему машиностроительному предприятию Республики Татарстан партию деталей. Примение высокоскоростной электроэрозионной резки вместо фрезерования при обработке закаленных сталей позволило получить высокое качество изделий по конкурентной цене."
+      },
+      {
+        "section": "blog",
+        "url": "blog/postavka-vakuumnogo-filtra/index.html",
+        "title": "Поставка вакуумного фильтра",
+        "body": "Главная / Блог / Поставка вакуумного фильтра Поставка вакуумного фильтра Компания ИВЦ Плазмаинструмент подобрала и отгрузила вакуумный фильтр для одного из предприятий ВПК. Применение фильтра позволит избежать взаимного влияния вакуумного насоса и технологического процесса в установке, повысит надежность процесса и срок службы оборудования."
       },
       {
         "section": "blog",
@@ -65,6 +77,12 @@
         "url": "blog/shpindel/index.html",
         "title": "Шпиндель пневматический",
         "body": "Главная / Блог / Шпиндель пневматический Шпиндель пневматический Компания ИВЦ Плазмаинструмент изготовила и поставила Шпиндель пневматический для станка формования шин TR72 (аналог Pirelli) флагману шинного производства России. В рамках проекта изготовления продукции компания ИВЦ Плазмаинструмент переработала конструкторскую документацию, прорисовала проект в 3Д графике, выявило узкие места и согласовала изменения конструкторской документации. Также в процессе изготовления изделия были применены семь новых технологических операций, включая глубокую расточку и шлифования, нарезания длинных внутренних пазов, глубокое сверление. Изготовлена оснастка для испытания продукции. Поставленная продукция соотвествует всем заявленным требованиям. Спасибо за доверие."
+      },
+      {
+        "section": "blog",
+        "url": "blog/tehnologicheskie-istochniki-dlya-naneseniya-zolota-serebra-i-drugih-dragocennyh-metallov-i-splavov/index.html",
+        "title": "Технологические источники для нанесения золота, серебра и других драгоценных металлов и сплавов",
+        "body": "Главная / Блог / Технологические источники для нанесения золота, серебра и других драгоценных металлов и сплавов Технологические источники для нанесения золота, серебра и других драгоценных металлов и сплавов Компания ИВЦ Плазмаинструмент выпускает магнетроны, специализированные для напыления золота, серебра и других драгоценных сплавов. Данный магнетрон характеризуется высоким коэффициентом использования мишени, достигающим до 70%, а также быстрыми установкой и снятием мишени. Также при приобретении магнетронов, наши технологи проконсультируют по оптимальным режимам нанесения покрытий."
       },
       {
         "section": "contacts",
@@ -240,7 +258,7 @@
         "section": "blog",
         "url": "blog/index.html",
         "title": "Blog",
-        "body": "Home / Blog Blog Pneumatic spindle July 27, 2020 Diaphragm control mechanism March 23, 2020 Hardening chamber October 14, 2019 Anode for MAP-1 series unit April 12, 2019 Guide roller April 2, 2019 Reactor December 20, 2018"
+        "body": "Home / Blog Blog Pneumatic spindle July 27, 2020 Diaphragm control mechanism March 23, 2020 Hardening chamber October 14, 2019 Anode for MAP-1 series unit April 12, 2019 Guide roller April 2, 2019 Reactor December 20, 2018 Technological sources for gold, silver and other precious metals and alloys October 29, 2018 Delivery of vacuum filter August 29, 2018 Use of high-speed EDM cutting July 16, 2018"
       },
       {
         "section": "blog",
@@ -253,6 +271,18 @@
         "url": "blog/mehanizm-upravleniya-diafragmoy/index.html",
         "title": "Механизм управления диафрагмой",
         "body": "Home / Blog / Механизм управления диафрагмой Механизм управления диафрагмой Компания ИВЦ Плазмаинструмент изготовила и отгрузила механизм управления диафрагмой форматора-вулканизатора для одного из лидеров шинного производства России. Механизм комплектовался высокотемпературными уплотнителями компании Trelleborg, гидро и пневмоприводами, высокоточными датчиками положения. В процессе изготовления были использованы технологические процессы ТВЧ обработки, хромирования и шлифования, прецизионного точения , глубокого сверления, а также другие процессы."
+      },
+      {
+        "section": "blog",
+        "url": "blog/otgruzka/index.html",
+        "title": "Use of high-speed EDM cutting",
+        "body": "Home / Blog / Use of high-speed EDM cutting Use of high-speed EDM cutting IVC PlasmaInstrument shipped a batch of parts to a leading mechanical engineering enterprise in the Republic of Tatarstan. The use of high-speed EDM cutting instead of milling when processing hardened steels provided high product quality at a competitive price."
+      },
+      {
+        "section": "blog",
+        "url": "blog/postavka-vakuumnogo-filtra/index.html",
+        "title": "Delivery of vacuum filter",
+        "body": "Home / Blog / Delivery of vacuum filter Delivery of vacuum filter IVC PlasmaInstrument selected and delivered a vacuum filter for one of the defense industry enterprises. Using this filter helps avoid mutual influence between the vacuum pump and the technological process in the installation, increases process reliability, and extends equipment service life."
       },
       {
         "section": "blog",
@@ -271,6 +301,12 @@
         "url": "blog/shpindel/index.html",
         "title": "Шпиндель пневматический",
         "body": "Home / Blog / Шпиндель пневматический Шпиндель пневматический Компания ИВЦ Плазмаинструмент изготовила и поставила Шпиндель пневматический для станка формования шин TR72 (аналог Pirelli) флагману шинного производства России. В рамках проекта изготовления продукции компания ИВЦ Плазмаинструмент переработала конструкторскую документацию, прорисовала проект в 3Д графике, выявило узкие места и согласовала изменения конструкторской документации. Также в процессе изготовления изделия были применены семь новых технологических операций, включая глубокую расточку и шлифования, нарезания длинных внутренних пазов, глубокое сверление. Изготовлена оснастка для испытания продукции. Поставленная продукция соотвествует всем заявленным требованиям. Спасибо за доверие."
+      },
+      {
+        "section": "blog",
+        "url": "blog/tehnologicheskie-istochniki-dlya-naneseniya-zolota-serebra-i-drugih-dragocennyh-metallov-i-splavov/index.html",
+        "title": "Technological sources for gold, silver and other precious metals and alloys",
+        "body": "Home / Blog / Technological sources for gold, silver and other precious metals and alloys Technological sources for gold, silver and other precious metals and alloys IVC PlasmaInstrument manufactures magnetrons specialized for coating with gold, silver and other precious alloys. This magnetron has a high target utilization coefficient of up to 70%, as well as quick target installation and removal. When purchasing magnetrons, our process engineers also advise on optimal coating modes."
       },
       {
         "section": "contacts",

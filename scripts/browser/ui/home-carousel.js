@@ -18,6 +18,8 @@ export function initHomeCarousel() {
 
     let current = 0;
     let timerId;
+    let touchStartX = 0;
+    let touchStartY = 0;
 
     const showSlide = (index) => {
       current = (index + slides.length) % slides.length;
@@ -62,6 +64,46 @@ export function initHomeCarousel() {
         restartAutoPlay();
       });
     }
+
+    carousel.addEventListener(
+      'touchstart',
+      (event) => {
+        const touch = event.changedTouches?.[0];
+        if (!touch) {
+          return;
+        }
+
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+      },
+      { passive: true }
+    );
+
+    carousel.addEventListener(
+      'touchend',
+      (event) => {
+        const touch = event.changedTouches?.[0];
+        if (!touch) {
+          return;
+        }
+
+        const deltaX = touch.clientX - touchStartX;
+        const deltaY = touch.clientY - touchStartY;
+        const horizontalThreshold = 40;
+
+        if (Math.abs(deltaX) < horizontalThreshold || Math.abs(deltaX) <= Math.abs(deltaY)) {
+          return;
+        }
+
+        if (deltaX > 0) {
+          showSlide(current - 1);
+        } else {
+          showSlide(current + 1);
+        }
+        restartAutoPlay();
+      },
+      { passive: true }
+    );
 
     showSlide(0);
     startAutoPlay();

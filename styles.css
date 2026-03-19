@@ -716,6 +716,51 @@ h2 {
   margin: 0 0 0.95rem;
 }
 
+.article-content .article-inline-image-link {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto 1rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel-soft);
+  overflow: hidden;
+  box-shadow: 0 8px 18px rgba(24, 52, 69, 0.08);
+  transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+}
+
+.article-content .article-inline-image-link:hover {
+  transform: translateY(-2px);
+  border-color: rgba(29, 79, 112, 0.45);
+  box-shadow: 0 14px 26px rgba(24, 52, 69, 0.14);
+}
+
+.article-content .article-inline-image-link:focus-visible {
+  outline: 2px solid rgba(29, 79, 112, 0.55);
+  outline-offset: 2px;
+}
+
+.article-content .article-inline-image {
+  display: block;
+  width: auto;
+  max-width: min(100%, 760px);
+  height: auto;
+}
+
+.article-content .table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 0 0 1rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+}
+
+.article-content .table-scroll table {
+  margin: 0;
+  min-width: 560px;
+}
+
 .article-gallery-title {
   margin: 1.35rem 0 0.7rem;
   font-size: clamp(1.2rem, 2.2vw, 1.55rem);

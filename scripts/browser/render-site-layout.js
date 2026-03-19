@@ -119,7 +119,6 @@ function buildFooter() {
       <div class="footer-col footer-col--brand">
         <h3 class="footer-brand"><img class="footer-brand__logo" src="${logoSrc}" alt="${brand}" /><span>${brand}</span></h3>
         <p>${address}</p>
-        <p><a href="mailto:info@plasma-instrument.com">info@plasma-instrument.com</a></p>
       </div>
       <div class="footer-col footer-col--menu">
         <h3>${menuTitle}</h3>
@@ -135,7 +134,7 @@ function buildFooter() {
       <div class="footer-col footer-col--contacts">
         <h3>${contactsTitle}</h3>
         <p><a href="tel:+79600851803">+7(960)0851803</a></p>
-        <p><a href="https://api.whatsapp.com/send?phone=+79395030453" target="_blank" rel="noopener noreferrer">${whatsappLabel}</a></p>
+        <p><a href="mailto:info@plasma-instrument.com">info@plasma-instrument.com</a></p>
       </div>
     </div>
     <div class="container footer-bottom">

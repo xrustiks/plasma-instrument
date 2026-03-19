@@ -346,6 +346,10 @@ h2 {
   max-width: 62ch;
 }
 
+.section-testimonials .slide p {
+  max-width: none;
+}
+
 .slider-dots {
   position: absolute;
   left: 50%;
@@ -1041,7 +1045,6 @@ body.lightbox-open {
 
 .contacts-hero__lead {
   margin: 0;
-  max-width: 70ch;
   color: var(--text-muted);
 }
 

@@ -5,6 +5,7 @@ import { initNavigationMenu } from './ui/navigation-menu.js';
 import { initRevealOnScroll } from './ui/reveal-on-scroll.js';
 import { initSearchForm } from './search/search-form.js';
 import { initSearchResults } from './search/search-results.js';
+import { initTestimonialLightbox } from './ui/testimonial-lightbox.js';
 
 // Initialize all UI components and features when the DOM is fully loaded
 initNavigationMenu();
@@ -12,5 +13,6 @@ initRevealOnScroll();
 initHomeCarousel();
 initClickableCardLinks();
 initArticleGalleryLightbox();
+initTestimonialLightbox();
 initSearchForm();
 initSearchResults();

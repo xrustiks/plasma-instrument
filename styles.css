@@ -348,10 +348,13 @@ h2 {
 
 .slider-dots {
   position: absolute;
-  left: 1.2rem;
-  bottom: 1rem;
+  left: 50%;
+  top: 0.95rem;
+  bottom: auto;
+  transform: translateX(-50%);
   display: flex;
   gap: 0.5rem;
+  z-index: 9;
 }
 
 .slider-dots button {
@@ -369,35 +372,40 @@ h2 {
 
 .slider-nav {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0.35rem;
+  transform: none;
   z-index: 10;
-  width: 44px;
-  height: 44px;
-  border: none;
-  border-radius: 50%;
-  background: var(--panel);
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   color: var(--accent);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(29, 79, 112, 0.15);
+  box-shadow: none;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  line-height: 0;
 }
 
 .slider-nav:hover {
-  background: var(--accent);
-  color: var(--panel);
-  box-shadow: 0 6px 16px rgba(29, 79, 112, 0.25);
+  background: transparent;
+  color: var(--accent);
+  box-shadow: none;
 }
 
 .slider-nav--prev {
-  left: 1rem;
+  left: 0.35rem;
 }
 
 .slider-nav--next {
-  right: 1rem;
+  right: 0.35rem;
 }
 
 .slider-nav svg {
@@ -405,6 +413,19 @@ h2 {
   height: 24px;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.slider-nav:focus,
+.slider-nav:focus-visible {
+  outline: none;
+}
+
+.slider-nav::-moz-focus-inner {
+  border: 0;
+}
+
+.slider-frame.has-nav {
+  padding-top: 2.8rem;
 }
 
 .two-col {
@@ -934,10 +955,47 @@ body.lightbox-open {
 }
 
 .about-card__icon {
-  font-size: 2.2rem;
-  line-height: 1;
+  color: var(--text);
   min-width: 60px;
-  display: block;
+  width: 2.2rem;
+  height: 2.2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-card__icon svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.testimonial-lightbox-link {
+  display: inline-block;
+  border-radius: 8px;
+  line-height: 0;
+}
+
+.testimonial-lightbox-link img {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.testimonial-lightbox-link:hover img,
+.testimonial-lightbox-link:focus-visible img {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(24, 52, 69, 0.18);
+}
+
+.testimonial-lightbox-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.section-benefits .topic-card__icon {
+  color: #4f616d;
+}
+
+.section-benefits .topic-card__icon svg {
+  padding: 15px;
 }
 
 .about-card h3 {

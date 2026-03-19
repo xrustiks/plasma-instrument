@@ -18,6 +18,7 @@ export function initHomeCarousel() {
 
     let current = 0;
     let timerId;
+    let isHovering = false;
     let touchStartX = 0;
     let touchStartY = 0;
 
@@ -34,11 +35,22 @@ export function initHomeCarousel() {
     };
 
     const startAutoPlay = () => {
+      if (isHovering) {
+        return;
+      }
+      window.clearInterval(timerId);
       timerId = window.setInterval(() => showSlide(current + 1), 5000);
     };
 
-    const restartAutoPlay = () => {
+    const stopAutoPlay = () => {
       window.clearInterval(timerId);
+      timerId = undefined;
+    };
+
+    const restartAutoPlay = () => {
+      if (isHovering) {
+        return;
+      }
       startAutoPlay();
     };
 
@@ -104,6 +116,16 @@ export function initHomeCarousel() {
       },
       { passive: true }
     );
+
+    carousel.addEventListener('mouseenter', () => {
+      isHovering = true;
+      stopAutoPlay();
+    });
+
+    carousel.addEventListener('mouseleave', () => {
+      isHovering = false;
+      startAutoPlay();
+    });
 
     showSlide(0);
     startAutoPlay();

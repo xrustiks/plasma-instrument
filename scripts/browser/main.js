@@ -1,4 +1,5 @@
 import { initArticleGalleryLightbox } from './ui/article-gallery-lightbox.js';
+import { initArticleContentLayout } from './ui/article-content-layout.js';
 import { initClickableCardLinks } from './ui/clickable-card-links.js';
 import { initHomeCarousel } from './ui/home-carousel.js';
 import { initNavigationMenu } from './ui/navigation-menu.js';
@@ -12,6 +13,7 @@ initNavigationMenu();
 initRevealOnScroll();
 initHomeCarousel();
 initClickableCardLinks();
+initArticleContentLayout();
 initArticleGalleryLightbox();
 initTestimonialLightbox();
 initSearchForm();

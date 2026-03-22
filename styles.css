@@ -1326,6 +1326,7 @@ body.lightbox-open {
   border-top: 1px solid rgba(121, 144, 160, 0.32);
   background: rgba(241, 246, 249, 0.96);
   margin-top: 0;
+  font-family: var(--font-main);
 }
 
 .footer-grid {
@@ -1339,6 +1340,7 @@ body.lightbox-open {
   margin: 0 0 0.55rem;
   font-size: 1rem;
   color: #2a4150;
+  font-family: inherit;
 }
 
 .footer-brand {

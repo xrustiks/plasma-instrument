@@ -7,14 +7,17 @@ import { initRevealOnScroll } from './ui/reveal-on-scroll.js';
 import { initSearchForm } from './search/search-form.js';
 import { initSearchResults } from './search/search-results.js';
 import { initTestimonialLightbox } from './ui/testimonial-lightbox.js';
+import { layoutReady } from './render-site-layout.js';
 
 // Initialize all UI components and features when the DOM is fully loaded
-initNavigationMenu();
-initRevealOnScroll();
-initHomeCarousel();
-initClickableCardLinks();
-initArticleContentLayout();
-initArticleGalleryLightbox();
-initTestimonialLightbox();
-initSearchForm();
-initSearchResults();
+Promise.resolve(layoutReady).finally(() => {
+	initNavigationMenu();
+	initRevealOnScroll();
+	initHomeCarousel();
+	initClickableCardLinks();
+	initArticleContentLayout();
+	initArticleGalleryLightbox();
+	initTestimonialLightbox();
+	initSearchForm();
+	initSearchResults();
+});

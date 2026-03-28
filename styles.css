@@ -276,6 +276,132 @@ a {
   padding: 3.5rem 0;
 }
 
+.main-focus {
+  padding-top: 5.5rem;
+  padding-bottom: 2.3rem;
+}
+
+.main-focus__intro {
+  margin-bottom: 1rem;
+  max-width: 82ch;
+}
+
+.main-focus__eyebrow {
+  margin: 0 0 0.45rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: #36586d;
+}
+
+.main-focus__intro h1 {
+  margin: 0;
+  font-size: clamp(1.95rem, 4vw, 3.35rem);
+  line-height: 1.08;
+  max-width: 26ch;
+  color: #1c3341;
+}
+
+.main-focus__lead {
+  margin: 0.85rem 0 0;
+  color: #4f6472;
+  font-size: 1rem;
+}
+
+.main-focus__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.main-focus__card {
+  position: relative;
+  border-radius: 14px;
+  padding: clamp(1.1rem, 2.3vw, 1.65rem);
+  border: 1px solid rgba(146, 171, 189, 0.58);
+  box-shadow: 0 15px 32px rgba(18, 44, 61, 0.14);
+  overflow: hidden;
+}
+
+.main-focus__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(130deg, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0) 40%);
+}
+
+.main-focus__card--vacuum {
+  background:
+    radial-gradient(640px 270px at 8% -24%, rgba(157, 207, 243, 0.38), transparent 70%),
+    linear-gradient(140deg, #163349 0%, #1f4b66 64%, #285f80 100%);
+  color: #eef7fb;
+}
+
+.main-focus__card--engineering {
+  background:
+    radial-gradient(600px 260px at 96% -30%, rgba(255, 230, 185, 0.42), transparent 70%),
+    linear-gradient(145deg, #423220 0%, #5a4428 56%, #6f5330 100%);
+  color: #fcf8f1;
+}
+
+.main-focus__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  border: 1px solid rgba(233, 245, 251, 0.54);
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+
+.main-focus__card h2 {
+  margin: 0;
+  font-size: clamp(1.4rem, 2.3vw, 1.95rem);
+  line-height: 1.18;
+  max-width: 20ch;
+}
+
+.main-focus__card p {
+  margin: 0.75rem 0 1rem;
+  max-width: 56ch;
+  color: rgba(250, 254, 255, 0.9);
+}
+
+.main-focus__card--engineering p {
+  color: rgba(255, 250, 243, 0.9);
+}
+
+.main-focus__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.main-focus__card .btn-primary {
+  border-color: rgba(219, 236, 247, 0.58);
+  background: rgba(232, 245, 251, 0.16);
+  color: #f6fbff;
+}
+
+.main-focus__card .btn-primary:hover {
+  background: rgba(232, 245, 251, 0.26);
+}
+
+.main-focus__card .btn-secondary {
+  border-color: rgba(218, 233, 243, 0.42);
+  background: rgba(8, 22, 32, 0.18);
+  color: #f8fcff;
+}
+
+.main-focus__card .btn-secondary:hover {
+  background: rgba(8, 22, 32, 0.3);
+}
+
 .page-title,
 h1,
 h2 {
@@ -969,6 +1095,16 @@ body.lightbox-open {
   color: #f7fbfc;
 }
 
+.btn-secondary {
+  border: 1px solid rgba(121, 144, 160, 0.55);
+  background: rgba(246, 250, 253, 0.9);
+  color: #324a58;
+}
+
+.btn-secondary:hover {
+  background: rgba(232, 241, 247, 0.95);
+}
+
 .btn-lg {
   min-height: 54px;
   padding: 0 2rem;
@@ -1415,6 +1551,14 @@ body.lightbox-open {
 }
 
 @media (max-width: 980px) {
+  .main-focus {
+    padding-top: 4.8rem;
+  }
+
+  .main-focus__grid {
+    grid-template-columns: 1fr;
+  }
+
   .two-col,
   .cards-grid,
   .cards-grid.two,
@@ -1453,6 +1597,22 @@ body.lightbox-open {
 }
 
 @media (max-width: 768px) {
+  .main-focus {
+    padding-top: 4.2rem;
+    padding-bottom: 1.8rem;
+  }
+
+  .main-focus__card {
+    padding: 1rem;
+  }
+
+  .main-focus__num {
+    width: 40px;
+    height: 40px;
+    font-size: 0.8rem;
+    margin-bottom: 0.65rem;
+  }
+
   .contacts-hero {
     padding: 1.1rem;
   }

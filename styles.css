@@ -309,6 +309,86 @@ a {
   font-size: 1rem;
 }
 
+.main-focus__diagram {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 0.7rem;
+  align-items: center;
+  margin: 1rem 0 0.8rem;
+}
+
+.main-focus__diagram-center {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid rgba(89, 118, 136, 0.4);
+  background: linear-gradient(180deg, rgba(242, 248, 252, 0.92), rgba(233, 242, 248, 0.95));
+  color: #223d4f;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+
+.main-focus__diagram-way {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0 0.85rem;
+  border-radius: 999px;
+  border: 1px dashed rgba(99, 128, 145, 0.5);
+  background: rgba(240, 247, 252, 0.66);
+  color: #355468;
+  font-size: 0.76rem;
+  letter-spacing: 0.02em;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.main-focus__diagram-way--left {
+  justify-self: end;
+  text-align: right;
+}
+
+.main-focus__diagram-way--right {
+  justify-self: start;
+}
+
+.main-focus__diagram-way--left::before,
+.main-focus__diagram-way--right::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 0.1rem);
+  height: 1.55rem;
+  border-left: 2px dashed rgba(82, 113, 131, 0.65);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.main-focus__diagram-way--left::after,
+.main-focus__diagram-way--right::before {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #45677c;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.main-focus__diagram-way--left::after {
+  content: "\2192";
+  right: -1.05rem;
+}
+
+.main-focus__diagram-way--right::before {
+  content: "\2190";
+  left: -1.05rem;
+}
+
 .main-focus__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1555,8 +1635,67 @@ body.lightbox-open {
     padding-top: 4.8rem;
   }
 
+  .main-focus__diagram {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 1.1rem;
+    margin: 0.8rem 0 0.65rem;
+  }
+
+  .main-focus__diagram-center {
+    position: relative;
+  }
+
+  .main-focus__diagram-center::before {
+    content: "";
+    position: absolute;
+    left: -0.65rem;
+    top: 50%;
+    width: 0.65rem;
+    border-top: 2px dashed rgba(82, 113, 131, 0.72);
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .main-focus__diagram-center::after {
+    content: "";
+    position: absolute;
+    left: -0.65rem;
+    top: 50%;
+    height: 3.3rem;
+    border-left: 2px dashed rgba(82, 113, 131, 0.72);
+    transform: translateY(0);
+    pointer-events: none;
+  }
+
+  .main-focus__diagram-way {
+    display: none;
+  }
+
   .main-focus__grid {
+    position: relative;
     grid-template-columns: 1fr;
+    gap: 1.2rem;
+    padding-left: 1.1rem;
+  }
+
+  .main-focus__card {
+    overflow: visible;
+  }
+
+  .main-focus__card::after {
+    content: "";
+    position: absolute;
+    left: -0.65rem;
+    top: 1.45rem;
+    width: 0.65rem;
+    border-top: 2px dashed rgba(82, 113, 131, 0.72);
+    pointer-events: none;
+  }
+
+  .main-focus__card:first-child::after {
+    height: calc(100% + 1.2rem);
+    border-left: 2px dashed rgba(82, 113, 131, 0.72);
   }
 
   .two-col,

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-17T12:33:35.189Z",
+  "generatedAt": "2026-04-17T18:07:07.348Z",
   "ru": {
     "sections": [
       {
@@ -32,9 +32,15 @@
       },
       {
         "section": "blog",
+        "url": "sections/blog/hannover-messe-krupneyshaya-mezhdunarodnaya-vystavka-promyshlennyh-tehnologiy/index.html",
+        "title": "HANNOVER MESSE-2018. Крупнейшая международная выставка промышленных технологий",
+        "body": "Главная / Блог / HANNOVER MESSE-2018 HANNOVER MESSE-2018. Крупнейшая международная выставка промышленных технологий Специалисты компании ООО ИВЦ Плазмаинструмент посетили главную мировую промышленную выставку года Ганновер Мессе 2018, г. Ганновер, Германия. Специалисты ознакомились с современными достижениями в области производственного и технологического оборудования. Налажены контакты с зарубежными партнерами."
+      },
+      {
+        "section": "blog",
         "url": "sections/blog/index.html",
         "title": "Блог",
-        "body": "Главная / Блог Блог Шпиндель пневматический 27 июля 2020 Механизм управления диафрагмой 23 марта 2020 Камера закалки 14 октября 2019 Анод для установки серии МАП-1 12 апреля 2019 Ролик шагонаправляющий 2 апреля 2019 Реактор 20 декабря 2018 Технологические источники для нанесения золота, серебра и других драгоценных металлов и сплавов 29 октября 2018 Поставка вакуумного фильтра 29 августа 2018 Примение высокоскоростной электроэрозионной резки 16 июля 2018"
+        "body": "Главная / Блог Блог Шпиндель пневматический 27 июля 2020 Механизм управления диафрагмой 23 марта 2020 Камера закалки 14 октября 2019 Анод для установки серии МАП-1 12 апреля 2019 Ролик шагонаправляющий 2 апреля 2019 Реактор 20 декабря 2018 Технологические источники для нанесения золота, серебра и других драгоценных металлов и сплавов 29 октября 2018 Поставка вакуумного фильтра 29 августа 2018 Примение высокоскоростной электроэрозионной резки 16 июля 2018 HANNOVER MESSE-2018. Крупнейшая международная выставка промышленных технологий 27 апреля 2018 Модернизация вакуумной напылительной установки УВН-4М 29 декабря 2017 Поставка 19 июля 2017 Выставка Вакуумтехэкспо-2017 17 апреля 2017 Грант по программе \"Старт 1\" 3 марта 2017"
       },
       {
         "section": "blog",
@@ -50,6 +56,12 @@
       },
       {
         "section": "blog",
+        "url": "sections/blog/modernizaciya-vakuumnoy-napylitelnoy-ustanovki-uvn-4m/index.html",
+        "title": "Модернизация вакуумной напылительной установки УВН-4М",
+        "body": "Главная / Блог / Модернизация вакуумной напылительной установки УВН-4М Модернизация вакуумной напылительной установки УВН-4М Завершены работы по модернизации оборудования вакуумной напылительной установки УВН-4М. Проведенные работы позволили сэкономить финансовые средства заказчика и увеличить производительность оборудования."
+      },
+      {
+        "section": "blog",
         "url": "sections/blog/otgruzka/index.html",
         "title": "Примение высокоскоростной электроэрозионной резки",
         "body": "Главная / Блог / Примение высокоскоростной электроэрозионной резки Примение высокоскоростной электроэрозионной резки Компания ИВЦ Плазмаинструмент отгрузила ведущему машиностроительному предприятию Республики Татарстан партию деталей. Примение высокоскоростной электроэрозионной резки вместо фрезерования при обработке закаленных сталей позволило получить высокое качество изделий по конкурентной цене."
@@ -62,9 +74,21 @@
       },
       {
         "section": "blog",
+        "url": "sections/blog/postavka/index.html",
+        "title": "Поставка",
+        "body": "Главная / Блог / Поставка Поставка Проведены поставка, пуско-наладка и монтаж научно-технологического оборудования по импортозамещению составных частей вакуумного оборудования, идущего по гособоронзаказу."
+      },
+      {
+        "section": "blog",
         "url": "sections/blog/reaktor/index.html",
         "title": "Реактор",
         "body": "Главная / Блог / Реактор Реактор Компания ИВЦ Плазмаинструмент изготовила и отгрузила реактор, изготовленный из нержавеющей стали, и предназначенный для научных исследований. Данный реактор снабжен нагревателем, датчиком температуры и теплообменником. Особенностью изготовления малых реакторов состоит в том, что они не попадают под требования Ростехнадзора, что позволяет нашей компании сохранить умеренные цены на изготовление реакторов. Приглашаем всех заинтересованных лиц к сотрудничеству."
+      },
+      {
+        "section": "blog",
+        "url": "sections/blog/remont-i-servis/index.html",
+        "title": "Грант по программе \"Старт 1\"",
+        "body": "Главная / Блог / Грант по программе \"Старт 1\" Грант по программе \"Старт 1\" Компания ООО ИВЦ Плазмаинструмент получила грант по программе Старт 1 от Федерального государственного бюджетного учреждения \"Фонд содействия развитию малых форм предприятий в научно-технической сфере\" (Фонд содействия инновациям) по теме \"Разработка и испытание опытного образца устройства высокоскоростного магнетронного распыления с разогретой мишенью\". Проводимая работа позволит расширить технологические возможности при нанесении керамических покрытий."
       },
       {
         "section": "blog",
@@ -85,10 +109,16 @@
         "body": "Главная / Блог / Технологические источники для нанесения золота, серебра и других драгоценных металлов и сплавов Технологические источники для нанесения золота, серебра и других драгоценных металлов и сплавов Компания ИВЦ Плазмаинструмент выпускает магнетроны, специализированные для напыления золота, серебра и других драгоценных сплавов. Данный магнетрон характеризуется высоким коэффициентом использования мишени, достигающим до 70%, а также быстрыми установкой и снятием мишени. Также при приобретении магнетронов, наши технологи проконсультируют по оптимальным режимам нанесения покрытий."
       },
       {
+        "section": "blog",
+        "url": "sections/blog/vystavka-vakuumtehekspo-2017/index.html",
+        "title": "Выставка Вакуумтехэкспо-2017",
+        "body": "Главная / Блог / Выставка Вакуумтехэкспо-2017 Выставка Вакуумтехэкспо-2017 Специалисты компании ООО ИВЦ Плазмаинструмент посетили главную выставку года Вакуумтехэкспо-2017. Проведенные рабочие встречи позволили получить новые контакты и новые договора."
+      },
+      {
         "section": "contacts",
         "url": "sections/contacts/index.html",
         "title": "Контакты",
-        "body": "Главная / Контакты Контакты Посетите наш офис в Казани 420087, РТ, г.Казань, ул.Даурская 41,оф. 7 Телефон: +7(960)0851803 Email: info@plasma-instrument.com Понед. - пятн. 9.00 до 18.00 Отправьте заявку Мы предложим оптимальное решение Вашей задачи и подготовим техническое предложение. ОТПРАВИТЬ ЗАЯВКУ"
+        "body": "Главная / Контакты Связь с нами Контакты ООО «ИВЦ Плазмаинструмент» Готовы обсудить проект, модернизацию оборудования и подготовку технического решения под вашу задачу. Пн - Пт: 09:00 - 18:00 Казань, ул. Даурская, 41, оф. 7 Ответ в рабочее время Офис и реквизиты для связи Адрес 420087, Республика Татарстан, г. Казань, ул. Даурская, 41, оф. 7 Email info@plasma-instrument.com Телефон +7 (960) 085-18-03 Отправьте заявку Подготовим оптимальное техническое предложение по срокам, комплектации и стоимости под ваши требования. ОТПРАВИТЬ ЗАЯВКУ ПОЗВОНИТЬ Режим работы: Понедельник - Пятница, 09:00 - 18:00 Мы на карте г. Казань, ул. Даурская, 41, офис 7"
       },
       {
         "section": "projects",
@@ -256,9 +286,15 @@
       },
       {
         "section": "blog",
+        "url": "sections/blog/hannover-messe-krupneyshaya-mezhdunarodnaya-vystavka-promyshlennyh-tehnologiy/index.html",
+        "title": "HANNOVER MESSE-2018. The largest international industrial technology exhibition",
+        "body": "Home / Blog / HANNOVER MESSE-2018 HANNOVER MESSE-2018. The largest international industrial technology exhibition Specialists of IVC Plazmainstrument visited the main global industrial exhibition of the year, Hannover Messe 2018, in Hannover, Germany. The team reviewed modern achievements in manufacturing and process equipment and established contacts with international partners."
+      },
+      {
+        "section": "blog",
         "url": "sections/blog/index.html",
         "title": "Blog",
-        "body": "Home / Blog Blog Pneumatic spindle July 27, 2020 Diaphragm control mechanism March 23, 2020 Hardening chamber October 14, 2019 Anode for MAP-1 series unit April 12, 2019 Guide roller April 2, 2019 Reactor December 20, 2018 Technological sources for gold, silver and other precious metals and alloys October 29, 2018 Delivery of vacuum filter August 29, 2018 Use of high-speed EDM cutting July 16, 2018"
+        "body": "Home / Blog Blog Pneumatic spindle July 27, 2020 Diaphragm control mechanism March 23, 2020 Hardening chamber October 14, 2019 Anode for MAP-1 series unit April 12, 2019 Guide roller April 2, 2019 Reactor December 20, 2018 Technological sources for gold, silver and other precious metals and alloys October 29, 2018 Delivery of vacuum filter August 29, 2018 Use of high-speed EDM cutting July 16, 2018 HANNOVER MESSE-2018. The largest international industrial technology exhibition April 27, 2018 Upgrade of UVN-4M vacuum coating system December 29, 2017 Delivery July 19, 2017 VacuumTechExpo 2017 exhibition April 17, 2017 Grant under the Start 1 program March 3, 2017"
       },
       {
         "section": "blog",
@@ -274,6 +310,12 @@
       },
       {
         "section": "blog",
+        "url": "sections/blog/modernizaciya-vakuumnoy-napylitelnoy-ustanovki-uvn-4m/index.html",
+        "title": "Upgrade of UVN-4M vacuum coating system",
+        "body": "Home / Blog / Upgrade of UVN-4M vacuum coating system Upgrade of UVN-4M vacuum coating system Modernization of the UVN-4M vacuum coating system has been completed. The work helped the customer reduce costs and improve equipment productivity."
+      },
+      {
+        "section": "blog",
         "url": "sections/blog/otgruzka/index.html",
         "title": "Use of high-speed EDM cutting",
         "body": "Home / Blog / Use of high-speed EDM cutting Use of high-speed EDM cutting IVC PlasmaInstrument shipped a batch of parts to a leading mechanical engineering enterprise in the Republic of Tatarstan. The use of high-speed EDM cutting instead of milling when processing hardened steels provided high product quality at a competitive price."
@@ -286,9 +328,21 @@
       },
       {
         "section": "blog",
+        "url": "sections/blog/postavka/index.html",
+        "title": "Delivery",
+        "body": "Home / Blog / Delivery Delivery Delivery, commissioning, and installation of scientific and technological equipment were completed as part of import substitution for vacuum equipment components supplied under defense contracts."
+      },
+      {
+        "section": "blog",
         "url": "sections/blog/reaktor/index.html",
         "title": "Реактор",
         "body": "Home / Blog / Реактор Реактор Компания ИВЦ Плазмаинструмент изготовила и отгрузила реактор, изготовленный из нержавеющей стали, и предназначенный для научных исследований. Данный реактор снабжен нагревателем, датчиком температуры и теплообменником. Особенностью изготовления малых реакторов состоит в том, что они не попадают под требования Ростехнадзора, что позволяет нашей компании сохранить умеренные цены на изготовление реакторов. Приглашаем всех заинтересованных лиц к сотрудничеству."
+      },
+      {
+        "section": "blog",
+        "url": "sections/blog/remont-i-servis/index.html",
+        "title": "Grant under the Start 1 program",
+        "body": "Home / Blog / Grant under the Start 1 program Grant under the Start 1 program IVC Plazmainstrument received a grant under the Start 1 program from the Foundation for Assistance to Small Innovative Enterprises. The project focuses on developing and testing a prototype of a high-speed magnetron sputtering unit with a heated target, expanding ceramic coating capabilities."
       },
       {
         "section": "blog",
@@ -309,10 +363,16 @@
         "body": "Home / Blog / Technological sources for gold, silver and other precious metals and alloys Technological sources for gold, silver and other precious metals and alloys IVC PlasmaInstrument manufactures magnetrons specialized for coating with gold, silver and other precious alloys. This magnetron has a high target utilization coefficient of up to 70%, as well as quick target installation and removal. When purchasing magnetrons, our process engineers also advise on optimal coating modes."
       },
       {
+        "section": "blog",
+        "url": "sections/blog/vystavka-vakuumtehekspo-2017/index.html",
+        "title": "VacuumTechExpo 2017 exhibition",
+        "body": "Home / Blog / VacuumTechExpo 2017 exhibition VacuumTechExpo 2017 exhibition Specialists of IVC Plazmainstrument attended VacuumTechExpo 2017, the major industry exhibition of the year. Productive meetings resulted in new contacts and new contracts."
+      },
+      {
         "section": "contacts",
         "url": "sections/contacts/index.html",
         "title": "Contacts",
-        "body": "Home / Contacts Contacts Visit our office in Kazan 420087, Republic of Tatarstan, Kazan, Daurskaya st. 41, office 7 Phone: +7(960)0851803 Email: info@plasma-instrument.com Mon - Fri: 9:00 - 18:00 Send a request We will offer the optimal solution for your task and prepare a technical proposal. SEND REQUEST"
+        "body": "Home / Contacts Get in touch Contacts of IVC PlasmaInstrument LLC Ready to discuss your project, equipment modernization, and a technical solution tailored to your task. Mon - Fri: 09:00 - 18:00 Kazan, Daurskaya 41, office 7 Response during business hours Office and contact details Address 420087, Republic of Tatarstan, Kazan, Daurskaya 41, office 7 Email info@plasma-instrument.com Phone +7 (960) 085-18-03 Send a request We will prepare an optimal technical proposal on timeline, scope, and cost for your requirements. SEND REQUEST CALL Working hours: Monday - Friday, 09:00 - 18:00 Find us on the map Kazan, Daurskaya 41, office 7"
       },
       {
         "section": "projects",

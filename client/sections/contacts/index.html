@@ -62,7 +62,7 @@
             <h2>Отправьте заявку</h2>
             <p>Подготовим оптимальное техническое предложение по срокам, комплектации и стоимости под ваши требования.</p>
             <div class="contacts-actions">
-              <a class="btn btn-primary" href="mailto:info@plasma-instrument.com">ОТПРАВИТЬ ЗАЯВКУ</a>
+              <button class="btn btn-primary" id="openContactsModal">ОТПРАВИТЬ ЗАЯВКУ</button>
               <a class="btn contacts-btn-muted contacts-btn-call" href="tel:+79600851803">ПОЗВОНИТЬ</a>
             </div>
             <div class="contacts-note">
@@ -89,6 +89,65 @@
         </section>
       </div>
     </main>
+
+    <!-- Модальное окно с контактной информацией -->
+    <div id="contactsModal" class="modal-overlay">
+      <div class="modal-content">
+        <button class="modal-close" id="closeContactsModal" aria-label="Закрыть окно">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+        <div class="modal-body">
+          <h2>Контакты для заявки</h2>
+          <p class="modal-subtitle">Выберите удобный способ связи</p>
+          <div class="contacts-options">
+            <article class="contact-option">
+              <span class="contact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2 4.1 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.4 2.1L8 9.6a16 16 0 0 0 6.4 6.4l1.2-1.2a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.6A2 2 0 0 1 22 16.9z"></path>
+                </svg>
+              </span>
+              <div class="contact-info">
+                <h3>Позвонить</h3>
+                <p class="contact-desc">Быстрый ответ в рабочее время</p>
+                <a href="tel:+79600851803" class="contact-link">+7 (960) 085-18-03</a>
+              </div>
+            </article>
+            <article class="contact-option">
+              <span class="contact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 5h16v14H4z"></path>
+                  <path d="m4 7 8 6 8-6"></path>
+                </svg>
+              </span>
+              <div class="contact-info">
+                <h3>Email</h3>
+                <p class="contact-desc">Отправьте заявку или вопрос</p>
+                <a href="mailto:info@plasma-instrument.com" class="contact-link">info@plasma-instrument.com</a>
+              </div>
+            </article>
+            <article class="contact-option">
+              <span class="contact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 21s6-5.4 6-11a6 6 0 1 0-12 0c0 5.6 6 11 6 11z"></path>
+                  <circle cx="12" cy="10" r="2.4"></circle>
+                </svg>
+              </span>
+              <div class="contact-info">
+                <h3>Адрес офиса</h3>
+                <p class="contact-desc">Казань, Республика Татарстан</p>
+                <address class="contact-link">ул. Даурская, 41, оф. 7</address>
+              </div>
+            </article>
+          </div>
+          <div class="modal-footer">
+            <p class="modal-info"><strong>Режим работы:</strong> Пн - Пт, 09:00 - 18:00</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div data-site-footer></div>
     <script type="module" src="../../scripts/browser/render-site-layout.js"></script>

@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "section": "blog",
+    "slug": "test-article",
+    "titleRu": "Тестовая статья",
+    "titleEn": "Test Article",
+    "date": "2026-04-17",
+    "contentRu": "<p>Это пример статьи в блоге</p>",
+    "contentEn": "<p>This is an example article in the blog</p>"
+  },
+  {
+    "id": 2,
+    "section": "blog",
+    "slug": "dsfsd",
+    "titleRu": "Тестовая статья 2",
+    "titleEn": "Test article 2",
+    "contentRu": "ssdfsd",
+    "contentEn": "sdf",
+    "date": "2026-04-17"
+  }
+]

@@ -7,6 +7,7 @@ import { initRevealOnScroll } from './ui/reveal-on-scroll.js';
 import { initSearchForm } from './search/search-form.js';
 import { initSearchResults } from './search/search-results.js';
 import { initTestimonialLightbox } from './ui/testimonial-lightbox.js';
+import { initContactsModal } from './ui/contacts-modal.js';
 import { layoutReady } from './render-site-layout.js';
 
 // Initialize all UI components and features when the DOM is fully loaded
@@ -18,6 +19,7 @@ Promise.resolve(layoutReady).finally(() => {
 	initArticleContentLayout();
 	initArticleGalleryLightbox();
 	initTestimonialLightbox();
+	initContactsModal();
 	initSearchForm();
 	initSearchResults();
 });

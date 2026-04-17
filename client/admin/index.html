@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Админ-панель | Plasma Instrument</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      z-index: 100;
+    }
+
+    .header h1 {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 250px;
+      height: calc(100vh - 60px);
+      background: white;
+      border-right: 1px solid #e0e0e0;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 15px;
+      letter-spacing: 0.5px;
+    }
+
+    .section-btn {
+      display: block;
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 8px;
+      border: none;
+      background: #f5f5f5;
+      color: #333;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      text-align: left;
+      transition: all 0.2s;
+    }
+
+    .section-btn:hover {
+      background: #e8e8e8;
+    }
+
+    .section-btn.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      font-weight: 600;
+    }
+
+    /* Main content */
+    .main {
+      margin-left: 250px;
+      margin-top: 60px;
+      flex: 1;
+      padding: 30px;
+      overflow-y: auto;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .section-header h2 {
+      font-size: 24px;
+      color: #333;
+    }
+
+    .btn-primary {
+      padding: 10px 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Articles table */
+    .articles-table {
+      width: 100%;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .articles-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .articles-table th {
+      background: #f5f5f5;
+      padding: 15px;
+      text-align: left;
+      font-weight: 600;
+      border-bottom: 1px solid #e0e0e0;
+      font-size: 12px;
+      text-transform: uppercase;
+      color: #666;
+    }
+
+    .articles-table td {
+      padding: 15px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .articles-table tr:hover {
+      background: #fafafa;
+    }
+
+    .articles-table .btn-delete {
+      padding: 6px 12px;
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.2s;
+    }
+
+    .articles-table .btn-delete:hover {
+      background: #ff5252;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #999;
+    }
+
+    .empty-state p {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+    }
+
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 8px;
+      padding: 30px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .modal-content h3 {
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 30px;
+    }
+
+    .btn-cancel {
+      padding: 10px 20px;
+      background: #e0e0e0;
+      color: #333;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .btn-cancel:hover {
+      background: #d0d0d0;
+    }
+
+    /* Notifications */
+    .notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 15px 20px;
+      border-radius: 6px;
+      color: white;
+      font-size: 14px;
+      max-width: 300px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      animation: slideIn 0.3s ease;
+      z-index: 2000;
+    }
+
+    .notification.success {
+      background: #52c41a;
+    }
+
+    .notification.error {
+      background: #ff4d4f;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>📋 Админ-панель Plasma Instrument</h1>
+  </div>
+
+  <div class="container">
+    <div class="sidebar">
+      <div class="sidebar-title">Разделы</div>
+      <div id="sections-list"></div>
+    </div>
+
+    <div class="main">
+      <div class="section-header">
+        <h2 id="section-title">Выберите раздел</h2>
+        <button id="add-article-btn" class="btn-primary" style="display: none;">+ Добавить статью</button>
+      </div>
+
+      <div id="content">
+        <div class="empty-state">
+          <p>Выберите раздел в левом меню</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for adding/editing article -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <h3 id="modal-title">Добавить статью</h3>
+      <form id="article-form">
+        <div class="form-group">
+          <label for="form-section">Раздел</label>
+          <select id="form-section" required></select>
+        </div>
+
+        <div class="form-group">
+          <label for="form-slug">URL (slug)</label>
+          <input type="text" id="form-slug" placeholder="test-article" required>
+        </div>
+
+        <div class="form-group">
+          <label for="form-title-ru">Название (Русский)</label>
+          <input type="text" id="form-title-ru" placeholder="Название на русском" required>
+        </div>
+
+        <div class="form-group">
+          <label for="form-title-en">Название (English)</label>
+          <input type="text" id="form-title-en" placeholder="Title in English" required>
+        </div>
+
+        <div class="form-group">
+          <label for="form-date">Дата</label>
+          <input type="date" id="form-date" required>
+        </div>
+
+        <div class="form-group">
+          <label for="form-content-ru">Контент (Русский) — HTML</label>
+          <textarea id="form-content-ru" placeholder="<p>Введите HTML контент...</p>" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="form-content-en">Контент (English) — HTML</label>
+          <textarea id="form-content-en" placeholder="<p>Enter HTML content...</p>" required></textarea>
+        </div>
+
+        <div class="modal-buttons">
+          <button type="button" class="btn-cancel" onclick="closeModal()">Отмена</button>
+          <button type="submit" class="btn-primary">Сохранить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = 'http://localhost:3000/api';
+    let selectedSection = null;
+
+    // Load sections into sidebar and form
+    async function loadSections() {
+      try {
+        const response = await fetch(`${API_URL}/sections`);
+        if (!response.ok) throw new Error('Failed to fetch sections');
+        
+        const sections = await response.json();
+        const list = document.getElementById('sections-list');
+        const formSelect = document.getElementById('form-section');
+
+        list.innerHTML = '';
+        formSelect.innerHTML = '';
+
+        sections.forEach(section => {
+          const btn = document.createElement('button');
+          btn.className = 'section-btn';
+          btn.textContent = section.labelRu;
+          btn.onclick = () => selectSection(section.id);
+          list.appendChild(btn);
+
+          const option = document.createElement('option');
+          option.value = section.id;
+          option.textContent = section.labelRu;
+          formSelect.appendChild(option);
+        });
+      } catch (error) {
+        console.error('Ошибка при загрузке разделов:', error);
+        showNotification('Ошибка при загрузке разделов: ' + error.message, 'error');
+      }
+    }
+
+    // Select a section
+    function selectSection(section) {
+      selectedSection = section;
+      updateSectionButtons();
+      loadArticles(section);
+
+      const sectionLabels = {
+        'sources': 'Источники',
+        'services': 'Услуги',
+        'projects': 'Проекты',
+        'blog': 'Блог'
+      };
+
+      document.getElementById('section-title').textContent = sectionLabels[section];
+      document.getElementById('add-article-btn').style.display = 'block';
+    }
+
+    // Update active section button
+    function updateSectionButtons() {
+      const buttons = document.querySelectorAll('.section-btn');
+      buttons.forEach(btn => {
+        btn.classList.remove('active');
+      });
+      const activeBtn = Array.from(buttons).find(btn => {
+        const sections = {
+          'Источники': 'sources',
+          'Услуги': 'services',
+          'Проекты': 'projects',
+          'Блог': 'blog'
+        };
+        return sections[btn.textContent] === selectedSection;
+      });
+      if (activeBtn) activeBtn.classList.add('active');
+    }
+
+    // Load articles for section
+    async function loadArticles(section) {
+      try {
+        const response = await fetch(`${API_URL}/articles?section=${section}`);
+        if (!response.ok) throw new Error('Failed to fetch articles');
+        
+        const articles = await response.json();
+        displayArticles(articles);
+      } catch (error) {
+        console.error('Ошибка при загрузке статей:', error);
+        showNotification('Ошибка при загрузке статей', 'error');
+      }
+    }
+
+    // Display articles in table
+    function displayArticles(articles) {
+      const content = document.getElementById('content');
+
+      if (articles.length === 0) {
+        content.innerHTML = `
+          <div class="empty-state">
+            <p>В этом разделе нет статей</p>
+          </div>
+        `;
+        return;
+      }
+
+      const html = `
+        <div class="articles-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Название</th>
+                <th>Дата</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              ${articles.map(article => `
+                <tr>
+                  <td>${article.titleRu}</td>
+                  <td>${article.date}</td>
+                  <td><button class="btn-delete" onclick="deleteArticle(${article.id})">Удалить</button></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+
+      content.innerHTML = html;
+    }
+
+    // Delete article
+    async function deleteArticle(id) {
+      if (!confirm('Вы уверены?')) return;
+
+      try {
+        const response = await fetch(`${API_URL}/articles/${id}`, {
+          method: 'DELETE'
+        });
+
+        if (!response.ok) throw new Error('Failed to delete');
+
+        showNotification('Статья удалена', 'success');
+        if (selectedSection) loadArticles(selectedSection);
+      } catch (error) {
+        console.error('Ошибка при удалении:', error);
+        showNotification('Ошибка при удалении статьи', 'error');
+      }
+    }
+
+    // Open modal
+    document.getElementById('add-article-btn').onclick = () => {
+      document.getElementById('modal-title').textContent = 'Добавить статью';
+      document.getElementById('form-section').value = selectedSection;
+      document.getElementById('article-form').reset();
+      document.getElementById('form-date').valueAsDate = new Date();
+      document.getElementById('modal').classList.add('active');
+    };
+
+    // Close modal
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
+    }
+
+    // Handle form submission
+    document.getElementById('article-form').onsubmit = async (e) => {
+      e.preventDefault();
+
+      const article = {
+        section: document.getElementById('form-section').value,
+        slug: document.getElementById('form-slug').value,
+        titleRu: document.getElementById('form-title-ru').value,
+        titleEn: document.getElementById('form-title-en').value,
+        contentRu: document.getElementById('form-content-ru').value,
+        contentEn: document.getElementById('form-content-en').value,
+        date: document.getElementById('form-date').value
+      };
+
+      try {
+        const response = await fetch(`${API_URL}/articles`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(article)
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.error);
+        }
+
+        showNotification('Статья добавлена', 'success');
+        closeModal();
+        if (selectedSection) loadArticles(selectedSection);
+      } catch (error) {
+        console.error('Ошибка при сохранении:', error);
+        showNotification('Ошибка: ' + error.message, 'error');
+      }
+    };
+
+    // Show notification
+    function showNotification(message, type = 'success') {
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.remove();
+      }, 5000);
+    }
+
+    // Initialize
+    loadSections();
+  </script>
+</body>
+</html>

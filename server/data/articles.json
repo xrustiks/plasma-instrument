@@ -18,5 +18,15 @@
     "contentRu": "ssdfsd",
     "contentEn": "sdf",
     "date": "2026-04-17"
+  },
+  {
+    "id": 3,
+    "section": "sources",
+    "slug": "test-article",
+    "titleRu": "Тестовая статья 1",
+    "titleEn": "Test article 1",
+    "contentRu": "Тестовая статья ыаваывава ыацуа",
+    "contentEn": "Test article dhfjksdhjfld",
+    "date": "2026-04-17"
   }
 ]

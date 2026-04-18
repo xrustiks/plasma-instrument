@@ -97,5 +97,16 @@
     "contentEn": "<p>dsffd</p><p><img src=\"http://localhost:3000/uploads/DSC_0634-1776534643364-396041010.JPG\"></p><p><img src=\"http://localhost:3000/uploads/DSC_0841-1776534649400-67749550.JPG\"></p><p><img src=\"http://localhost:3000/uploads/DSC_0661-1776534656508-157068772.JPG\"></p><p>sdfsdf</p><p>qweqwe</p>",
     "cardImage": "/uploads/DSC_0785-1776534635241-115307836.JPG",
     "date": "2026-04-18"
+  },
+  {
+    "id": 10,
+    "section": "blog",
+    "slug": "пропро",
+    "titleRu": "рлпроп",
+    "titleEn": "олпрп",
+    "contentRu": "<p>пнеропэпрмо</p><p>этьиь</p><p>ьтиь<img src=\"http://localhost:3000/uploads/DSC_0002-1776535728659-766029851.JPG\"></p><p><img src=\"http://localhost:3000/uploads/DSC_0008_1-1776535734229-959334533.JPG\"></p><p>рлпроп</p>",
+    "contentEn": "<p>о</p><p>ило</p><p>ор</p>",
+    "cardImage": "/uploads/DSC_0028_1-1776535717879-403797509.JPG",
+    "date": "2026-04-18"
   }
 ]

@@ -1058,10 +1058,6 @@ h2 {
   outline-offset: 2px;
 }
 
-.article-gallery a:first-child {
-  grid-column: span 2;
-}
-
 .article-gallery img {
   width: 100%;
   height: 170px;
@@ -1078,10 +1074,6 @@ h2 {
   .article-gallery {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.65rem;
-  }
-
-  .article-gallery a:first-child {
-    grid-column: span 2;
   }
 
   .article-gallery img {
@@ -2355,6 +2347,23 @@ body.nav-overlay-open .nav.open .nav-close {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
+}
+
+.cms-article__content .article-gallery a {
+  height: 170px;
+}
+
+.cms-article__content .article-gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+@media (max-width: 700px) {
+  .cms-article__content .article-gallery a {
+    height: 130px;
+  }
 }
 
 .cms-article__content table {

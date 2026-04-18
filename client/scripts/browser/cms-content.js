@@ -215,6 +215,59 @@ function getSectionLink(section, lang) {
   return `${base}sections/${section}/`;
 }
 
+function moveCmsImagesToGallery(contentNode, lang) {
+  if (!contentNode) return;
+
+  const images = [...contentNode.querySelectorAll('img')]
+    .filter((image) => !image.closest('table') && !image.closest('.article-gallery'));
+
+  if (images.length < 2) {
+    return;
+  }
+
+  const title = document.createElement('h2');
+  title.className = 'article-gallery-title';
+  title.textContent = lang === 'en' ? 'Gallery' : 'Галерея';
+
+  const gallery = document.createElement('div');
+  gallery.className = 'article-gallery';
+  gallery.setAttribute('aria-label', lang === 'en' ? 'Article gallery' : 'Галерея статьи');
+
+  images.forEach((image, index) => {
+    const source = image.currentSrc || image.src;
+    if (!source) return;
+
+    const link = document.createElement('a');
+    link.href = source;
+
+    const cloned = image.cloneNode(true);
+    if (!cloned.alt) {
+      cloned.alt = lang === 'en' ? `Article image ${index + 1}` : `Изображение статьи ${index + 1}`;
+    }
+
+    link.appendChild(cloned);
+    gallery.appendChild(link);
+
+    image.remove();
+  });
+
+  [...contentNode.querySelectorAll('p, div, figure')].forEach((node) => {
+    if (node === contentNode) return;
+    if (node.closest('.article-gallery')) return;
+
+    const hasMedia = node.querySelector('img, video, iframe, table');
+    const text = (node.textContent || '').replace(/\u00a0/g, ' ').trim();
+
+    if (!hasMedia && !text) {
+      node.remove();
+    }
+  });
+
+  if (gallery.children.length) {
+    contentNode.append(title, gallery);
+  }
+}
+
 function renderArticlePage(article, section) {
   const lang = getLanguage();
   const title = pickTitle(article, lang);
@@ -233,6 +286,7 @@ function renderArticlePage(article, section) {
   if (contentNode) {
     contentNode.classList.add('article-content');
     contentNode.innerHTML = content;
+    moveCmsImagesToGallery(contentNode, lang);
     initArticleContentLayout();
     initArticleGalleryLightbox();
   }

@@ -123,7 +123,7 @@ function buildCardMarkupForSection(article, section, lang) {
     : '<div class="cms-card-placeholder cms-card-placeholder--wide" aria-hidden="true"></div>';
 
   const iconMedia = imageUrl
-    ? `<img src="${imageUrl}" alt="${title}">`
+    ? `<img class="svc-card__img" src="${imageUrl}" alt="${title}">`
     : '<div class="cms-card-placeholder" aria-hidden="true"></div>';
 
   if (section === 'services') {

@@ -53,6 +53,16 @@ function getSectionFromPath(localPath, lang) {
 
 function getPathForLanguage(localPath, targetLang) {
   const normalized = normalizeLocalPath(localPath);
+  const isArticlePage = /(^|\/)article\.html$/i.test(normalized);
+  const search = window.location.search || '';
+
+  if (isArticlePage && search) {
+    if (targetLang === 'en') {
+      return formatPathForLink(normalized.startsWith('en/') ? normalized : `en/${normalized}`) + search;
+    }
+
+    return formatPathForLink(normalized.replace(/^en\/?/, '')) + search;
+  }
 
   if (targetLang === 'en') {
     if (!normalized) return 'en/';

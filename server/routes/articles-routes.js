@@ -3,7 +3,7 @@ import {
   getNextArticleId,
   readArticles,
   saveArticles
-} from '../data/articles-store.js';
+} from '../storage/articles-store.js';
 
 const router = Router();
 
@@ -44,7 +44,7 @@ router.get('/:id', async (req, res) => {
 // Creates a new article
 router.post('/', async (req, res) => {
   try {
-    const { section, slug, titleRu, titleEn, contentRu, contentEn, date } = req.body;
+    const { section, slug, titleRu, titleEn, contentRu, contentEn, date, cardImage } = req.body;
 
     if (!section || !slug || !titleRu || !titleEn || !contentRu || !contentEn || !date) {
       return res.status(400).json({ error: 'Missing required fields' });
@@ -65,6 +65,7 @@ router.post('/', async (req, res) => {
       titleEn,
       contentRu,
       contentEn,
+      cardImage: cardImage || '',
       date
     };
 

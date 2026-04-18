@@ -536,8 +536,19 @@
     }
 
     function getEditorHtml(editor) {
-      const text = editor.getText().trim();
-      return text ? editor.root.innerHTML : '';
+      const html = (editor.root.innerHTML || '').trim();
+      if (!html || html === '<p><br></p>') return '';
+      return html;
+    }
+
+    function setEditorHtml(editor, html) {
+      const content = typeof html === 'string' ? html.trim() : '';
+      editor.setContents([]);
+
+      if (!content) return;
+
+      // Use Quill clipboard API to keep the internal editor state consistent.
+      editor.clipboard.dangerouslyPasteHTML(content);
     }
 
     function normalizeImageUrl(url) {
@@ -718,8 +729,8 @@
         document.getElementById('form-card-image').value = article.cardImage || '';
         updateCardImagePreview(article.cardImage || '');
         
-        quillRu.root.innerHTML = article.contentRu;
-        quillEn.root.innerHTML = article.contentEn;
+        setEditorHtml(quillRu, article.contentRu);
+        setEditorHtml(quillEn, article.contentEn);
         
         document.getElementById('modal').classList.add('active');
       } catch (error) {

@@ -18,6 +18,12 @@ function getLanguage() {
   return document.documentElement.lang === 'en' ? 'en' : 'ru';
 }
 
+/**
+ * @deprecated v2.0 - This function detects old static article paths.
+ * Static articles have been migrated to CMS.
+ * Old files are archived in .deprecated/sections/ and .deprecated/en_sections/
+ * Migration complete as of 2026-04-18. Scheduled for complete removal after 2026-05-30.
+ */
 function getSectionFromPath() {
   const path = window.location.pathname.toLowerCase();
   const match = path.match(/\/(?:en\/)?sections\/(sources|services|projects|blog)\/?(?:index\.html)?$/i);

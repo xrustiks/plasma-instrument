@@ -10,7 +10,7 @@ const router = Router();
 // Configure multer
 const storage = multer.diskStorage({
   destination: async (req, file, cb) => {
-    const uploadsDir = path.join(__dirname, 'uploads');
+    const uploadsDir = path.join(__dirname, '..', 'storage', 'uploads');
     await fs.mkdir(uploadsDir, { recursive: true });
     cb(null, uploadsDir);
   },

@@ -279,6 +279,27 @@
       min-height: 180px;
     }
 
+    .card-image-preview {
+      margin-top: 10px;
+    }
+
+    .card-image-preview img {
+      width: 100%;
+      max-height: 180px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+
+    .thumb {
+      width: 56px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      display: block;
+    }
+
     .form-group input:focus,
     .form-group select:focus {
       outline: none;
@@ -399,6 +420,15 @@
         </div>
 
         <div class="form-group">
+          <label for="form-card-image">Картинка карточки (URL)</label>
+          <input type="text" id="form-card-image" placeholder="/uploads/image.jpg или https://...">
+          <input type="file" id="form-card-image-file" accept="image/*" style="margin-top: 10px;">
+          <div id="card-image-preview" class="card-image-preview" style="display: none;">
+            <img id="card-image-preview-img" alt="Card preview">
+          </div>
+        </div>
+
+        <div class="form-group">
           <label for="form-content-ru">Контент (Русский)</label>
           <div id="form-content-ru" class="editor-container"></div>
         </div>
@@ -510,6 +540,43 @@
       return text ? editor.root.innerHTML : '';
     }
 
+    function normalizeImageUrl(url) {
+      if (!url) return '';
+      if (url.startsWith('http://') || url.startsWith('https://')) return url;
+      if (url.startsWith('/')) return `http://localhost:3000${url}`;
+      return url;
+    }
+
+    function updateCardImagePreview(url) {
+      const preview = document.getElementById('card-image-preview');
+      const previewImg = document.getElementById('card-image-preview-img');
+      if (!url) {
+        preview.style.display = 'none';
+        previewImg.removeAttribute('src');
+        return;
+      }
+
+      previewImg.src = normalizeImageUrl(url);
+      preview.style.display = 'block';
+    }
+
+    async function uploadCardImage(file) {
+      const formData = new FormData();
+      formData.append('image', file);
+
+      const response = await fetch(`${API_URL}/upload/image`, {
+        method: 'POST',
+        body: formData
+      });
+
+      const result = await response.json();
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Upload failed');
+      }
+
+      return result.data.url;
+    }
+
     // Load sections into sidebar and form
     async function loadSections() {
       try {
@@ -608,6 +675,7 @@
           <table>
             <thead>
               <tr>
+                <th>Картинка</th>
                 <th>Название</th>
                 <th>Дата</th>
                 <th></th>
@@ -616,6 +684,7 @@
             <tbody>
               ${articles.map(article => `
                 <tr>
+                  <td>${article.cardImage ? `<img class="thumb" src="${normalizeImageUrl(article.cardImage)}" alt="thumb">` : '—'}</td>
                   <td style="cursor: pointer; color: #667eea;" onclick="loadArticleForEdit(${article.id})">${article.titleRu}</td>
                   <td>${article.date}</td>
                   <td><button class="btn-delete" onclick="deleteArticle(${article.id})">Удалить</button></td>
@@ -646,34 +715,8 @@
         document.getElementById('form-title-ru').value = article.titleRu;
         document.getElementById('form-title-en').value = article.titleEn;
         document.getElementById('form-date').value = article.date;
-        
-        quillRu.root.innerHTML = article.contentRu;
-        quillEn.root.innerHTML = article.contentEn;
-        
-        document.getElementById('modal').classList.add('active');
-      } catch (error) {
-        console.error('Ошибка при загрузке статьи:', error);
-        showNotification('Ошибка при загрузке статьи', 'error');
-      }
-    }
-
-    // Load article for viewing/editing
-    async function loadArticleForEdit(articleId) {
-      try {
-        const response = await fetch(`${API_URL}/articles/${articleId}`);
-        if (!response.ok) throw new Error('Failed to load article');
-        
-        const article = await response.json();
-        
-        editingArticleId = article.id;
-        document.getElementById('modal-title').textContent = 'Редактировать статью';
-        document.getElementById('form-section').value = article.section;
-        document.getElementById('form-section').disabled = true;
-        document.getElementById('form-slug').value = article.slug;
-        document.getElementById('form-slug').disabled = true;
-        document.getElementById('form-title-ru').value = article.titleRu;
-        document.getElementById('form-title-en').value = article.titleEn;
-        document.getElementById('form-date').value = article.date;
+        document.getElementById('form-card-image').value = article.cardImage || '';
+        updateCardImagePreview(article.cardImage || '');
         
         quillRu.root.innerHTML = article.contentRu;
         quillEn.root.innerHTML = article.contentEn;
@@ -694,6 +737,8 @@
       document.getElementById('article-form').reset();
       document.getElementById('form-section').value = selectedSection;
       document.getElementById('form-date').valueAsDate = new Date();
+      document.getElementById('form-card-image').value = '';
+      updateCardImagePreview('');
       quillRu.setContents([]);
       quillEn.setContents([]);
       document.getElementById('modal').classList.add('active');
@@ -737,6 +782,7 @@
         titleEn: document.getElementById('form-title-en').value,
         contentRu: getEditorHtml(quillRu),
         contentEn: getEditorHtml(quillEn),
+        cardImage: document.getElementById('form-card-image').value.trim(),
         date: document.getElementById('form-date').value
       };
 
@@ -781,6 +827,27 @@
         notification.remove();
       }, 5000);
     }
+
+    document.getElementById('form-card-image').addEventListener('input', (e) => {
+      updateCardImagePreview(e.target.value.trim());
+    });
+
+    document.getElementById('form-card-image-file').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      try {
+        const uploadedUrl = await uploadCardImage(file);
+        document.getElementById('form-card-image').value = uploadedUrl;
+        updateCardImagePreview(uploadedUrl);
+        showNotification('Картинка карточки загружена', 'success');
+      } catch (error) {
+        console.error('Card image upload error:', error);
+        showNotification('Ошибка загрузки картинки карточки: ' + error.message, 'error');
+      } finally {
+        e.target.value = '';
+      }
+    });
 
     // Initialize
     initQuillEditors();

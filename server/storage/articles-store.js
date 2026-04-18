@@ -3,7 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ARTICLES_FILE = path.join(__dirname, 'articles.json');
+const ARTICLES_FILE = path.join(__dirname, 'data', 'articles.json');
 
 // Provides functions to read, write, and manage articles stored in a JSON file
 export async function readArticles() {

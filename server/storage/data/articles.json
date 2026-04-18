@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "section": "blog",
+    "slug": "test-article",
+    "titleRu": "ТЕстовая статья 1",
+    "titleEn": "Test article 1",
+    "contentRu": "<p>sdfsdffsf</p><p>svfd fdgdf d</p><p>dsfrwwe rw</p><p>wervcxn mm</p><p>adscqwwe o;op.</p><p>hfbvbcv</p><p><br></p><p><img src=\"http://localhost:3000/uploads/DSC_0004_3-1776526301443-752328303.JPG\"></p><p>sdf</p><p>e32124 354 fdsd</p><p>fdsvcbcb bnm,m</p>",
+    "contentEn": "<p>sdfsdffsf</p><p>svfd fdgdf d</p><p>dsfrwwe rw</p><p>wervcxn mm</p><p>adscqwwe o;op.</p><p>hfbvbcv</p><p><br></p><p><img src=\"http://localhost:3000/uploads/DSC_0004_3-1776526301443-752328303.JPG\"></p><p>sdf</p><p>e32124 354 fdsd</p><p>fdsvcbcb bnm,m</p>",
+    "cardImage": "/uploads/DSC_0001_2-1776526279095-887735994.JPG",
+    "date": "2026-04-18"
+  }
+]

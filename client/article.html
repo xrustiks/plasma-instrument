@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru" data-depth="0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Статья</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700&family=PT+Serif:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="site-bg" aria-hidden="true"></div>
+    <div data-site-header></div>
+
+    <main class="section reveal">
+      <div class="container" data-cms-article>
+        <div class="breadcrumbs">
+          <a href="index.html">Главная</a> /
+          <a href="sections/blog/" data-cms-article-breadcrumb-section>Раздел</a> /
+          <span>Статья</span>
+        </div>
+
+        <article class="cms-article">
+          <div class="cms-article__top">
+            <h1 class="page-title" data-cms-article-title>Загрузка статьи...</h1>
+            <div class="cms-article__hero is-empty" data-cms-article-hero></div>
+            <div class="cms-article__meta">
+              <span class="cms-article__date" data-cms-article-date></span>
+              <a class="btn" href="sections/blog/" data-cms-back-link>Назад в раздел</a>
+            </div>
+          </div>
+          <div class="cms-article__content" data-cms-article-content></div>
+        </article>
+      </div>
+    </main>
+
+    <div data-site-footer></div>
+    <script type="module" src="scripts/browser/render-site-layout.js"></script>
+    <script type="module" src="scripts/browser/main.js"></script>
+  </body>
+</html>

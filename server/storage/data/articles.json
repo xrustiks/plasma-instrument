@@ -2,12 +2,34 @@
   {
     "id": 1,
     "section": "blog",
-    "slug": "test-article",
-    "titleRu": "ТЕстовая статья 1",
+    "slug": "test-art",
+    "titleRu": "Тестовая статья 1",
     "titleEn": "Test article 1",
-    "contentRu": "<p>sdfsdffsf</p><p>svfd fdgdf d</p><p>dsfrwwe rw</p><p>wervcxn mm</p><p>adscqwwe o;op.</p><p>hfbvbcv</p><p><br></p><p><img src=\"http://localhost:3000/uploads/DSC_0004_3-1776526301443-752328303.JPG\"></p><p>sdf</p><p>e32124 354 fdsd</p><p>fdsvcbcb bnm,m</p>",
-    "contentEn": "<p>sdfsdffsf</p><p>svfd fdgdf d</p><p>dsfrwwe rw</p><p>wervcxn mm</p><p>adscqwwe o;op.</p><p>hfbvbcv</p><p><br></p><p><img src=\"http://localhost:3000/uploads/DSC_0004_3-1776526301443-752328303.JPG\"></p><p>sdf</p><p>e32124 354 fdsd</p><p>fdsvcbcb bnm,m</p>",
-    "cardImage": "/uploads/DSC_0001_2-1776526279095-887735994.JPG",
+    "contentRu": "<p>выааа</p><p><em>ываыв</em></p><p>ыва</p><p><br></p><p>ыва<img src=\"http://localhost:3000/uploads/DSC_0001_3-1776531782196-39507300.JPG\"></p><p>цукцу</p><p>чсм</p><p><strong>тиь</strong></p><p>ыв</p><p>длждл рек уке</p><p>а</p><p><br></p>",
+    "contentEn": "<p>sdfdsf</p><p><u>sdfdsf</u></p><p><s>sdfdsf</s></p><p>sdfdsf<img src=\"http://localhost:3000/uploads/DSC_0001_3-1776531782196-39507300.JPG\"></p><p>sdfsdf</p><p>sdfd</p>",
+    "cardImage": "/uploads/DSC_0848-1776531770730-540857513.JPG",
+    "date": "2026-04-18"
+  },
+  {
+    "id": 2,
+    "section": "projects",
+    "slug": "test-article",
+    "titleRu": "Тестовая статья 1",
+    "titleEn": "Test article 1",
+    "contentRu": "<p>sdfdsf</p><p>sdfd</p><p>fdsfdf</p>",
+    "contentEn": "<p>sdfdsf</p><p>sdfd</p><p>fdsfdf</p>",
+    "cardImage": "/uploads/DSC_0004_2-1776531890055-836587946.JPG",
+    "date": "2026-04-18"
+  },
+  {
+    "id": 3,
+    "section": "projects",
+    "slug": "dasd",
+    "titleRu": "sad",
+    "titleEn": "asd",
+    "contentRu": "<p>adsdas</p>",
+    "contentEn": "<p>asdas</p>",
+    "cardImage": "/uploads/DSC_0002-1776531941140-602023739.JPG",
     "date": "2026-04-18"
   }
 ]

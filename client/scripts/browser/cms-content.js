@@ -75,48 +75,97 @@ function pickContent(article, lang) {
   return article.contentRu || article.contentEn || '';
 }
 
-function createDynamicCard(article, section, lang) {
-  const title = pickTitle(article, lang);
-  const articleUrl = buildArticleUrl(article.id, section);
-  const imageUrl = normalizeImageUrl(article.cardImage);
-
-  const item = document.createElement('article');
-  item.className = 'card blog-card cms-dynamic-card';
-  item.setAttribute('data-href', articleUrl);
-  item.setAttribute('role', 'link');
-  item.setAttribute('tabindex', '0');
-
-  item.innerHTML = `
-    <div class="blog-card__thumb cms-dynamic-card__thumb">
-      ${imageUrl ? `<img src="${imageUrl}" alt="${title}">` : '<div class="cms-dynamic-card__placeholder"></div>'}
-    </div>
-    <h3><a href="${articleUrl}">${title}</a></h3>
-    <p>${formatDate(article.date, lang)}</p>
-  `;
-
-  return item;
+function stripHtml(html) {
+  if (!html) return '';
+  return html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
-function ensureDynamicFeedContainer() {
-  const mainContainer = document.querySelector('main .container');
-  if (!mainContainer) return null;
+function makeExcerpt(article, lang, limit = 170) {
+  const source = stripHtml(pickContent(article, lang));
+  if (!source) {
+    return lang === 'en' ? 'Read more in the article.' : 'Подробнее в статье.';
+  }
 
-  let feed = mainContainer.querySelector('[data-cms-feed]');
-  if (feed) return feed;
+  if (source.length <= limit) {
+    return source;
+  }
 
-  const lang = getLanguage();
-  const titleText = lang === 'en' ? 'Added from admin panel' : 'Добавлено через админку';
+  return `${source.slice(0, limit).trim()}...`;
+}
 
-  feed = document.createElement('section');
-  feed.className = 'cms-feed';
-  feed.setAttribute('data-cms-feed', '');
-  feed.innerHTML = `
-    <h2 class="cms-feed__title">${titleText}</h2>
-    <div class="cards-grid two cms-feed__grid" data-cms-feed-grid></div>
+function getDefaultImage(section) {
+  const base = getRootPrefix();
+  const defaults = {
+    blog: `${base}images/cards/blog/shpindel.jpg`,
+    services: `${base}images/cards/services/service-export-icon.png`,
+    projects: `${base}images/cards/projects/pro1.jpg`,
+    sources: `${base}images/cards/sources/ionnoluchevye-istochniki.jpg`
+  };
+
+  return defaults[section] || '';
+}
+
+function getGridForSection(section) {
+  if (section === 'blog') {
+    return document.querySelector('.cards-grid');
+  }
+
+  if (section === 'services') {
+    return document.querySelector('.svc-grid');
+  }
+
+  if (section === 'projects' || section === 'sources') {
+    return document.querySelector('.topic-grid');
+  }
+
+  return null;
+}
+
+function buildCardMarkupForSection(article, section, lang) {
+  const title = pickTitle(article, lang);
+  const articleUrl = buildArticleUrl(article.id, section);
+  const imageUrl = normalizeImageUrl(article.cardImage) || getDefaultImage(section);
+  const excerpt = makeExcerpt(article, lang);
+  const date = formatDate(article.date, lang);
+
+  if (section === 'services') {
+    return `
+      <article class="svc-card" data-href="${articleUrl}" role="link" tabindex="0" data-cms-card="1" data-cms-id="${article.id}">
+        <div class="svc-card__img-wrap">
+          <img class="svc-card__img" src="${imageUrl}" alt="${title}">
+        </div>
+        <a class="svc-card__title" href="${articleUrl}">${title}</a>
+        <p class="svc-card__desc">${excerpt}</p>
+      </article>
+    `;
+  }
+
+  if (section === 'projects') {
+    return `
+      <article class="topic-card" data-href="${articleUrl}" role="link" tabindex="0" data-cms-card="1" data-cms-id="${article.id}">
+        <span class="topic-card__icon" aria-hidden="true"><img src="${imageUrl}" alt="${title}"></span>
+        <h3 class="topic-card__title"><a href="${articleUrl}">${title}</a></h3>
+      </article>
+    `;
+  }
+
+  if (section === 'sources') {
+    return `
+      <article class="topic-card" data-href="${articleUrl}" role="link" tabindex="0" data-cms-card="1" data-cms-id="${article.id}">
+        <span class="topic-card__icon" aria-hidden="true"><img src="${imageUrl}" alt="${title}"></span>
+        <h3 class="topic-card__title"><a href="${articleUrl}">${title}</a></h3>
+        <p class="topic-card__desc">${excerpt}</p>
+      </article>
+    `;
+  }
+
+  return `
+    <article class="card blog-card" data-href="${articleUrl}" role="link" tabindex="0" data-cms-card="1" data-cms-id="${article.id}">
+      <div class="blog-card__thumb"><img src="${imageUrl}" alt="${title}"></div>
+      <h3><a href="${articleUrl}">${title}</a></h3>
+      <p>${date}</p>
+    </article>
   `;
-
-  mainContainer.appendChild(feed);
-  return feed;
 }
 
 async function initSectionCardsFromCms() {
@@ -132,13 +181,10 @@ async function initSectionCardsFromCms() {
     const articles = await response.json();
     if (!Array.isArray(articles) || articles.length === 0) return;
 
-    const feed = ensureDynamicFeedContainer();
-    if (!feed) return;
-
-    const grid = feed.querySelector('[data-cms-feed-grid]');
+    const grid = getGridForSection(section);
     if (!grid) return;
 
-    grid.innerHTML = '';
+    grid.querySelectorAll('[data-cms-card="1"]').forEach((node) => node.remove());
 
     const sorted = [...articles].sort((a, b) => {
       const left = new Date(a.date).getTime();
@@ -146,9 +192,8 @@ async function initSectionCardsFromCms() {
       return right - left;
     });
 
-    sorted.forEach((article) => {
-      grid.appendChild(createDynamicCard(article, section, lang));
-    });
+    const cardsMarkup = sorted.map((article) => buildCardMarkupForSection(article, section, lang)).join('');
+    grid.insertAdjacentHTML('afterbegin', cardsMarkup);
 
     initClickableCardLinks();
   } catch {

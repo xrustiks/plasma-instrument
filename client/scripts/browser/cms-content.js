@@ -325,7 +325,10 @@ function renderArticlePage(article, section) {
   }
 
   if (heroNode) {
-    if (imageUrl) {
+    // Не показываем картинку превью для раздела услуг
+    const showHeroImage = imageUrl && section !== 'services';
+    
+    if (showHeroImage) {
       heroNode.innerHTML = `<img src="${imageUrl}" alt="${title}">`;
       heroNode.classList.remove('is-empty');
     } else {

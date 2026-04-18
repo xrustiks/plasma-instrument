@@ -1,5 +1,28 @@
 import { escapeHtml, getSearchIndexPath } from './search-shared.js';
 
+function getDepth() {
+  const depth = parseInt(document.documentElement.dataset.depth || '0', 10);
+  return Number.isNaN(depth) ? 0 : Math.max(0, depth);
+}
+
+function getCmsArticlePath() {
+  const lang = (document.documentElement.lang || 'ru') === 'en' ? 'en' : 'ru';
+  const prefix = '../'.repeat(getDepth());
+  return lang === 'en' ? `${prefix}en/article.html` : `${prefix}article.html`;
+}
+
+function normalizeHitUrl(hit) {
+  const match = String(hit?.url || '').match(/^(?:en\/)?sections\/(sources|services|projects|blog)\/([^/]+)\/index\.html$/i);
+
+  if (!match) {
+    return hit.url;
+  }
+
+  const [, section, slug] = match;
+  const query = new URLSearchParams({ section, slug });
+  return `${getCmsArticlePath()}?${query.toString()}`;
+}
+
 async function loadSearchIndex() {
   const response = await fetch(getSearchIndexPath(), { cache: 'no-store' });
 
@@ -27,7 +50,7 @@ function renderGroupedHits(hits, sections, sectionTitlePrefix) {
           <div class="search-group__items">
             ${visibleHits.map((hit) => `
               <div class="search-result">
-                <a href="${hit.url}">${hit.title}</a>
+                <a href="${normalizeHitUrl(hit)}">${hit.title}</a>
               </div>
             `).join('')}
           </div>

@@ -21,8 +21,6 @@ Thumbs.db
 # Editor folders
 .idea/
 .vscode/*
-!.vscode/settings.json
-!.vscode/extensions.json
 
 # Build/cache artifacts
 coverage/

@@ -358,21 +358,43 @@ async function initCmsArticlePage() {
 
   const articleId = getQueryParam('id');
   const section = getQueryParam('section') || 'blog';
-
-  if (!articleId) {
-    renderArticleError();
-    return;
-  }
+  const slug = getQueryParam('slug');
 
   try {
-    const response = await fetch(`${API_BASE}/articles/${encodeURIComponent(articleId)}`);
-    if (!response.ok) {
-      renderArticleError();
+    if (articleId) {
+      const response = await fetch(`${API_BASE}/articles/${encodeURIComponent(articleId)}`);
+      if (!response.ok) {
+        renderArticleError();
+        return;
+      }
+
+      const article = await response.json();
+      renderArticlePage(article, section);
       return;
     }
 
-    const article = await response.json();
-    renderArticlePage(article, section);
+    if (slug && section) {
+      const response = await fetch(`${API_BASE}/articles?section=${encodeURIComponent(section)}`);
+      if (!response.ok) {
+        renderArticleError();
+        return;
+      }
+
+      const articles = await response.json();
+      const article = Array.isArray(articles)
+        ? articles.find((item) => item.slug === slug)
+        : null;
+
+      if (!article) {
+        renderArticleError();
+        return;
+      }
+
+      renderArticlePage(article, section);
+      return;
+    }
+
+    renderArticleError();
   } catch {
     renderArticleError();
   }

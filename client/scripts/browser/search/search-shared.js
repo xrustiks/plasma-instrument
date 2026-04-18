@@ -10,7 +10,8 @@ export function getSearchPagePath() {
   const safeDepth = Number.isNaN(depth) ? 0 : Math.max(0, depth);
 
   if (lang === 'en') {
-    return '../'.repeat(Math.max(0, safeDepth - 1)) + 'search.html';
+    // Always resolve to /en/search.html regardless of nesting depth.
+    return '../'.repeat(safeDepth) + 'en/search.html';
   }
 
   return '../'.repeat(safeDepth) + 'search.html';

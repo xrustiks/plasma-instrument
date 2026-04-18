@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Админ-панель | Plasma Instrument</title>
+  <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -247,8 +248,7 @@
     }
 
     .form-group input,
-    .form-group select,
-    .form-group textarea {
+    .form-group select {
       width: 100%;
       padding: 10px;
       border: 1px solid #ddd;
@@ -257,14 +257,30 @@
       font-size: 14px;
     }
 
-    .form-group textarea {
-      min-height: 150px;
-      resize: vertical;
+    .editor-container {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .editor-container .ql-toolbar {
+      border: none;
+      border-bottom: 1px solid #eee;
+    }
+
+    .editor-container .ql-container {
+      border: none;
+      font-size: 14px;
+      min-height: 180px;
+    }
+
+    .editor-container .ql-editor {
+      min-height: 180px;
     }
 
     .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
+    .form-group select:focus {
       outline: none;
       border-color: #667eea;
       box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
@@ -383,13 +399,13 @@
         </div>
 
         <div class="form-group">
-          <label for="form-content-ru">Контент (Русский) — HTML</label>
-          <textarea id="form-content-ru" placeholder="<p>Введите HTML контент...</p>" required></textarea>
+          <label for="form-content-ru">Контент (Русский)</label>
+          <div id="form-content-ru" class="editor-container"></div>
         </div>
 
         <div class="form-group">
-          <label for="form-content-en">Контент (English) — HTML</label>
-          <textarea id="form-content-en" placeholder="<p>Enter HTML content...</p>" required></textarea>
+          <label for="form-content-en">Контент (English)</label>
+          <div id="form-content-en" class="editor-container"></div>
         </div>
 
         <div class="modal-buttons">
@@ -400,9 +416,99 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.min.js"></script>
   <script>
     const API_URL = 'http://localhost:3000/api';
     let selectedSection = null;
+    let quillRu;
+    let quillEn;
+    let editingArticleId = null;
+
+    function imageUploadHandler(quillInstance) {
+      const input = document.createElement('input');
+      input.setAttribute('type', 'file');
+      input.setAttribute('accept', 'image/*');
+      input.click();
+
+      input.onchange = async () => {
+        const file = input.files[0];
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append('image', file);
+
+        try {
+          const response = await fetch(`${API_URL}/upload/image`, {
+            method: 'POST',
+            body: formData
+          });
+
+          const result = await response.json();
+
+          if (!response.ok || !result.success) {
+            throw new Error(result.error || 'Upload failed');
+          }
+
+          const range = quillInstance.getSelection();
+          quillInstance.insertEmbed(range.index, 'image', `http://localhost:3000${result.data.url}`);
+          quillInstance.setSelection(range.index + 1);
+        } catch (error) {
+          console.error('Image upload error:', error);
+          showNotification('Ошибка загрузки изображения: ' + error.message, 'error');
+        }
+      };
+    }
+
+    function initQuillEditors() {
+      const toolbarOptions = [
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ 'header': [1, 2, 3, false] }],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        [{ 'indent': '-1' }, { 'indent': '+1' }],
+        [{ 'align': [] }],
+        ['link', 'image'],
+        ['clean']
+      ];
+
+      const modules = {
+        toolbar: {
+          container: toolbarOptions,
+          handlers: {
+            'image': function() {
+              imageUploadHandler(quillRu);
+            }
+          }
+        }
+      };
+
+      const modulesEn = {
+        toolbar: {
+          container: toolbarOptions,
+          handlers: {
+            'image': function() {
+              imageUploadHandler(quillEn);
+            }
+          }
+        }
+      };
+
+      quillRu = new Quill('#form-content-ru', {
+        theme: 'snow',
+        modules: modules,
+        placeholder: 'Введите контент на русском...'
+      });
+
+      quillEn = new Quill('#form-content-en', {
+        theme: 'snow',
+        modules: modulesEn,
+        placeholder: 'Enter content in English...'
+      });
+    }
+
+    function getEditorHtml(editor) {
+      const text = editor.getText().trim();
+      return text ? editor.root.innerHTML : '';
+    }
 
     // Load sections into sidebar and form
     async function loadSections() {
@@ -510,7 +616,7 @@
             <tbody>
               ${articles.map(article => `
                 <tr>
-                  <td>${article.titleRu}</td>
+                  <td style="cursor: pointer; color: #667eea;" onclick="loadArticleForEdit(${article.id})">${article.titleRu}</td>
                   <td>${article.date}</td>
                   <td><button class="btn-delete" onclick="deleteArticle(${article.id})">Удалить</button></td>
                 </tr>
@@ -521,6 +627,76 @@
       `;
 
       content.innerHTML = html;
+    }
+
+    // Load article for viewing/editing
+    async function loadArticleForEdit(articleId) {
+      try {
+        const response = await fetch(`${API_URL}/articles/${articleId}`);
+        if (!response.ok) throw new Error('Failed to load article');
+        
+        const article = await response.json();
+        
+        editingArticleId = article.id;
+        document.getElementById('modal-title').textContent = 'Редактировать статью';
+        document.getElementById('form-section').value = article.section;
+        document.getElementById('form-section').disabled = true;
+        document.getElementById('form-slug').value = article.slug;
+        document.getElementById('form-slug').disabled = true;
+        document.getElementById('form-title-ru').value = article.titleRu;
+        document.getElementById('form-title-en').value = article.titleEn;
+        document.getElementById('form-date').value = article.date;
+        
+        quillRu.root.innerHTML = article.contentRu;
+        quillEn.root.innerHTML = article.contentEn;
+        
+        document.getElementById('modal').classList.add('active');
+      } catch (error) {
+        console.error('Ошибка при загрузке статьи:', error);
+        showNotification('Ошибка при загрузке статьи', 'error');
+      }
+    }
+
+    // Load article for viewing/editing
+    async function loadArticleForEdit(articleId) {
+      try {
+        const response = await fetch(`${API_URL}/articles/${articleId}`);
+        if (!response.ok) throw new Error('Failed to load article');
+        
+        const article = await response.json();
+        
+        editingArticleId = article.id;
+        document.getElementById('modal-title').textContent = 'Редактировать статью';
+        document.getElementById('form-section').value = article.section;
+        document.getElementById('form-section').disabled = true;
+        document.getElementById('form-slug').value = article.slug;
+        document.getElementById('form-slug').disabled = true;
+        document.getElementById('form-title-ru').value = article.titleRu;
+        document.getElementById('form-title-en').value = article.titleEn;
+        document.getElementById('form-date').value = article.date;
+        
+        quillRu.root.innerHTML = article.contentRu;
+        quillEn.root.innerHTML = article.contentEn;
+        
+        document.getElementById('modal').classList.add('active');
+      } catch (error) {
+        console.error('Ошибка при загрузке статьи:', error);
+        showNotification('Ошибка при загрузке статьи', 'error');
+      }
+    }
+
+    // Open modal for new article
+    function openAddArticleModal() {
+      editingArticleId = null;
+      document.getElementById('modal-title').textContent = 'Добавить статью';
+      document.getElementById('form-section').disabled = false;
+      document.getElementById('form-slug').disabled = false;
+      document.getElementById('article-form').reset();
+      document.getElementById('form-section').value = selectedSection;
+      document.getElementById('form-date').valueAsDate = new Date();
+      quillRu.setContents([]);
+      quillEn.setContents([]);
+      document.getElementById('modal').classList.add('active');
     }
 
     // Delete article
@@ -542,21 +718,15 @@
       }
     }
 
-    // Open modal
-    document.getElementById('add-article-btn').onclick = () => {
-      document.getElementById('modal-title').textContent = 'Добавить статью';
-      document.getElementById('form-section').value = selectedSection;
-      document.getElementById('article-form').reset();
-      document.getElementById('form-date').valueAsDate = new Date();
-      document.getElementById('modal').classList.add('active');
-    };
-
     // Close modal
     function closeModal() {
       document.getElementById('modal').classList.remove('active');
     }
 
-    // Handle form submission
+    // Open modal for adding new article
+    document.getElementById('add-article-btn').onclick = openAddArticleModal;
+
+    // Handle form submission (create or update)
     document.getElementById('article-form').onsubmit = async (e) => {
       e.preventDefault();
 
@@ -565,14 +735,22 @@
         slug: document.getElementById('form-slug').value,
         titleRu: document.getElementById('form-title-ru').value,
         titleEn: document.getElementById('form-title-en').value,
-        contentRu: document.getElementById('form-content-ru').value,
-        contentEn: document.getElementById('form-content-en').value,
+        contentRu: getEditorHtml(quillRu),
+        contentEn: getEditorHtml(quillEn),
         date: document.getElementById('form-date').value
       };
 
+      if (!article.contentRu || !article.contentEn) {
+        showNotification('Заполните оба поля контента через редактор Quill', 'error');
+        return;
+      }
+
       try {
-        const response = await fetch(`${API_URL}/articles`, {
-          method: 'POST',
+        const url = editingArticleId ? `${API_URL}/articles/${editingArticleId}` : `${API_URL}/articles`;
+        const method = editingArticleId ? 'PUT' : 'POST';
+        
+        const response = await fetch(url, {
+          method: method,
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(article)
         });
@@ -582,7 +760,8 @@
           throw new Error(error.error);
         }
 
-        showNotification('Статья добавлена', 'success');
+        const message = editingArticleId ? 'Статья обновлена' : 'Статья добавлена';
+        showNotification(message, 'success');
         closeModal();
         if (selectedSection) loadArticles(selectedSection);
       } catch (error) {
@@ -604,6 +783,7 @@
     }
 
     // Initialize
+    initQuillEditors();
     loadSections();
   </script>
 </body>

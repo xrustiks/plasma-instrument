@@ -93,18 +93,6 @@ function makeExcerpt(article, lang, limit = 170) {
   return `${source.slice(0, limit).trim()}...`;
 }
 
-function getDefaultImage(section) {
-  const base = getRootPrefix();
-  const defaults = {
-    blog: `${base}images/cards/blog/shpindel.jpg`,
-    services: `${base}images/cards/services/service-export-icon.png`,
-    projects: `${base}images/cards/projects/pro1.jpg`,
-    sources: `${base}images/cards/sources/ionnoluchevye-istochniki.jpg`
-  };
-
-  return defaults[section] || '';
-}
-
 function getGridForSection(section) {
   if (section === 'blog') {
     return document.querySelector('.cards-grid');
@@ -124,15 +112,23 @@ function getGridForSection(section) {
 function buildCardMarkupForSection(article, section, lang) {
   const title = pickTitle(article, lang);
   const articleUrl = buildArticleUrl(article.id, section);
-  const imageUrl = normalizeImageUrl(article.cardImage) || getDefaultImage(section);
+  const imageUrl = normalizeImageUrl(article.cardImage);
   const excerpt = makeExcerpt(article, lang);
   const date = formatDate(article.date, lang);
+
+  const blogMedia = imageUrl
+    ? `<img src="${imageUrl}" alt="${title}">`
+    : '<div class="cms-card-placeholder cms-card-placeholder--wide" aria-hidden="true"></div>';
+
+  const iconMedia = imageUrl
+    ? `<img src="${imageUrl}" alt="${title}">`
+    : '<div class="cms-card-placeholder" aria-hidden="true"></div>';
 
   if (section === 'services') {
     return `
       <article class="svc-card" data-href="${articleUrl}" role="link" tabindex="0" data-cms-card="1" data-cms-id="${article.id}">
         <div class="svc-card__img-wrap">
-          <img class="svc-card__img" src="${imageUrl}" alt="${title}">
+          ${iconMedia}
         </div>
         <a class="svc-card__title" href="${articleUrl}">${title}</a>
         <p class="svc-card__desc">${excerpt}</p>
@@ -143,7 +139,7 @@ function buildCardMarkupForSection(article, section, lang) {
   if (section === 'projects') {
     return `
       <article class="topic-card" data-href="${articleUrl}" role="link" tabindex="0" data-cms-card="1" data-cms-id="${article.id}">
-        <span class="topic-card__icon" aria-hidden="true"><img src="${imageUrl}" alt="${title}"></span>
+        <span class="topic-card__icon" aria-hidden="true">${iconMedia}</span>
         <h3 class="topic-card__title"><a href="${articleUrl}">${title}</a></h3>
       </article>
     `;
@@ -152,7 +148,7 @@ function buildCardMarkupForSection(article, section, lang) {
   if (section === 'sources') {
     return `
       <article class="topic-card" data-href="${articleUrl}" role="link" tabindex="0" data-cms-card="1" data-cms-id="${article.id}">
-        <span class="topic-card__icon" aria-hidden="true"><img src="${imageUrl}" alt="${title}"></span>
+        <span class="topic-card__icon" aria-hidden="true">${iconMedia}</span>
         <h3 class="topic-card__title"><a href="${articleUrl}">${title}</a></h3>
         <p class="topic-card__desc">${excerpt}</p>
       </article>
@@ -161,7 +157,7 @@ function buildCardMarkupForSection(article, section, lang) {
 
   return `
     <article class="card blog-card" data-href="${articleUrl}" role="link" tabindex="0" data-cms-card="1" data-cms-id="${article.id}">
-      <div class="blog-card__thumb"><img src="${imageUrl}" alt="${title}"></div>
+      <div class="blog-card__thumb">${blogMedia}</div>
       <h3><a href="${articleUrl}">${title}</a></h3>
       <p>${date}</p>
     </article>

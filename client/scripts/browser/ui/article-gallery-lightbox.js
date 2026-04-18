@@ -1,9 +1,23 @@
-// Initializes article gallery
-export function initArticleGalleryLightbox() {
-  const galleries = document.querySelectorAll('.article-gallery');
+let lightboxState = null;
 
-  if (!galleries.length) {
-    return;
+function collectGalleryGroups() {
+  const galleryGroups = [...document.querySelectorAll('.article-gallery')]
+    .map((gallery) => [...gallery.querySelectorAll('a[href]')].filter((link) => link.querySelector('img')))
+    .filter((links) => links.length > 0);
+
+  const inlineGroups = [...document.querySelectorAll('.article-content')]
+    .map((articleContent) => {
+      const links = [...articleContent.querySelectorAll('a.article-inline-image-link[href]')];
+      return links.filter((link) => !link.closest('.article-gallery') && link.querySelector('img'));
+    })
+    .filter((links) => links.length > 0);
+
+  return [...galleryGroups, ...inlineGroups];
+}
+
+function ensureLightboxState() {
+  if (lightboxState) {
+    return lightboxState;
   }
 
   const isEn = document.documentElement.lang === 'en';
@@ -53,17 +67,6 @@ export function initArticleGalleryLightbox() {
     modalImage.src = '';
   };
 
-  galleries.forEach((gallery) => {
-    const links = [...gallery.querySelectorAll('a[href]')];
-
-    links.forEach((link, index) => {
-      link.addEventListener('click', (event) => {
-        event.preventDefault();
-        open(links, index);
-      });
-    });
-  });
-
   closeButton.addEventListener('click', close);
   previousButton.addEventListener('click', () => setImage(currentIndex - 1));
   nextButton.addEventListener('click', () => setImage(currentIndex + 1));
@@ -88,5 +91,33 @@ export function initArticleGalleryLightbox() {
     if (event.key === 'ArrowRight') {
       setImage(currentIndex + 1);
     }
+  });
+
+  lightboxState = { open };
+  return lightboxState;
+}
+
+// Initializes article gallery
+export function initArticleGalleryLightbox() {
+  const groups = collectGalleryGroups();
+
+  if (!groups.length) {
+    return;
+  }
+
+  const { open } = ensureLightboxState();
+
+  groups.forEach((links) => {
+    links.forEach((link, index) => {
+      if (link.dataset.lightboxBound === '1') {
+        return;
+      }
+
+      link.dataset.lightboxBound = '1';
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        open(links, index);
+      });
+    });
   });
 }

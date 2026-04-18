@@ -1,4 +1,6 @@
 import { initClickableCardLinks } from './ui/clickable-card-links.js';
+import { initArticleContentLayout } from './ui/article-content-layout.js';
+import { initArticleGalleryLightbox } from './ui/article-gallery-lightbox.js';
 
 const API_BASE = 'http://localhost:3000/api';
 
@@ -228,7 +230,12 @@ function renderArticlePage(article, section) {
 
   if (titleNode) titleNode.textContent = title;
   if (dateNode) dateNode.textContent = formatDate(article.date, lang);
-  if (contentNode) contentNode.innerHTML = content;
+  if (contentNode) {
+    contentNode.classList.add('article-content');
+    contentNode.innerHTML = content;
+    initArticleContentLayout();
+    initArticleGalleryLightbox();
+  }
 
   const sectionLabelMap = {
     ru: {

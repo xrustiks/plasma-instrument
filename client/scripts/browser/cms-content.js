@@ -288,7 +288,8 @@ function renderArticlePage(article, section) {
   const heroNode = document.querySelector('[data-cms-article-hero]');
 
   if (titleNode) titleNode.textContent = title;
-  if (dateNode) dateNode.textContent = formatDate(article.date, lang);
+  // Показываем дату только для статей блога
+  if (dateNode) dateNode.textContent = section === 'blog' ? formatDate(article.date, lang) : '';
   if (contentNode) {
     contentNode.classList.add('article-content');
     contentNode.innerHTML = content;
@@ -321,7 +322,7 @@ function renderArticlePage(article, section) {
   }
 
   if (backNode) {
-    backNode.setAttribute('href', sectionLink);
+    backNode.style.display = 'none';
   }
 
   if (heroNode) {

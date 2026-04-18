@@ -2282,6 +2282,25 @@ body.nav-overlay-open .nav.open .nav-close {
     );
 }
 
+.cms-card-placeholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.55), transparent 50%),
+    repeating-linear-gradient(
+      45deg,
+      rgba(29, 79, 112, 0.12) 0,
+      rgba(29, 79, 112, 0.12) 8px,
+      rgba(255, 255, 255, 0.75) 8px,
+      rgba(255, 255, 255, 0.75) 16px
+    );
+}
+
+.cms-card-placeholder--wide {
+  border-radius: 0;
+}
+
 .cms-article {
   background: var(--panel);
   border: 1px solid var(--line);

@@ -2,7 +2,41 @@ import { initClickableCardLinks } from './ui/clickable-card-links.js';
 import { initArticleContentLayout } from './ui/article-content-layout.js';
 import { initArticleGalleryLightbox } from './ui/article-gallery-lightbox.js';
 
-const API_BASE = 'http://localhost:3000/api';
+function trimTrailingSlash(value) {
+  return String(value || '').replace(/\/+$/, '');
+}
+
+function resolveApiBase() {
+  const configured =
+    document.documentElement.dataset.apiBase ||
+    window.__API_BASE__ ||
+    '';
+
+  if (configured) {
+    return trimTrailingSlash(configured);
+  }
+
+  const { hostname, port } = window.location;
+  const isLocalHost = hostname === 'localhost' || hostname === '127.0.0.1';
+
+  // Local static dev often runs on :8000 while API stays on :3000.
+  if (isLocalHost && port && port !== '3000') {
+    return 'http://localhost:3000/api';
+  }
+
+  return '/api';
+}
+
+const API_BASE = resolveApiBase();
+
+function getApiOrigin() {
+  try {
+    return new URL(API_BASE, window.location.origin).origin;
+  } catch {
+    const origin = window.location.origin;
+    return origin && origin !== 'null' ? origin : '';
+  }
+}
 
 function getDepth() {
   const raw = document.documentElement.dataset.depth || '0';
@@ -63,8 +97,82 @@ function buildArticleUrl(articleId, section) {
 function normalizeImageUrl(imagePath) {
   if (!imagePath) return '';
   if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) return imagePath;
-  if (imagePath.startsWith('/')) return `http://localhost:3000${imagePath}`;
+  if (imagePath.startsWith('/')) {
+    const origin = getApiOrigin();
+    if (origin && origin !== 'null') {
+      return `${origin}${imagePath}`;
+    }
+  }
   return imagePath;
+}
+
+function normalizeUrlToApiOrigin(value) {
+  if (!value) return value;
+  if (value.startsWith('http://') || value.startsWith('https://') || value.startsWith('data:')) {
+    return value;
+  }
+
+  if (value.startsWith('/')) {
+    const origin = getApiOrigin();
+    if (origin && origin !== 'null') {
+      return `${origin}${value}`;
+    }
+  }
+
+  return value;
+}
+
+function normalizeSrcSetToApiOrigin(srcset) {
+  if (!srcset) return srcset;
+
+  return srcset
+    .split(',')
+    .map((entry) => {
+      const trimmed = entry.trim();
+      if (!trimmed) return trimmed;
+
+      const [url, descriptor] = trimmed.split(/\s+/, 2);
+      const normalizedUrl = normalizeUrlToApiOrigin(url);
+      return descriptor ? `${normalizedUrl} ${descriptor}` : normalizedUrl;
+    })
+    .join(', ');
+}
+
+function normalizeCmsContentHtml(html) {
+  if (!html) return '';
+
+  const template = document.createElement('template');
+  template.innerHTML = html;
+
+  template.content.querySelectorAll('[src]').forEach((node) => {
+    const src = node.getAttribute('src');
+    if (src) {
+      node.setAttribute('src', normalizeUrlToApiOrigin(src));
+    }
+  });
+
+  template.content.querySelectorAll('[href]').forEach((node) => {
+    const href = node.getAttribute('href');
+    if (href) {
+      node.setAttribute('href', normalizeUrlToApiOrigin(href));
+    }
+  });
+
+  template.content.querySelectorAll('[poster]').forEach((node) => {
+    const poster = node.getAttribute('poster');
+    if (poster) {
+      node.setAttribute('poster', normalizeUrlToApiOrigin(poster));
+    }
+  });
+
+  template.content.querySelectorAll('[srcset]').forEach((node) => {
+    const srcset = node.getAttribute('srcset');
+    if (srcset) {
+      node.setAttribute('srcset', normalizeSrcSetToApiOrigin(srcset));
+    }
+  });
+
+  return template.innerHTML;
 }
 
 function pickTitle(article, lang) {
@@ -292,7 +400,7 @@ function renderArticlePage(article, section) {
   if (dateNode) dateNode.textContent = section === 'blog' ? formatDate(article.date, lang) : '';
   if (contentNode) {
     contentNode.classList.add('article-content');
-    contentNode.innerHTML = content;
+    contentNode.innerHTML = normalizeCmsContentHtml(content);
     moveCmsImagesToGallery(contentNode, lang);
     initArticleContentLayout();
     initArticleGalleryLightbox();

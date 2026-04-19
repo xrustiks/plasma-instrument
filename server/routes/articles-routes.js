@@ -2,7 +2,8 @@ import { Router } from 'express';
 import {
   getNextArticleId,
   readArticles,
-  saveArticles
+  saveArticles,
+  withArticlesLock
 } from '../storage/articles-store.js';
 import { scheduleSearchIndexRebuild } from '../services/search-index-sync.js';
 
@@ -51,30 +52,45 @@ router.post('/', async (req, res) => {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    const articles = await readArticles();
-    const exists = articles.some((article) => article.section === section && article.slug === slug);
+    const result = await withArticlesLock(async () => {
+      const articles = await readArticles();
+      const exists = articles.some((article) => article.section === section && article.slug === slug);
 
-    if (exists) {
-      return res.status(400).json({ error: 'Slug already exists in this section' });
+      if (exists) {
+        return {
+          status: 400,
+          payload: { error: 'Slug already exists in this section' },
+          changed: false
+        };
+      }
+
+      const newArticle = {
+        id: getNextArticleId(articles),
+        section,
+        slug,
+        titleRu,
+        titleEn,
+        contentRu,
+        contentEn,
+        cardImage: cardImage || '',
+        date
+      };
+
+      articles.push(newArticle);
+      await saveArticles(articles);
+
+      return {
+        status: 201,
+        payload: newArticle,
+        changed: true
+      };
+    });
+
+    if (result.changed) {
+      scheduleSearchIndexRebuild();
     }
 
-    const newArticle = {
-      id: getNextArticleId(articles),
-      section,
-      slug,
-      titleRu,
-      titleEn,
-      contentRu,
-      contentEn,
-      cardImage: cardImage || '',
-      date
-    };
-
-    articles.push(newArticle);
-    await saveArticles(articles);
-    scheduleSearchIndexRebuild();
-
-    return res.status(201).json(newArticle);
+    return res.status(result.status).json(result.payload);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -84,18 +100,33 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     const articleId = Number.parseInt(req.params.id, 10);
-    const articles = await readArticles();
-    const index = articles.findIndex((article) => article.id === articleId);
+    const result = await withArticlesLock(async () => {
+      const articles = await readArticles();
+      const index = articles.findIndex((article) => article.id === articleId);
 
-    if (index === -1) {
-      return res.status(404).json({ error: 'Article not found' });
+      if (index === -1) {
+        return {
+          status: 404,
+          payload: { error: 'Article not found' },
+          changed: false
+        };
+      }
+
+      articles[index] = { ...articles[index], ...req.body };
+      await saveArticles(articles);
+
+      return {
+        status: 200,
+        payload: articles[index],
+        changed: true
+      };
+    });
+
+    if (result.changed) {
+      scheduleSearchIndexRebuild();
     }
 
-    articles[index] = { ...articles[index], ...req.body };
-    await saveArticles(articles);
-    scheduleSearchIndexRebuild();
-
-    return res.json(articles[index]);
+    return res.status(result.status).json(result.payload);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -105,18 +136,33 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const articleId = Number.parseInt(req.params.id, 10);
-    const articles = await readArticles();
-    const index = articles.findIndex((article) => article.id === articleId);
+    const result = await withArticlesLock(async () => {
+      const articles = await readArticles();
+      const index = articles.findIndex((article) => article.id === articleId);
 
-    if (index === -1) {
-      return res.status(404).json({ error: 'Article not found' });
+      if (index === -1) {
+        return {
+          status: 404,
+          payload: { error: 'Article not found' },
+          changed: false
+        };
+      }
+
+      const [deletedArticle] = articles.splice(index, 1);
+      await saveArticles(articles);
+
+      return {
+        status: 200,
+        payload: deletedArticle,
+        changed: true
+      };
+    });
+
+    if (result.changed) {
+      scheduleSearchIndexRebuild();
     }
 
-    const [deletedArticle] = articles.splice(index, 1);
-    await saveArticles(articles);
-    scheduleSearchIndexRebuild();
-
-    return res.json(deletedArticle);
+    return res.status(result.status).json(result.payload);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

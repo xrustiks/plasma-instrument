@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Вход в админку</title>
+  <link rel="stylesheet" href="./login.css" />
+</head>
+<body>
+  <main class="card">
+    <h1>Вход в админ-панель</h1>
+    <p>Введите логин и пароль администратора.</p>
+
+    <div id="error" class="error">Неверный логин или пароль.</div>
+
+    <form method="post" action="/admin/login">
+      <input type="hidden" name="next" id="nextField" value="/admin/" />
+
+      <label for="username">Логин</label>
+      <input id="username" name="username" type="text" autocomplete="username" required />
+
+      <label for="password">Пароль</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required />
+
+      <button type="submit">Войти</button>
+    </form>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const next = params.get('next');
+
+    if (next && next.startsWith('/admin/')) {
+      document.getElementById('nextField').value = next;
+    }
+
+    if (params.get('error') === '1') {
+      document.getElementById('error').style.display = 'block';
+    }
+  </script>
+</body>
+</html>

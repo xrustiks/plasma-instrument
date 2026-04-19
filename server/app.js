@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import cors from 'cors';
 import express from 'express';
 import path from 'path';
@@ -5,6 +6,14 @@ import { fileURLToPath } from 'url';
 import { API_PREFIX, CORS_ALLOWED_ORIGINS, PORT } from './config/constants.js';
 import apiRoutes from './routes/router.js';
 import { readArticles } from './storage/articles-store.js';
+import {
+	requireAdminAuth,
+	requireAdminPageAuth,
+	setAdminSessionCookie,
+	clearAdminSessionCookie,
+	isAdminAuthConfigured,
+	isValidAdminCredentials
+} from './middleware/admin-basic-auth.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -40,9 +49,39 @@ app.use(cors({
 	allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+const adminRoot = path.join(clientRoot, 'admin');
 
 // Serve uploaded files statically
 app.use('/uploads', express.static(path.join(__dirname, 'storage', 'uploads')));
+
+app.get('/admin/login', (req, res) => {
+	return res.redirect('/admin/login.html');
+});
+
+app.post('/admin/login', (req, res) => {
+	if (!isAdminAuthConfigured()) {
+		return res.status(503).send('Admin authentication is not configured on the server');
+	}
+
+	const { username = '', password = '', next = '/admin/' } = req.body;
+	if (!isValidAdminCredentials(username, password)) {
+		return res.redirect('/admin/login.html?error=1');
+	}
+
+	setAdminSessionCookie(res);
+	const safeNext = typeof next === 'string' && next.startsWith('/admin/') ? next : '/admin/';
+	return res.redirect(safeNext);
+});
+
+app.post('/admin/logout', (req, res) => {
+	clearAdminSessionCookie(res);
+	return res.redirect('/admin/login.html');
+});
+
+// Protect the admin UI behind form-based login and session cookie.
+app.use('/admin', requireAdminPageAuth, express.static(adminRoot));
 
 app.use(API_PREFIX, apiRoutes);
 

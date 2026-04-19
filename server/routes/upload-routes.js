@@ -3,6 +3,7 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs/promises';
 import { fileURLToPath } from 'url';
+import { requireAdminAuth } from '../middleware/admin-basic-auth.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const router = Router();
@@ -41,7 +42,7 @@ const upload = multer({
 });
 
 // Upload endpoint for Quill
-router.post('/image', upload.single('image'), (req, res) => {
+router.post('/image', requireAdminAuth, upload.single('image'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: 'No file uploaded' });
   }

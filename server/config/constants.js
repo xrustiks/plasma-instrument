@@ -38,3 +38,9 @@ export const SECTIONS = [
   { id: 'projects', labelRu: 'Проекты', labelEn: 'Projects' },
   { id: 'blog', labelRu: 'Блог', labelEn: 'Blog' }
 ];
+
+// Basic auth credentials for protecting the admin panel and write endpoints.
+// Must be provided via environment variables; no insecure defaults are allowed.
+export const ADMIN_BASIC_AUTH_USERNAME = String(process.env.ADMIN_BASIC_AUTH_USERNAME || '').trim();
+export const ADMIN_BASIC_AUTH_PASSWORD = String(process.env.ADMIN_BASIC_AUTH_PASSWORD || '').trim();
+export const ADMIN_BASIC_AUTH_REALM = 'Plasma Instrument Admin';

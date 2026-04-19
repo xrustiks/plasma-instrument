@@ -1,4 +1,9 @@
-export const PORT = 3000;
+const DEFAULT_PORT = 3000;
+const parsedPort = Number.parseInt(process.env.PORT || '', 10);
+
+export const PORT = Number.isInteger(parsedPort) && parsedPort > 0
+  ? parsedPort
+  : DEFAULT_PORT;
 export const API_PREFIX = '/api';
 
 export const SECTIONS = [

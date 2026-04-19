@@ -1,33 +1,11 @@
 import { initClickableCardLinks } from './ui/clickable-card-links.js';
 import { initArticleContentLayout } from './ui/article-content-layout.js';
 import { initArticleGalleryLightbox } from './ui/article-gallery-lightbox.js';
+import './api-base-config.js';
 
-function trimTrailingSlash(value) {
-  return String(value || '').replace(/\/+$/, '');
-}
-
-function resolveApiBase() {
-  const configured =
-    document.documentElement.dataset.apiBase ||
-    window.__API_BASE__ ||
-    '';
-
-  if (configured) {
-    return trimTrailingSlash(configured);
-  }
-
-  const { hostname, port } = window.location;
-  const isLocalHost = hostname === 'localhost' || hostname === '127.0.0.1';
-
-  // Local static dev often runs on :8000 while API stays on :3000.
-  if (isLocalHost && port && port !== '3000') {
-    return 'http://localhost:3000/api';
-  }
-
-  return '/api';
-}
-
-const API_BASE = resolveApiBase();
+const API_BASE = typeof window.__resolveApiBase === 'function'
+  ? window.__resolveApiBase()
+  : '/api';
 
 function getApiOrigin() {
   try {

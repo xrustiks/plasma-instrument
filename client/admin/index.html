@@ -447,33 +447,11 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.min.js"></script>
+  <script src="../scripts/browser/api-base-config.js"></script>
   <script>
-    function trimTrailingSlash(value) {
-      return String(value || '').replace(/\/+$/, '');
-    }
-
-    function resolveApiUrl() {
-      const configured =
-        document.documentElement.dataset.apiBase ||
-        window.__API_BASE__ ||
-        '';
-
-      if (configured) {
-        return trimTrailingSlash(configured);
-      }
-
-      const { hostname, port } = window.location;
-      const isLocalHost = hostname === 'localhost' || hostname === '127.0.0.1';
-
-      // Allow local frontend/admin from :8000 to call API on :3000.
-      if (isLocalHost && port && port !== '3000') {
-        return 'http://localhost:3000/api';
-      }
-
-      return '/api';
-    }
-
-    const API_URL = resolveApiUrl();
+    const API_URL = typeof window.__resolveApiBase === 'function'
+      ? window.__resolveApiBase()
+      : '/api';
 
     function getApiOrigin() {
       try {

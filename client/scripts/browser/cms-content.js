@@ -3,10 +3,15 @@ import { initArticleContentLayout } from './ui/article-content-layout.js';
 import { initArticleGalleryLightbox } from './ui/article-gallery-lightbox.js';
 import './api-base-config.js';
 
+// Этот модуль отвечает за интеграцию с CMS для загрузки и отображения контента статей, 
+// а также за миграцию старых статических страниц разделов на динамические страницы, 
+// использующие данные из CMS
 const API_BASE = typeof window.__resolveApiBase === 'function'
   ? window.__resolveApiBase()
   : '/api';
 
+// Получает базовый URL API, учитывая возможные конфигурации и 
+// обеспечивая корректное формирование абсолютных URL для ресурсов
 function getApiOrigin() {
   try {
     return new URL(API_BASE, window.location.origin).origin;
@@ -16,6 +21,7 @@ function getApiOrigin() {
   }
 }
 
+// Получает глубину вложенности текущей страницы относительно корневой директории сайта
 function getDepth() {
   const raw = document.documentElement.dataset.depth || '0';
   const value = Number.parseInt(raw, 10);
@@ -26,6 +32,7 @@ function getRootPrefix() {
   return '../'.repeat(getDepth());
 }
 
+// Определяет язык страницы на основе атрибута lang в элементе <html>.
 function getLanguage() {
   return document.documentElement.lang === 'en' ? 'en' : 'ru';
 }
@@ -42,14 +49,19 @@ function getSectionFromPath() {
   return match ? match[1] : '';
 }
 
+// Определяет, находится ли пользователь на странице раздела 
+// (источники, услуги, проекты, блог)
 function isSectionIndexPage() {
   return Boolean(getSectionFromPath());
 }
 
+// Определяет, находится ли пользователь на странице статьи CMS,
+// которая содержит атрибут data-cms-article
 function isCmsArticlePage() {
   return Boolean(document.querySelector('[data-cms-article]'));
 }
 
+// Форматирует строку даты в человекочитаемый формат, используя Intl.DateTimeFormat для локализации
 function formatDate(dateString, lang) {
   if (!dateString) return '';
   const date = new Date(dateString);
@@ -62,6 +74,8 @@ function formatDate(dateString, lang) {
   }).format(date);
 }
 
+// Строит URL для статьи на основе ее ID и раздела, 
+// учитывая язык страницы для правильного формирования пути
 function buildArticleUrl(articleId, section) {
   const base = getRootPrefix();
   const lang = getLanguage();
@@ -72,6 +86,8 @@ function buildArticleUrl(articleId, section) {
   return `${base}article.html?id=${encodeURIComponent(articleId)}&section=${encodeURIComponent(section)}`;
 }
 
+// Нормализует URL изображения, обеспечивая корректное формирование абсолютного URL для ресурсов,
+// особенно для изображений, предоставляемых CMS, которые могут быть указаны как относительные пути
 function normalizeImageUrl(imagePath) {
   if (!imagePath) return '';
   if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) return imagePath;
@@ -84,6 +100,8 @@ function normalizeImageUrl(imagePath) {
   return imagePath;
 }
 
+// Нормализует URL, обеспечивая корректное формирование абсолютного URL для ресурсов, 
+// особенно для ссылок и других атрибутов, предоставляемых CMS, которые могут быть указаны как относительные пути
 function normalizeUrlToApiOrigin(value) {
   if (!value) return value;
   if (value.startsWith('http://') || value.startsWith('https://') || value.startsWith('data:')) {
@@ -100,6 +118,8 @@ function normalizeUrlToApiOrigin(value) {
   return value;
 }
 
+// Нормализует атрибут srcset, обеспечивая корректное формирование абсолютных URL для ресурсов, 
+// особенно для изображений, предоставляемых CMS, которые могут быть указаны как относительные пути
 function normalizeSrcSetToApiOrigin(srcset) {
   if (!srcset) return srcset;
 
@@ -116,6 +136,9 @@ function normalizeSrcSetToApiOrigin(srcset) {
     .join(', ');
 }
 
+// Нормализует HTML-контент статьи, обеспечивая корректное формирование абсолютных URL для 
+// всех ресурсов внутри контента, 
+// таких как изображения, ссылки, видео и другие медиа, которые могут быть предоставлены CMS как относительные пути
 function normalizeCmsContentHtml(html) {
   if (!html) return '';
 
@@ -153,6 +176,7 @@ function normalizeCmsContentHtml(html) {
   return template.innerHTML;
 }
 
+// Выбирает заголовок статьи на основе языка страницы, обеспечивая корректное отображение заголовков для многоязычных статей
 function pickTitle(article, lang) {
   if (lang === 'en') {
     return article.titleEn || article.titleRu || '';
@@ -169,11 +193,13 @@ function pickContent(article, lang) {
   return article.contentRu || article.contentEn || '';
 }
 
+// Удаляет все HTML-теги из строки и нормализует пробельные символы, обеспечивая чистый текст для создания анонсов статей и других текстовых фрагментов
 function stripHtml(html) {
   if (!html) return '';
   return html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
+// Создает анонс статьи, удаляя HTML-теги и ограничивая длину текста, обеспечивая краткое описание статьи для отображения в карточках и списках статей
 function makeExcerpt(article, lang, limit = 170) {
   const source = stripHtml(pickContent(article, lang));
   if (!source) {
@@ -187,6 +213,7 @@ function makeExcerpt(article, lang, limit = 170) {
   return `${source.slice(0, limit).trim()}...`;
 }
 
+// Получает контейнер сетки для карточек в зависимости от раздела, обеспечивая правильное размещение карточек статей в соответствующих разделах сайта
 function getGridForSection(section) {
   if (section === 'blog') {
     return document.querySelector('.cards-grid');
@@ -203,6 +230,7 @@ function getGridForSection(section) {
   return null;
 }
 
+// Строит HTML-разметку карточки статьи для заданного раздела, обеспечивая единообразное отображение статей в различных разделах сайта с учетом специфики каждого раздела
 function buildCardMarkupForSection(article, section, lang) {
   const title = pickTitle(article, lang);
   const articleUrl = buildArticleUrl(article.id, section);
@@ -258,6 +286,7 @@ function buildCardMarkupForSection(article, section, lang) {
   `;
 }
 
+// Инициализирует карточки статей на странице раздела, загружая данные из CMS и динамически создавая карточки статей, обеспечивая актуальный контент на страницах разделов и плавную миграцию со статических страниц на динамические
 async function initSectionCardsFromCms() {
   if (!isSectionIndexPage()) return;
 
@@ -291,11 +320,13 @@ async function initSectionCardsFromCms() {
   }
 }
 
+// Получает значение параметра из строки запроса URL
 function getQueryParam(name) {
   const params = new URLSearchParams(window.location.search);
   return params.get(name);
 }
 
+// Получает ссылку на страницу раздела для хлебных крошек
 function getSectionLink(section, lang) {
   const base = getRootPrefix();
   if (!section) return lang === 'en' ? `${base}en/` : `${base}`;
@@ -307,6 +338,7 @@ function getSectionLink(section, lang) {
   return `${base}sections/${section}/`;
 }
 
+// Перемещает изображения из контента статьи в отдельную галерею
 function moveCmsImagesToGallery(contentNode, lang) {
   if (!contentNode) return;
 
@@ -360,6 +392,7 @@ function moveCmsImagesToGallery(contentNode, lang) {
   }
 }
 
+// Рендерит страницу статьи, заполняя шаблон данными из CMS
 function renderArticlePage(article, section) {
   const lang = getLanguage();
   const title = pickTitle(article, lang);
@@ -425,6 +458,7 @@ function renderArticlePage(article, section) {
   }
 }
 
+// Рендерит сообщение об ошибке при загрузке статьи
 function renderArticleError() {
   const lang = getLanguage();
   const titleNode = document.querySelector('[data-cms-article-title]');
@@ -439,6 +473,7 @@ function renderArticleError() {
   }
 }
 
+// Инициализирует страницу статьи CMS, загружая данные из API на основе параметров URL и заполняя шаблон страницы
 async function initCmsArticlePage() {
   if (!isCmsArticlePage()) return;
 

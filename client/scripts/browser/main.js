@@ -11,7 +11,9 @@ import { initContactsModal } from './ui/contacts-modal.js';
 import { initCmsContent } from './cms-content.js';
 import { layoutReady } from './render-site-layout.js';
 
-// Initialize all UI components and features when the DOM is fully loaded
+// Инициализация всех компонентов и функциональностей сайта после того, как макет будет готов. 
+// Используем Promise.resolve для обеспечения последовательности выполнения, 
+// даже если layoutReady уже завершился
 Promise.resolve(layoutReady).finally(() => {
 	initNavigationMenu();
 	initRevealOnScroll();

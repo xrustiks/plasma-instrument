@@ -2,7 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { API_PREFIX, PORT } from './config/constants.js';
+import { API_PREFIX, CORS_ALLOWED_ORIGINS, PORT } from './config/constants.js';
 import apiRoutes from './routes/router.js';
 import { readArticles } from './storage/articles-store.js';
 
@@ -10,7 +10,35 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const clientRoot = path.resolve(__dirname, '..', 'client');
 
-app.use(cors());
+const corsAllowedOriginsSet = new Set(CORS_ALLOWED_ORIGINS);
+
+function isLoopbackOrigin(origin) {
+	try {
+		const { hostname } = new URL(origin);
+		return hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1' || hostname === '[::1]';
+	} catch {
+		return false;
+	}
+}
+
+app.use(cors({
+	origin: (origin, callback) => {
+		// Allow same-origin/non-browser requests that do not send Origin.
+		if (!origin) {
+			callback(null, true);
+			return;
+		}
+
+		if (corsAllowedOriginsSet.has(origin) || isLoopbackOrigin(origin)) {
+			callback(null, true);
+			return;
+		}
+
+		callback(null, false);
+	},
+	methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+	allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 
 // Serve uploaded files statically

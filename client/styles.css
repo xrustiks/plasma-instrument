@@ -2376,3 +2376,31 @@ body.nav-overlay-open .nav.open .nav-close {
   border: 1px solid var(--line);
   padding: 0.5rem;
 }
+
+/* ===== Lazy Loading Styles ===== */
+
+/* Стили для изображений с lazy loading */
+img[loading="lazy"] {
+  background-color: var(--panel-soft);
+}
+
+/* Анимация при загрузке изображения */
+img.lazy-loaded {
+  animation: fadeInImage 0.3s ease-in-out;
+}
+
+@keyframes fadeInImage {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Стиль для изображений с ошибкой загрузки */
+img.image-error {
+  background-color: #f5f5f5;
+  border: 1px dashed var(--line);
+  opacity: 0.6;
+}

@@ -711,7 +711,7 @@
             <tbody>
               ${articles.map(article => `
                 <tr>
-                  <td>${article.cardImage ? `<img class="thumb" src="${normalizeImageUrl(article.cardImage)}" alt="thumb">` : '—'}</td>
+                  <td>${article.cardImage ? `<img class="thumb" src="${normalizeImageUrl(article.cardImage)}" alt="thumb" loading="lazy">` : '—'}</td>
                   <td style="cursor: pointer; color: #667eea;" onclick="loadArticleForEdit(${article.id})">${article.titleRu}</td>
                   <td>${article.date}</td>
                   <td><button class="btn-delete" onclick="deleteArticle(${article.id})">Удалить</button></td>

@@ -173,6 +173,13 @@ function normalizeCmsContentHtml(html) {
     }
   });
 
+  // Добавляем lazy loading для всех img элементов в контенте
+  template.content.querySelectorAll('img').forEach((node) => {
+    if (!node.hasAttribute('loading')) {
+      node.setAttribute('loading', 'lazy');
+    }
+  });
+
   return template.innerHTML;
 }
 
@@ -239,11 +246,11 @@ function buildCardMarkupForSection(article, section, lang) {
   const date = formatDate(article.date, lang);
 
   const blogMedia = imageUrl
-    ? `<img src="${imageUrl}" alt="${title}">`
+    ? `<img src="${imageUrl}" alt="${title}" loading="lazy">`
     : '<div class="cms-card-placeholder cms-card-placeholder--wide" aria-hidden="true"></div>';
 
   const iconMedia = imageUrl
-    ? `<img class="svc-card__img" src="${imageUrl}" alt="${title}">`
+    ? `<img class="svc-card__img" src="${imageUrl}" alt="${title}" loading="lazy">`
     : '<div class="cms-card-placeholder" aria-hidden="true"></div>';
 
   if (section === 'services') {
@@ -449,7 +456,7 @@ function renderArticlePage(article, section) {
     const showHeroImage = imageUrl && section !== 'services';
     
     if (showHeroImage) {
-      heroNode.innerHTML = `<img src="${imageUrl}" alt="${title}">`;
+      heroNode.innerHTML = `<img src="${imageUrl}" alt="${title}" loading="lazy">`;
       heroNode.classList.remove('is-empty');
     } else {
       heroNode.innerHTML = '';

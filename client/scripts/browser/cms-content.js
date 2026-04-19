@@ -2,6 +2,7 @@ import { initClickableCardLinks } from './ui/clickable-card-links.js';
 import { initArticleContentLayout } from './ui/article-content-layout.js';
 import { initArticleGalleryLightbox } from './ui/article-gallery-lightbox.js';
 import { showSkeletonCards, showErrorMessage, removeSkeletons } from './ui/fallback.js';
+import DOMPurify from './vendor/dompurify.es.mjs';
 import './api-base-config.js';
 
 // Этот модуль отвечает за интеграцию с CMS для загрузки и отображения контента статей, 
@@ -36,6 +37,22 @@ function getRootPrefix() {
 // Определяет язык страницы на основе атрибута lang в элементе <html>.
 function getLanguage() {
   return document.documentElement.lang === 'en' ? 'en' : 'ru';
+}
+
+function sanitizeHtml(html) {
+  return DOMPurify.sanitize(html, {
+    USE_PROFILES: { html: true },
+    FORBID_TAGS: ['script', 'style', 'iframe', 'object', 'embed', 'form']
+  });
+}
+
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
 }
 
 /**
@@ -181,7 +198,7 @@ function normalizeCmsContentHtml(html) {
     }
   });
 
-  return template.innerHTML;
+  return sanitizeHtml(template.innerHTML);
 }
 
 // Выбирает заголовок статьи на основе языка страницы, обеспечивая корректное отображение заголовков для многоязычных статей
@@ -245,51 +262,57 @@ function buildCardMarkupForSection(article, section, lang) {
   const imageUrl = normalizeImageUrl(article.cardImage);
   const excerpt = makeExcerpt(article, lang);
   const date = formatDate(article.date, lang);
+  const safeArticleId = escapeHtml(article.id);
+  const safeTitle = escapeHtml(title);
+  const safeArticleUrl = escapeHtml(articleUrl);
+  const safeImageUrl = escapeHtml(imageUrl);
+  const safeExcerpt = escapeHtml(excerpt);
+  const safeDate = escapeHtml(date);
 
   const blogMedia = imageUrl
-    ? `<img src="${imageUrl}" alt="${title}" loading="lazy">`
+    ? `<img src="${safeImageUrl}" alt="${safeTitle}" loading="lazy">`
     : '<div class="cms-card-placeholder cms-card-placeholder--wide" aria-hidden="true"></div>';
 
   const iconMedia = imageUrl
-    ? `<img class="svc-card__img" src="${imageUrl}" alt="${title}" loading="lazy">`
+    ? `<img class="svc-card__img" src="${safeImageUrl}" alt="${safeTitle}" loading="lazy">`
     : '<div class="cms-card-placeholder" aria-hidden="true"></div>';
 
   if (section === 'services') {
     return `
-      <article class="svc-card" data-href="${articleUrl}" role="link" tabindex="0" data-cms-card="1" data-cms-id="${article.id}">
+      <article class="svc-card" data-href="${safeArticleUrl}" role="link" tabindex="0" data-cms-card="1" data-cms-id="${safeArticleId}">
         <div class="svc-card__img-wrap">
           ${iconMedia}
         </div>
-        <a class="svc-card__title" href="${articleUrl}">${title}</a>
-        <p class="svc-card__desc">${excerpt}</p>
+        <a class="svc-card__title" href="${safeArticleUrl}">${safeTitle}</a>
+        <p class="svc-card__desc">${safeExcerpt}</p>
       </article>
     `;
   }
 
   if (section === 'projects') {
     return `
-      <article class="topic-card" data-href="${articleUrl}" role="link" tabindex="0" data-cms-card="1" data-cms-id="${article.id}">
+      <article class="topic-card" data-href="${safeArticleUrl}" role="link" tabindex="0" data-cms-card="1" data-cms-id="${safeArticleId}">
         <span class="topic-card__icon" aria-hidden="true">${iconMedia}</span>
-        <h3 class="topic-card__title"><a href="${articleUrl}">${title}</a></h3>
+        <h3 class="topic-card__title"><a href="${safeArticleUrl}">${safeTitle}</a></h3>
       </article>
     `;
   }
 
   if (section === 'sources') {
     return `
-      <article class="topic-card" data-href="${articleUrl}" role="link" tabindex="0" data-cms-card="1" data-cms-id="${article.id}">
+      <article class="topic-card" data-href="${safeArticleUrl}" role="link" tabindex="0" data-cms-card="1" data-cms-id="${safeArticleId}">
         <span class="topic-card__icon" aria-hidden="true">${iconMedia}</span>
-        <h3 class="topic-card__title"><a href="${articleUrl}">${title}</a></h3>
-        <p class="topic-card__desc">${excerpt}</p>
+        <h3 class="topic-card__title"><a href="${safeArticleUrl}">${safeTitle}</a></h3>
+        <p class="topic-card__desc">${safeExcerpt}</p>
       </article>
     `;
   }
 
   return `
-    <article class="card blog-card" data-href="${articleUrl}" role="link" tabindex="0" data-cms-card="1" data-cms-id="${article.id}">
+    <article class="card blog-card" data-href="${safeArticleUrl}" role="link" tabindex="0" data-cms-card="1" data-cms-id="${safeArticleId}">
       <div class="blog-card__thumb">${blogMedia}</div>
-      <h3><a href="${articleUrl}">${title}</a></h3>
-      <p>${date}</p>
+      <h3><a href="${safeArticleUrl}">${safeTitle}</a></h3>
+      <p>${safeDate}</p>
     </article>
   `;
 }
@@ -477,7 +500,12 @@ function renderArticlePage(article, section) {
     const showHeroImage = imageUrl && section !== 'services';
     
     if (showHeroImage) {
-      heroNode.innerHTML = `<img src="${imageUrl}" alt="${title}" loading="lazy">`;
+      heroNode.innerHTML = '';
+      const heroImage = document.createElement('img');
+      heroImage.src = imageUrl;
+      heroImage.alt = title;
+      heroImage.loading = 'lazy';
+      heroNode.appendChild(heroImage);
       heroNode.classList.remove('is-empty');
     } else {
       heroNode.innerHTML = '';

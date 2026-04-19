@@ -1631,6 +1631,10 @@ body.lightbox-open {
   margin-bottom: 0.3rem;
 }
 
+.footer-col a {
+  font-size: 0.875rem;
+}
+
 .footer-col a:hover {
   color: var(--accent);
   text-decoration: underline;

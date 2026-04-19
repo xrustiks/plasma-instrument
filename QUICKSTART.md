@@ -2,7 +2,6 @@
 
 ## Локально
 1. Запустите сервер:
-
 ```bash
 cd server
 npm install
@@ -26,13 +25,13 @@ http://localhost:3000/api
 ```
 
 ## Продакшен
-1. Разверните `server/` на Node.js-хостинге и задайте правильный `PORT`.
+1. Разверните `server/` на Node.js-хостинге.
 2. Разверните `client/` на статическом хостинге.
-3. Укажите для клиента адрес продакшен-API, если сайт и API находятся на разных доменах. Базовый префикс API — `/api`, например `/api/health` или `/api/articles`.
+3. Если сайт и API на разных доменах, укажите адрес API в файле `client/scripts/browser/api-base-config.js`.
+4. В этом файле задайте значение `API_BASE_OVERRIDE`, например: `https://api.example.com/api`.
+5. Если сайт и API на одном домене, оставьте `API_BASE_OVERRIDE` пустым — будет использоваться относительный путь `/api`.
 
 ## Полезно знать
-
 - Данные контента хранятся в `server/storage/data/articles.json`.
 - Загруженные файлы лежат в `server/storage/uploads/`.
 - Если после прямых правок контента нужен актуальный поиск, запустите `node build/generate-search-index.mjs` из корня проекта.
-

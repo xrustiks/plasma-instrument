@@ -1,6 +1,7 @@
 import { initClickableCardLinks } from './ui/clickable-card-links.js';
 import { initArticleContentLayout } from './ui/article-content-layout.js';
 import { initArticleGalleryLightbox } from './ui/article-gallery-lightbox.js';
+import { showSkeletonCards, showErrorMessage, removeSkeletons } from './ui/fallback.js';
 import './api-base-config.js';
 
 // Этот модуль отвечает за интеграцию с CMS для загрузки и отображения контента статей, 
@@ -173,6 +174,13 @@ function normalizeCmsContentHtml(html) {
     }
   });
 
+  // Добавляем lazy loading для всех img элементов в контенте
+  template.content.querySelectorAll('img').forEach((node) => {
+    if (!node.hasAttribute('loading')) {
+      node.setAttribute('loading', 'lazy');
+    }
+  });
+
   return template.innerHTML;
 }
 
@@ -239,11 +247,11 @@ function buildCardMarkupForSection(article, section, lang) {
   const date = formatDate(article.date, lang);
 
   const blogMedia = imageUrl
-    ? `<img src="${imageUrl}" alt="${title}">`
+    ? `<img src="${imageUrl}" alt="${title}" loading="lazy">`
     : '<div class="cms-card-placeholder cms-card-placeholder--wide" aria-hidden="true"></div>';
 
   const iconMedia = imageUrl
-    ? `<img class="svc-card__img" src="${imageUrl}" alt="${title}">`
+    ? `<img class="svc-card__img" src="${imageUrl}" alt="${title}" loading="lazy">`
     : '<div class="cms-card-placeholder" aria-hidden="true"></div>';
 
   if (section === 'services') {
@@ -292,31 +300,51 @@ async function initSectionCardsFromCms() {
 
   const section = getSectionFromPath();
   const lang = getLanguage();
+  const grid = getGridForSection(section);
+
+  if (!grid) return;
+
+  // Показываем skeleton loaders во время загрузки
+  showSkeletonCards(grid, 6);
 
   try {
     const response = await fetch(`${API_BASE}/articles?section=${encodeURIComponent(section)}`);
-    if (!response.ok) return;
+    
+    if (!response.ok) {
+      showErrorMessage(grid, lang);
+      return;
+    }
 
     const articles = await response.json();
-    if (!Array.isArray(articles) || articles.length === 0) return;
+    
+    if (!Array.isArray(articles) || articles.length === 0) {
+      removeSkeletons(grid);
+      return;
+    }
 
-    const grid = getGridForSection(section);
-    if (!grid) return;
-
+    // Удаляем skeleton loaders перед вставкой реального контента
+    removeSkeletons(grid);
+    
+    // Удаляем старые карточки CMS (если есть)
     grid.querySelectorAll('[data-cms-card="1"]').forEach((node) => node.remove());
 
+    // Сортируем по дате (новые первыми)
     const sorted = [...articles].sort((a, b) => {
       const left = new Date(a.date).getTime();
       const right = new Date(b.date).getTime();
       return right - left;
     });
 
+    // Генерируем и вставляем карточки
     const cardsMarkup = sorted.map((article) => buildCardMarkupForSection(article, section, lang)).join('');
     grid.insertAdjacentHTML('afterbegin', cardsMarkup);
 
+    // Инициализируем интерактивность карточек
     initClickableCardLinks();
-  } catch {
-    // Keep static page fully functional when API is unavailable.
+  } catch (error) {
+    // Показываем error message при ошибке
+    removeSkeletons(grid);
+    showErrorMessage(grid, lang);
   }
 }
 
@@ -449,7 +477,7 @@ function renderArticlePage(article, section) {
     const showHeroImage = imageUrl && section !== 'services';
     
     if (showHeroImage) {
-      heroNode.innerHTML = `<img src="${imageUrl}" alt="${title}">`;
+      heroNode.innerHTML = `<img src="${imageUrl}" alt="${title}" loading="lazy">`;
       heroNode.classList.remove('is-empty');
     } else {
       heroNode.innerHTML = '';
@@ -469,7 +497,7 @@ function renderArticleError() {
   }
 
   if (contentNode) {
-    contentNode.innerHTML = `<p>${lang === 'en' ? 'Failed to load article data from API.' : 'Не удалось загрузить данные статьи из API.'}</p>`;
+    showErrorMessage(contentNode, lang);
   }
 }
 

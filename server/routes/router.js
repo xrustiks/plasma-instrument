@@ -6,6 +6,19 @@ import uploadRoutes from './upload-routes.js';
 
 const router = Router();
 
+router.get('/', (req, res) => {
+	res.json({
+		status: 'ok',
+		message: 'Plasma Instrument API',
+		routes: {
+			health: '/api/health',
+			sections: '/api/sections',
+			articles: '/api/articles',
+			upload: '/api/upload'
+		}
+	});
+});
+
 router.use('/sections', sectionsRoutes);
 router.use('/articles', articlesRoutes);
 router.use('/health', healthRoutes);

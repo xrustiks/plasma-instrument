@@ -4,6 +4,7 @@ import {
   readArticles,
   saveArticles
 } from '../storage/articles-store.js';
+import { scheduleSearchIndexRebuild } from '../services/search-index-sync.js';
 
 const router = Router();
 
@@ -71,6 +72,7 @@ router.post('/', async (req, res) => {
 
     articles.push(newArticle);
     await saveArticles(articles);
+    scheduleSearchIndexRebuild();
 
     return res.status(201).json(newArticle);
   } catch (error) {
@@ -91,6 +93,7 @@ router.put('/:id', async (req, res) => {
 
     articles[index] = { ...articles[index], ...req.body };
     await saveArticles(articles);
+    scheduleSearchIndexRebuild();
 
     return res.json(articles[index]);
   } catch (error) {
@@ -111,6 +114,7 @@ router.delete('/:id', async (req, res) => {
 
     const [deletedArticle] = articles.splice(index, 1);
     await saveArticles(articles);
+    scheduleSearchIndexRebuild();
 
     return res.json(deletedArticle);
   } catch (error) {

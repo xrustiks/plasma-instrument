@@ -6,6 +6,7 @@ import {
   withArticlesLock
 } from '../storage/articles-store.js';
 import { scheduleSearchIndexRebuild } from '../services/search-index-sync.js';
+import { requireAdminAuth } from '../middleware/admin-basic-auth.js';
 
 const router = Router();
 
@@ -44,7 +45,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Creates a new article
-router.post('/', async (req, res) => {
+router.post('/', requireAdminAuth, async (req, res) => {
   try {
     const { section, slug, titleRu, titleEn, contentRu, contentEn, date, cardImage } = req.body;
 
@@ -97,7 +98,7 @@ router.post('/', async (req, res) => {
 });
 
 // Updates an existing article by ID
-router.put('/:id', async (req, res) => {
+router.put('/:id', requireAdminAuth, async (req, res) => {
   try {
     const articleId = Number.parseInt(req.params.id, 10);
     const result = await withArticlesLock(async () => {
@@ -133,7 +134,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // Deletes an article by ID
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', requireAdminAuth, async (req, res) => {
   try {
     const articleId = Number.parseInt(req.params.id, 10);
     const result = await withArticlesLock(async () => {

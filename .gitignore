@@ -27,19 +27,12 @@ coverage/
 .cache/
 tmp/
 
-# Upload folders - track structure but not user-uploaded files
-server/storage/uploads/content/*
-!server/storage/uploads/content/.gitkeep
-server/storage/uploads/cards/*
-!server/storage/uploads/cards/.gitkeep
-server/storage/uploads/cards/blog/*
-!server/storage/uploads/cards/blog/.gitkeep
-server/storage/uploads/cards/projects/*
-!server/storage/uploads/cards/projects/.gitkeep
-server/storage/uploads/cards/services/*
-!server/storage/uploads/cards/services/.gitkeep
-server/storage/uploads/cards/sources/*
-!server/storage/uploads/cards/sources/.gitkeep
+# Uploads: keep only selected folders tracked, ignore other files in uploads
+server/storage/uploads/*
+!server/storage/uploads/content/
+!server/storage/uploads/content/**
+!server/storage/uploads/cards/
+!server/storage/uploads/cards/**
 
 # Deprecated files (safe to delete after verification)
 # See .deprecated/README.md for migration details

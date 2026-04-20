@@ -365,12 +365,12 @@
   {
     "id": 44,
     "section": "sources",
-    "slug": "sdfsdf",
-    "titleRu": "dfsfdf",
-    "titleEn": "<sdfd></dsf>",
-    "contentRu": "<p>dsf</p><p><img src=\"http://localhost:3000/uploads/IMG_0644-1776684054249-629643431.JPG\">&lt;sdfd&gt;&lt;/dsf&gt;</p><p>dsfdfs</p>",
-    "contentEn": "<p>dfs</p>",
-    "cardImage": "/uploads/IMG_0644-1776684036769-856355650.JPG",
-    "date": "2026-04-20"
+    "slug": "sdfdfs",
+    "titleRu": "dsfdf",
+    "titleEn": "sdfds",
+    "contentRu": "<p>sdfsdf</p><p><img src=\"http://localhost:3000/uploads/dsc_0001_3-1776685058215-634022937.jpg\"></p><p>sdfds</p><p>sdfsd</p><p>sdf</p><p><img src=\"http://localhost:3000/uploads/dsc_0002-1776685063683-511261047.jpg\"></p><p>sdf</p><p>sdf</p><p><img src=\"http://localhost:3000/uploads/dsc_0005_1-1776685073037-769832956.jpg\"></p><p><img src=\"http://localhost:3000/uploads/dsc_0008_2-1776685080031-473975330.jpg\"></p>",
+    "contentEn": "<p>sdfds</p>",
+    "date": "2026-04-20",
+    "cardImage": "/uploads/dsc_0002_1-1776685047529-634132003.jpg"
   }
 ]

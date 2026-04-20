@@ -10,6 +10,20 @@ export function initArticleContentLayout() {
     const isEn = document.documentElement.lang === 'en';
     const imageHint = isEn ? 'Open image in a new tab' : 'Открыть изображение в новой вкладке';
 
+    function isStandaloneImageLink(link, image) {
+      if (!(link instanceof HTMLAnchorElement) || !(image instanceof HTMLImageElement)) {
+        return false;
+      }
+
+      const images = link.querySelectorAll('img');
+      if (images.length !== 1 || images[0] !== image) {
+        return false;
+      }
+
+      const text = (link.textContent || '').replace(/\u00a0/g, ' ').trim();
+      return !text;
+    }
+
     const tables = block.querySelectorAll('table');
     tables.forEach((table) => {
       if (table.closest('.table-scroll')) {
@@ -28,11 +42,29 @@ export function initArticleContentLayout() {
         return;
       }
 
-      if (image.closest('a') || image.closest('table')) {
+      if (image.closest('table')) {
         return;
       }
 
       image.classList.add('article-inline-image');
+
+      const parentLink = image.parentElement instanceof HTMLAnchorElement
+        ? image.parentElement
+        : null;
+
+      if (parentLink && isStandaloneImageLink(parentLink, image)) {
+        parentLink.classList.add('article-inline-image-link');
+        parentLink.href = image.currentSrc || image.src;
+        parentLink.target = '_blank';
+        parentLink.rel = 'noopener noreferrer';
+        parentLink.title = imageHint;
+        parentLink.setAttribute('aria-label', imageHint);
+        return;
+      }
+
+      if (image.closest('a')) {
+        return;
+      }
 
       const link = document.createElement('a');
       link.className = 'article-inline-image-link';

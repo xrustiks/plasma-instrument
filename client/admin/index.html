@@ -471,6 +471,49 @@
       return origin && origin !== 'null' ? origin : '';
     }
 
+    function getCookie(name) {
+      return document.cookie
+        .split(';')
+        .map((value) => value.trim())
+        .filter(Boolean)
+        .reduce((acc, part) => {
+          const separatorIndex = part.indexOf('=');
+          if (separatorIndex < 0) return acc;
+
+          const key = part.slice(0, separatorIndex);
+          const value = part.slice(separatorIndex + 1);
+          acc[key] = decodeURIComponent(value);
+          return acc;
+        }, {})[name] || '';
+    }
+
+    function withCsrfHeader(headers = {}) {
+      const csrfToken = getCookie('pi_admin_csrf');
+      if (!csrfToken) {
+        return headers;
+      }
+
+      return {
+        ...headers,
+        'X-CSRF-Token': csrfToken
+      };
+    }
+
+    async function parseApiResponse(response) {
+      const contentType = String(response.headers.get('content-type') || '').toLowerCase();
+
+      if (contentType.includes('application/json')) {
+        return response.json();
+      }
+
+      const text = (await response.text()).trim();
+      return text ? { error: text } : {};
+    }
+
+    function isAuthFailureStatus(status) {
+      return status === 401 || status === 403;
+    }
+
     function sanitizeRichHtml(value) {
       const html = typeof value === 'string' ? value : '';
       if (!window.DOMPurify || typeof window.DOMPurify.sanitize !== 'function') {
@@ -508,10 +551,15 @@
         try {
           const response = await fetch(`${API_URL}/upload/image`, {
             method: 'POST',
+            headers: withCsrfHeader(),
             body: formData
           });
 
-          const result = await response.json();
+          const result = await parseApiResponse(response);
+
+          if (isAuthFailureStatus(response.status)) {
+            throw new Error('Сессия истекла. Обновите страницу и войдите снова.');
+          }
 
           if (!response.ok || !result.success) {
             throw new Error(result.error || 'Upload failed');
@@ -615,10 +663,16 @@
 
       const response = await fetch(`${API_URL}/upload/image`, {
         method: 'POST',
+        headers: withCsrfHeader(),
         body: formData
       });
 
-      const result = await response.json();
+      const result = await parseApiResponse(response);
+
+      if (isAuthFailureStatus(response.status)) {
+        throw new Error('Сессия истекла. Обновите страницу и войдите снова.');
+      }
+
       if (!response.ok || !result.success) {
         throw new Error(result.error || 'Upload failed');
       }
@@ -799,10 +853,17 @@
 
       try {
         const response = await fetch(`${API_URL}/articles/${id}`, {
-          method: 'DELETE'
+          method: 'DELETE',
+          headers: withCsrfHeader()
         });
 
-        if (!response.ok) throw new Error('Failed to delete');
+        const result = await parseApiResponse(response);
+
+        if (isAuthFailureStatus(response.status)) {
+          throw new Error('Сессия истекла. Обновите страницу и войдите снова.');
+        }
+
+        if (!response.ok) throw new Error(result.error || 'Failed to delete');
 
         showNotification('Статья удалена', 'success');
         if (selectedSection) loadArticles(selectedSection);
@@ -846,13 +907,18 @@
         
         const response = await fetch(url, {
           method: method,
-          headers: { 'Content-Type': 'application/json' },
+          headers: withCsrfHeader({ 'Content-Type': 'application/json' }),
           body: JSON.stringify(article)
         });
 
+        const result = await parseApiResponse(response);
+
+        if (isAuthFailureStatus(response.status)) {
+          throw new Error('Сессия истекла. Обновите страницу и войдите снова.');
+        }
+
         if (!response.ok) {
-          const error = await response.json();
-          throw new Error(error.error);
+          throw new Error(result.error || 'Failed to save article');
         }
 
         const message = editingArticleId ? 'Статья обновлена' : 'Статья добавлена';

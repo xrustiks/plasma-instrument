@@ -993,6 +993,7 @@ h2 {
   width: auto;
   max-width: min(100%, 760px);
   height: auto;
+  margin: 0 auto;
 }
 
 .article-content .table-scroll {

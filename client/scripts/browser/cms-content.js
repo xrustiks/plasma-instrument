@@ -393,37 +393,118 @@ function getSectionLink(section, lang) {
 function moveCmsImagesToGallery(contentNode, lang) {
   if (!contentNode) return;
 
-  const images = [...contentNode.querySelectorAll('img')]
-    .filter((image) => !image.closest('table') && !image.closest('.article-gallery'));
-
-  if (images.length < 2) {
-    return;
+  function hasVisibleText(node) {
+    return Boolean((node.textContent || '').replace(/\u00a0/g, ' ').trim());
   }
 
-  const title = document.createElement('h2');
-  title.className = 'article-gallery-title';
-  title.textContent = lang === 'en' ? 'Gallery' : 'Галерея';
-
-  const gallery = document.createElement('div');
-  gallery.className = 'article-gallery';
-  gallery.setAttribute('aria-label', lang === 'en' ? 'Article gallery' : 'Галерея статьи');
-
-  images.forEach((image, index) => {
-    const source = image.currentSrc || image.src;
-    if (!source) return;
-
-    const link = document.createElement('a');
-    link.href = source;
-
-    const cloned = image.cloneNode(true);
-    if (!cloned.alt) {
-      cloned.alt = lang === 'en' ? `Article image ${index + 1}` : `Изображение статьи ${index + 1}`;
+  function isSkippableNode(node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      return !String(node.textContent || '').replace(/\u00a0/g, ' ').trim();
     }
 
-    link.appendChild(cloned);
-    gallery.appendChild(link);
+    if (node.nodeType !== Node.ELEMENT_NODE) {
+      return false;
+    }
 
-    image.remove();
+    const element = node;
+    if (element.matches('br, hr')) {
+      return true;
+    }
+
+    const hasMedia = element.querySelector('img, video, iframe, table');
+    return !hasMedia && !hasVisibleText(element);
+  }
+
+  function getImageCarrier(element) {
+    if (!(element instanceof Element)) {
+      return null;
+    }
+
+    if (element.matches('.article-gallery, .article-gallery-title')) {
+      return null;
+    }
+
+    const images = [...element.querySelectorAll('img')]
+      .filter((image) => !image.closest('table') && !image.closest('.article-gallery'));
+
+    if (images.length !== 1) {
+      return null;
+    }
+
+    if (element.querySelector('video, iframe, table')) {
+      return null;
+    }
+
+    if (hasVisibleText(element)) {
+      return null;
+    }
+
+    return images[0];
+  }
+
+  const childNodes = [...contentNode.childNodes];
+  const runs = [];
+  let currentRun = [];
+
+  function flushRun() {
+    if (currentRun.length >= 2) {
+      runs.push(currentRun);
+    }
+    currentRun = [];
+  }
+
+  childNodes.forEach((node) => {
+    if (node.nodeType === Node.ELEMENT_NODE) {
+      const carrierImage = getImageCarrier(node);
+      if (carrierImage) {
+        currentRun.push({ carrierNode: node, image: carrierImage });
+        return;
+      }
+    }
+
+    if (isSkippableNode(node)) {
+      return;
+    }
+
+    flushRun();
+  });
+
+  flushRun();
+
+  runs.forEach((run) => {
+    const firstNode = run[0].carrierNode;
+    const title = document.createElement('h2');
+    title.className = 'article-gallery-title';
+    title.textContent = lang === 'en' ? 'Gallery' : 'Галерея';
+
+    const gallery = document.createElement('div');
+    gallery.className = 'article-gallery';
+    gallery.setAttribute('aria-label', lang === 'en' ? 'Article gallery' : 'Галерея статьи');
+
+    run.forEach((item, index) => {
+      const source = item.image.currentSrc || item.image.src;
+      if (!source) {
+        return;
+      }
+
+      const link = document.createElement('a');
+      link.href = source;
+
+      const cloned = item.image.cloneNode(true);
+      if (!cloned.alt) {
+        cloned.alt = lang === 'en' ? `Article image ${index + 1}` : `Изображение статьи ${index + 1}`;
+      }
+
+      link.appendChild(cloned);
+      gallery.appendChild(link);
+    });
+
+    if (!gallery.children.length) {
+      return;
+    }
+
+    firstNode.before(title, gallery);
+    run.forEach(({ carrierNode }) => carrierNode.remove());
   });
 
   [...contentNode.querySelectorAll('p, div, figure')].forEach((node) => {
@@ -437,10 +518,6 @@ function moveCmsImagesToGallery(contentNode, lang) {
       node.remove();
     }
   });
-
-  if (gallery.children.length) {
-    contentNode.append(title, gallery);
-  }
 }
 
 // Рендерит страницу статьи, заполняя шаблон данными из CMS

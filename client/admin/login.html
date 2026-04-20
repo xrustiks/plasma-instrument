@@ -15,6 +15,7 @@
 
     <form method="post" action="/admin/login">
       <input type="hidden" name="next" id="nextField" value="/admin/" />
+      <input type="hidden" name="_csrf" id="csrfField" value="" />
 
       <label for="username">Логин</label>
       <input id="username" name="username" type="text" autocomplete="username" required />
@@ -27,8 +28,29 @@
   </main>
 
   <script>
+    function getCookie(name) {
+      return document.cookie
+        .split(';')
+        .map((value) => value.trim())
+        .filter(Boolean)
+        .reduce((acc, part) => {
+          const separatorIndex = part.indexOf('=');
+          if (separatorIndex < 0) return acc;
+
+          const key = part.slice(0, separatorIndex);
+          const value = part.slice(separatorIndex + 1);
+          acc[key] = decodeURIComponent(value);
+          return acc;
+        }, {})[name] || '';
+    }
+
     const params = new URLSearchParams(window.location.search);
     const next = params.get('next');
+    const csrfToken = getCookie('pi_admin_csrf');
+
+    if (csrfToken) {
+      document.getElementById('csrfField').value = csrfToken;
+    }
 
     if (next && next.startsWith('/admin/')) {
       document.getElementById('nextField').value = next;

@@ -8,9 +8,12 @@ import apiRoutes from './routes/router.js';
 import { readArticles } from './storage/articles-store.js';
 import {
 	requireAdminAuth,
+	requireAdminCsrf,
 	requireAdminPageAuth,
 	setAdminSessionCookie,
 	clearAdminSessionCookie,
+	ensureAdminCsrfCookie,
+	verifyAdminLoginCsrf,
 	isAdminAuthConfigured,
 	isValidAdminCredentials
 } from './middleware/admin-basic-auth.js';
@@ -46,7 +49,7 @@ app.use(cors({
 		callback(null, false);
 	},
 	methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-	allowedHeaders: ['Content-Type', 'Authorization']
+	allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token']
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -57,12 +60,22 @@ const adminRoot = path.join(clientRoot, 'admin');
 app.use('/uploads', express.static(path.join(__dirname, 'storage', 'uploads')));
 
 app.get('/admin/login', (req, res) => {
+	ensureAdminCsrfCookie(req, res);
 	return res.redirect('/admin/login.html');
+});
+
+app.get('/admin/login.html', (req, res) => {
+	ensureAdminCsrfCookie(req, res);
+	return res.sendFile(path.join(adminRoot, 'login.html'));
 });
 
 app.post('/admin/login', (req, res) => {
 	if (!isAdminAuthConfigured()) {
 		return res.status(503).send('Admin authentication is not configured on the server');
+	}
+
+	if (!verifyAdminLoginCsrf(req)) {
+		return res.status(403).send('CSRF token is missing or invalid');
 	}
 
 	const { username = '', password = '', next = '/admin/' } = req.body;
@@ -75,15 +88,15 @@ app.post('/admin/login', (req, res) => {
 	return res.redirect(safeNext);
 });
 
-app.post('/admin/logout', (req, res) => {
-	clearAdminSessionCookie(res);
+app.post('/admin/logout', requireAdminCsrf, (req, res) => {
+	clearAdminSessionCookie(req, res);
 	return res.redirect('/admin/login.html');
 });
 
 // Protect the admin UI behind form-based login and session cookie.
 app.use('/admin', requireAdminPageAuth, express.static(adminRoot));
 
-app.use(API_PREFIX, apiRoutes);
+app.use(API_PREFIX, requireAdminCsrf, apiRoutes);
 
 // Backward compatibility for legacy static article URLs from old search index.
 app.get(['/sections/:section/:slug/index.html', '/en/sections/:section/:slug/index.html'], async (req, res, next) => {

@@ -44,6 +44,35 @@
       font-weight: 600;
     }
 
+    .header-actions {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+    }
+
+    .btn-logout {
+      padding: 8px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn-logout:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.65);
+      transform: translateY(-1px);
+    }
+
+    .btn-logout:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.8);
+      outline-offset: 2px;
+    }
+
     /* Sidebar */
     .sidebar {
       position: fixed;
@@ -367,6 +396,9 @@
 <body>
   <div class="header">
     <h1>📋 Админ-панель Plasma Instrument</h1>
+    <div class="header-actions">
+      <button id="logout-btn" class="btn-logout" type="button">Выйти</button>
+    </div>
   </div>
 
   <div class="container">
@@ -942,6 +974,40 @@
         notification.remove();
       }, 5000);
     }
+
+    async function logoutAdmin() {
+      const button = document.getElementById('logout-btn');
+      if (button) {
+        button.disabled = true;
+      }
+
+      try {
+        const response = await fetch('/admin/logout', {
+          method: 'POST',
+          headers: withCsrfHeader({
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }),
+          body: new URLSearchParams({
+            _csrf: getCookie('pi_admin_csrf')
+          }).toString()
+        });
+
+        if (!response.ok && !response.redirected) {
+          const result = await parseApiResponse(response);
+          throw new Error(result.error || 'Не удалось завершить сессию');
+        }
+
+        window.location.href = '/admin/login.html';
+      } catch (error) {
+        if (button) {
+          button.disabled = false;
+        }
+
+        showNotification('Ошибка выхода: ' + error.message, 'error');
+      }
+    }
+
+    document.getElementById('logout-btn').addEventListener('click', logoutAdmin);
 
     document.getElementById('form-card-image').addEventListener('input', (e) => {
       updateCardImagePreview(e.target.value.trim());

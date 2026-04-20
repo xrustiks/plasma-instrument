@@ -240,12 +240,15 @@
       height: 100%;
       background: rgba(0,0,0,0.5);
       z-index: 1000;
+      pointer-events: auto;
+      cursor: pointer;
     }
 
     .modal.active {
       display: flex;
       align-items: center;
       justify-content: center;
+      pointer-events: auto;
     }
 
     .modal-content {
@@ -257,6 +260,7 @@
       max-height: 90vh;
       overflow-y: auto;
       box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      pointer-events: auto;
     }
 
     .modal-content h3 {
@@ -906,7 +910,14 @@
     }
 
     // Close modal
-    function closeModal() {
+    function closeModal(force = false) {
+      if (!force) {
+        const shouldClose = window.confirm('Вы уверены, что хотите закрыть окно? Несохраненные данные будут потеряны.');
+        if (!shouldClose) {
+          return;
+        }
+      }
+
       document.getElementById('modal').classList.remove('active');
     }
 
@@ -955,7 +966,7 @@
 
         const message = editingArticleId ? 'Статья обновлена' : 'Статья добавлена';
         showNotification(message, 'success');
-        closeModal();
+        closeModal(true);
         if (selectedSection) loadArticles(selectedSection);
       } catch (error) {
         console.error('Ошибка при сохранении:', error);
@@ -1040,12 +1051,35 @@
       }
     });
 
-    // Close modal on click outside (on backdrop)
-    document.getElementById('modal').addEventListener('click', (e) => {
+    // Close modal on click outside (on backdrop) - both click and touch for mobile
+    const modal = document.getElementById('modal');
+    function handleBackdropInteraction(e) {
       if (e.target === e.currentTarget) {
         closeModal();
       }
+    }
+    modal.addEventListener('click', handleBackdropInteraction);
+    modal.addEventListener('touchend', handleBackdropInteraction);
+
+    // Prevent accidental navigation away with unsaved changes
+    window.addEventListener('beforeunload', (e) => {
+      if (modal && modal.classList.contains('active')) {
+        e.preventDefault();
+        e.returnValue = '';
+        return '';
+      }
     });
+
+    // Warn before using browser back button with modal open
+    window.addEventListener('popstate', (e) => {
+      if (modal && modal.classList.contains('active')) {
+        const shouldClose = window.confirm('Окно редактирования открыто. Вы уверены, что хотите уйти? Несохраненные данные будут потеряны.');
+        if (!shouldClose) {
+          window.history.pushState(null, null, window.location.href);
+        }
+      }
+    });
+    window.history.pushState(null, null, window.location.href);
 
     // Initialize
     initQuillEditors();

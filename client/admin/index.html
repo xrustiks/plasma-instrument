@@ -906,7 +906,14 @@
     }
 
     // Close modal
-    function closeModal() {
+    function closeModal(force = false) {
+      if (!force) {
+        const shouldClose = window.confirm('Вы уверены, что хотите закрыть окно? Несохраненные данные будут потеряны.');
+        if (!shouldClose) {
+          return;
+        }
+      }
+
       document.getElementById('modal').classList.remove('active');
     }
 
@@ -955,7 +962,7 @@
 
         const message = editingArticleId ? 'Статья обновлена' : 'Статья добавлена';
         showNotification(message, 'success');
-        closeModal();
+        closeModal(true);
         if (selectedSection) loadArticles(selectedSection);
       } catch (error) {
         console.error('Ошибка при сохранении:', error);

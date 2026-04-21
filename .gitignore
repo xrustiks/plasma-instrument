@@ -33,6 +33,8 @@ server/storage/uploads/*
 !server/storage/uploads/content/**
 !server/storage/uploads/cards/
 !server/storage/uploads/cards/**
+!server/storage/uploads/home-page
+!server/storage/uploads/home-page/**
 
 # Deprecated files (safe to delete after verification)
 # See .deprecated/README.md for migration details

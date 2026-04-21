@@ -43,28 +43,6 @@
       "titleEn": "Scientific cooperation",
       "textRu": "Ведем сотрудничество с ведущими научными центрами и научно-производственными предприятиями, что позволяет проводить НИР и НИОКР на уровне мировых достижений науки и техники.",
       "textEn": "We cooperate with leading research centers and industrial companies, enabling R&D work at the level of global scientific and technical achievements."
-    },
-    {
-      "id": "about-1776789325120-4",
-      "type": "icon",
-      "number": "",
-      "iconKey": "bolt",
-      "iconUrl": "",
-      "titleRu": "dfgfg",
-      "titleEn": "dfgfdgg",
-      "textRu": "dfgdgg",
-      "textEn": "fdgfgfdgd"
-    },
-    {
-      "id": "about-1776790554636-5",
-      "type": "icon",
-      "number": "",
-      "iconKey": "bolt",
-      "iconUrl": "/uploads/dsc_0001_4-1776790563787-427031897.jpg",
-      "titleRu": "dsfsdf",
-      "titleEn": "sdfds",
-      "textRu": "sdfds",
-      "textEn": "sdfd"
     }
   ],
   "benefits": [
@@ -108,7 +86,7 @@
   "testimonials": [
     {
       "id": "testimonial-1",
-      "imageUrl": "https://plasma-instrument.com/storage/.thumbs/preview248xauto_otzyv-ispaniya.jpg",
+      "imageUrl": "/uploads/home-page/testimonials/preview248xauto_otzyv-ispaniya.jpg",
       "imageAltRu": "Отзыв Форсат+",
       "imageAltEn": "Forsat+ testimonial",
       "companyRu": "ООО Форсат+",
@@ -118,7 +96,7 @@
     },
     {
       "id": "testimonial-2",
-      "imageUrl": "https://plasma-instrument.com/storage/.thumbs/preview248xauto_otzyv-ooo-ivc-plazmainstrument-1.jpg",
+      "imageUrl": "/uploads/home-page/testimonials/preview248xauto_otzyv-ooo-ivc-plazmainstrument-1.jpg",
       "imageAltRu": "Отзыв Инструментал девелопмент",
       "imageAltEn": "Instrumental Development testimonial",
       "companyRu": "Инструментал девелопмент",
@@ -128,7 +106,7 @@
     },
     {
       "id": "testimonial-3",
-      "imageUrl": "https://plasma-instrument.com/storage/.thumbs/preview248xauto_otzyv-rusaloks.jpeg",
+      "imageUrl": "/uploads/home-page/testimonials/preview248xauto_otzyv-rusaloks.jpeg",
       "imageAltRu": "Отзыв Русалокс",
       "imageAltEn": "Rusalox testimonial",
       "companyRu": "Русалокс",
@@ -140,31 +118,31 @@
   "partners": [
     {
       "id": "partner-1",
-      "imageUrl": "https://plasma-instrument.com/storage/part1.png",
+      "imageUrl": "/uploads/home-page/partners/part1.png",
       "altRu": "Партнер 1",
       "altEn": "Partner 1"
     },
     {
       "id": "partner-2",
-      "imageUrl": "https://plasma-instrument.com/storage/part2.png",
+      "imageUrl": "/uploads/home-page/partners/part2.png",
       "altRu": "Партнер 2",
       "altEn": "Partner 2"
     },
     {
       "id": "partner-3",
-      "imageUrl": "https://plasma-instrument.com/storage/part3.png",
+      "imageUrl": "/uploads/home-page/partners/part3.png",
       "altRu": "Партнер 3",
       "altEn": "Partner 3"
     },
     {
       "id": "partner-4",
-      "imageUrl": "https://plasma-instrument.com/storage/part4-2.png",
+      "imageUrl": "/uploads/home-page/partners/part4-2.png",
       "altRu": "Партнер 4",
       "altEn": "Partner 4"
     },
     {
       "id": "partner-5",
-      "imageUrl": "https://plasma-instrument.com/storage/part5.png",
+      "imageUrl": "/uploads/home-page/partners/part5.png",
       "altRu": "Партнер 5",
       "altEn": "Partner 5"
     }

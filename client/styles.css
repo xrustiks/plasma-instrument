@@ -1280,6 +1280,13 @@ body.lightbox-open {
   height: 2rem;
 }
 
+.about-card__icon img {
+  width: 2rem;
+  height: 2rem;
+  object-fit: contain;
+  display: block;
+}
+
 .testimonial-lightbox-link {
   display: inline-block;
   border-radius: 8px;
@@ -1307,6 +1314,14 @@ body.lightbox-open {
 
 .section-benefits .topic-card__icon svg {
   padding: 15px;
+}
+
+.section-benefits .topic-card__icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 15px;
+  display: block;
 }
 
 .about-card h3 {

@@ -1,0 +1,155 @@
+import fs from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const HOME_CONTENT_FILE = path.join(__dirname, 'data', 'home-content.json');
+
+const DEFAULT_HOME_CONTENT = {
+  about: [
+    {
+      id: 'about-1',
+      type: 'number',
+      number: '30+',
+      iconKey: '',
+      iconUrl: '',
+      titleRu: 'Лет опыта',
+      titleEn: 'Years of expertise',
+      textRu: 'Более тридцатилетний опыт изготовления, эксплуатации и внедрения ионно-плазменных технологических источников: ионных источников, магнетронов и дуговых испарителей.',
+      textEn: 'More than thirty years of experience in development, operation, and implementation of ion-plasma technological sources: ion sources, magnetrons, and arc evaporators.'
+    },
+    {
+      id: 'about-2',
+      type: 'icon',
+      number: '',
+      iconKey: 'bolt',
+      iconUrl: '',
+      titleRu: 'Передовые решения',
+      titleEn: 'Advanced solutions',
+      textRu: 'Профессионалами компании реализуются большинство передовых решений, используемых в области вакуумной техники и высокотехнологичного машиностроения.',
+      textEn: 'Our experts implement advanced engineering solutions used in vacuum technology and high-tech machinery manufacturing.'
+    },
+    {
+      id: 'about-3',
+      type: 'icon',
+      number: '',
+      iconKey: 'target',
+      iconUrl: '',
+      titleRu: 'Наша миссия',
+      titleEn: 'Our mission',
+      textRu: 'Оказание услуг в области проектирования и производства высокотехнологичной продукции по конкурентной цене через внедрение инноваций и развитие профессионализма.',
+      textEn: 'Delivering high-tech products at a competitive cost through innovation and professional growth.'
+    },
+    {
+      id: 'about-4',
+      type: 'icon',
+      number: '',
+      iconKey: 'science',
+      iconUrl: '',
+      titleRu: 'Научное сотрудничество',
+      titleEn: 'Scientific cooperation',
+      textRu: 'Ведем сотрудничество с ведущими научными центрами и научно-производственными предприятиями, что позволяет проводить НИР и НИОКР на уровне мировых достижений науки и техники.',
+      textEn: 'We cooperate with leading research centers and industrial companies, enabling R&D work at the level of global scientific and technical achievements.'
+    }
+  ],
+  benefits: [
+    { id: 'benefit-1', iconKey: 'team', iconUrl: '', titleRu: 'Профессиональная команда инженеров', titleEn: 'Professional engineering team' },
+    { id: 'benefit-2', iconKey: 'suppliers', iconUrl: '', titleRu: 'Проверенные поставщики комплектующих и материалов', titleEn: 'Verified suppliers and materials' },
+    { id: 'benefit-3', iconKey: 'docs', iconUrl: '', titleRu: 'Работаем с англоязычной документацией', titleEn: 'Work with English technical documentation' },
+    { id: 'benefit-4', iconKey: 'approval', iconUrl: '', titleRu: 'Быстрое согласование проекта', titleEn: 'Fast project approval process' },
+    { id: 'benefit-5', iconKey: 'support', iconUrl: '', titleRu: 'Гарантийное и послегарантийное обслуживание', titleEn: 'Warranty and post-warranty support' },
+    { id: 'benefit-6', iconKey: 'cad', iconUrl: '', titleRu: 'Использование современных CAD и CAE систем', titleEn: 'Use of modern CAD and CAE systems' }
+  ],
+  testimonials: [
+    {
+      id: 'testimonial-1',
+      imageUrl: 'https://plasma-instrument.com/storage/.thumbs/preview248xauto_otzyv-ispaniya.jpg',
+      imageAltRu: 'Отзыв Форсат+',
+      imageAltEn: 'Forsat+ testimonial',
+      companyRu: 'ООО Форсат+',
+      companyEn: 'Forsat+',
+      textRu: 'ООО Форсат+ в 2015 году заключило контракт на модернизацию вакуумной напылительной установки нанесения декоративных покрытий на керамическую плитку с компанией ALEA INNOVACION SLA, провинция Кастильон, Испания.\n\nСотрудничество с вами оставило у нас самые приятные впечатления. Хотим отметить ваш профессиональный подход к работе, оперативность и готовность прислушиваться к мнению заказчика.',
+      textEn: 'Forsat+ signed a contract in 2015 for modernization of a vacuum coating system for decorative coatings on ceramic tiles with ALEA INNOVACION SLA, Castellon province, Spain.\n\nCooperation with your team left us with the best impressions. We appreciate your professional approach, responsiveness, and readiness to consider the customer perspective.'
+    },
+    {
+      id: 'testimonial-2',
+      imageUrl: 'https://plasma-instrument.com/storage/.thumbs/preview248xauto_otzyv-ooo-ivc-plazmainstrument-1.jpg',
+      imageAltRu: 'Отзыв Инструментал девелопмент',
+      imageAltEn: 'Instrumental Development testimonial',
+      companyRu: 'Инструментал девелопмент',
+      companyEn: 'Instrumental Development',
+      textRu: 'ООО ТД «Инструментал девелопмент» выражает благодарность «ИВЦ Плазминструмент» за выполнение работ по импортозамещению составных частей оборудования, идущего по гособоронзаказу.\n\nРекомендуем «ИВЦ Плазминструмент» как квалифицированную компанию в области инжиниринга и высокотехнологичной механообработки.',
+      textEn: 'Instrumental Development LLC expresses gratitude to IVC Plasmainstrument for import-substitution work on components used in state defense order equipment.\n\nWe recommend IVC Plasmainstrument as a qualified engineering and high-tech machining company.'
+    },
+    {
+      id: 'testimonial-3',
+      imageUrl: 'https://plasma-instrument.com/storage/.thumbs/preview248xauto_otzyv-rusaloks.jpeg',
+      imageAltRu: 'Отзыв Русалокс',
+      imageAltEn: 'Rusalox testimonial',
+      companyRu: 'Русалокс',
+      companyEn: 'Rusalox',
+      textRu: 'ООО «Русалокс» требовалось произвести модернизацию вакуумной магнетронной напылительной установки серии УВН-4М.\n\nВо время работ «ИВЦ Плазминструмент» проявило инициативность, компетентность и надежное партнерство.',
+      textEn: 'Rusalox LLC needed modernization of a UVN-4M series vacuum magnetron sputtering unit.\n\nDuring the project, IVC Plasmainstrument demonstrated initiative, competence, and reliable partnership.'
+    }
+  ],
+  partners: [
+    { id: 'partner-1', imageUrl: 'https://plasma-instrument.com/storage/part1.png', altRu: 'Партнер 1', altEn: 'Partner 1' },
+    { id: 'partner-2', imageUrl: 'https://plasma-instrument.com/storage/part2.png', altRu: 'Партнер 2', altEn: 'Partner 2' },
+    { id: 'partner-3', imageUrl: 'https://plasma-instrument.com/storage/part3.png', altRu: 'Партнер 3', altEn: 'Partner 3' },
+    { id: 'partner-4', imageUrl: 'https://plasma-instrument.com/storage/part4-2.png', altRu: 'Партнер 4', altEn: 'Partner 4' },
+    { id: 'partner-5', imageUrl: 'https://plasma-instrument.com/storage/part5.png', altRu: 'Партнер 5', altEn: 'Partner 5' }
+  ]
+};
+
+let homeContentMutationQueue = Promise.resolve();
+
+function cloneDefaultHomeContent() {
+  return JSON.parse(JSON.stringify(DEFAULT_HOME_CONTENT));
+}
+
+function normalizeHomeContent(payload) {
+  const fallback = cloneDefaultHomeContent();
+  const next = payload && typeof payload === 'object' ? payload : {};
+
+  return {
+    about: Array.isArray(next.about) ? next.about : fallback.about,
+    benefits: Array.isArray(next.benefits) ? next.benefits : fallback.benefits,
+    testimonials: Array.isArray(next.testimonials) ? next.testimonials : fallback.testimonials,
+    partners: Array.isArray(next.partners) ? next.partners : fallback.partners
+  };
+}
+
+async function atomicWriteFile(filePath, content) {
+  const directory = path.dirname(filePath);
+  const baseName = path.basename(filePath);
+  const tempFilePath = path.join(
+    directory,
+    `.${baseName}.${process.pid}.${Date.now()}.${Math.random().toString(16).slice(2)}.tmp`
+  );
+
+  await fs.writeFile(tempFilePath, content, 'utf-8');
+  await fs.rename(tempFilePath, filePath);
+}
+
+export function withHomeContentLock(task) {
+  const next = homeContentMutationQueue.then(task);
+  homeContentMutationQueue = next.catch(() => {});
+  return next;
+}
+
+export async function readHomeContent() {
+  try {
+    const raw = await fs.readFile(HOME_CONTENT_FILE, 'utf8');
+    return normalizeHomeContent(JSON.parse(raw));
+  } catch {
+    return cloneDefaultHomeContent();
+  }
+}
+
+export async function saveHomeContent(homeContent) {
+  await fs.mkdir(path.dirname(HOME_CONTENT_FILE), { recursive: true });
+  const normalized = normalizeHomeContent(homeContent);
+  await atomicWriteFile(HOME_CONTENT_FILE, JSON.stringify(normalized, null, 2));
+}
+
+export const HOME_CONTENT_SECTION_IDS = ['about', 'benefits', 'testimonials', 'partners'];

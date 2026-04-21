@@ -63,7 +63,7 @@ const DEFAULT_HOME_CONTENT = {
   testimonials: [
     {
       id: 'testimonial-1',
-      imageUrl: 'https://plasma-instrument.com/storage/.thumbs/preview248xauto_otzyv-ispaniya.jpg',
+      imageUrl: '/uploads/home-page/testimonials/preview248xauto_otzyv-ispaniya.jpg',
       imageAltRu: 'Отзыв Форсат+',
       imageAltEn: 'Forsat+ testimonial',
       companyRu: 'ООО Форсат+',
@@ -73,7 +73,7 @@ const DEFAULT_HOME_CONTENT = {
     },
     {
       id: 'testimonial-2',
-      imageUrl: 'https://plasma-instrument.com/storage/.thumbs/preview248xauto_otzyv-ooo-ivc-plazmainstrument-1.jpg',
+      imageUrl: '/uploads/home-page/testimonials/preview248xauto_otzyv-ooo-ivc-plazmainstrument-1.jpg',
       imageAltRu: 'Отзыв Инструментал девелопмент',
       imageAltEn: 'Instrumental Development testimonial',
       companyRu: 'Инструментал девелопмент',
@@ -83,7 +83,7 @@ const DEFAULT_HOME_CONTENT = {
     },
     {
       id: 'testimonial-3',
-      imageUrl: 'https://plasma-instrument.com/storage/.thumbs/preview248xauto_otzyv-rusaloks.jpeg',
+      imageUrl: '/uploads/home-page/testimonials/preview248xauto_otzyv-rusaloks.jpeg',
       imageAltRu: 'Отзыв Русалокс',
       imageAltEn: 'Rusalox testimonial',
       companyRu: 'Русалокс',
@@ -93,11 +93,11 @@ const DEFAULT_HOME_CONTENT = {
     }
   ],
   partners: [
-    { id: 'partner-1', imageUrl: 'https://plasma-instrument.com/storage/part1.png', altRu: 'Партнер 1', altEn: 'Partner 1' },
-    { id: 'partner-2', imageUrl: 'https://plasma-instrument.com/storage/part2.png', altRu: 'Партнер 2', altEn: 'Partner 2' },
-    { id: 'partner-3', imageUrl: 'https://plasma-instrument.com/storage/part3.png', altRu: 'Партнер 3', altEn: 'Partner 3' },
-    { id: 'partner-4', imageUrl: 'https://plasma-instrument.com/storage/part4-2.png', altRu: 'Партнер 4', altEn: 'Partner 4' },
-    { id: 'partner-5', imageUrl: 'https://plasma-instrument.com/storage/part5.png', altRu: 'Партнер 5', altEn: 'Partner 5' }
+    { id: 'partner-1', imageUrl: '/uploads/home-page/partners/part1.png', altRu: 'Партнер 1', altEn: 'Partner 1' },
+    { id: 'partner-2', imageUrl: '/uploads/home-page/partners/part2.png', altRu: 'Партнер 2', altEn: 'Partner 2' },
+    { id: 'partner-3', imageUrl: '/uploads/home-page/partners/part3.png', altRu: 'Партнер 3', altEn: 'Partner 3' },
+    { id: 'partner-4', imageUrl: '/uploads/home-page/partners/part4-2.png', altRu: 'Партнер 4', altEn: 'Partner 4' },
+    { id: 'partner-5', imageUrl: '/uploads/home-page/partners/part5.png', altRu: 'Партнер 5', altEn: 'Partner 5' }
   ]
 };
 

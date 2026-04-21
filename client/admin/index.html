@@ -674,12 +674,31 @@
     let quillEn;
     let editingArticleId = null;
     let homeContentDraft = null;
+    let contactsContentDraft = null;
 
     const HOME_SECTION_LABELS = {
       about: 'О компании',
       benefits: 'Почему выбирают нас',
       testimonials: 'Отзывы о нас',
       partners: 'Нам доверяют'
+    };
+
+    const CONTACTS_FIELD_LABELS = {
+      phoneRaw: 'Телефон (для ссылки tel:)',
+      phoneDisplay: 'Телефон (отображаемый текст)',
+      email: 'Email',
+      addressRuFull: 'Адрес полный (RU)',
+      addressEnFull: 'Address full (EN)',
+      addressRuShort: 'Адрес короткий (RU)',
+      addressEnShort: 'Address short (EN)',
+      contactsLeadRu: 'Текст под заголовком Контакты (RU)',
+      contactsLeadEn: 'Lead text under Contacts title (EN)',
+      workingHoursRu: 'Режим работы (RU)',
+      workingHoursEn: 'Working hours (EN)',
+      workingHoursRuShort: 'Краткий режим работы (RU)',
+      workingHoursEnShort: 'Short working hours (EN)',
+      responseTimeRu: 'Подпись ответа (RU)',
+      responseTimeEn: 'Response label (EN)'
     };
 
     const ABOUT_ICON_OPTIONS = [
@@ -1281,6 +1300,155 @@
       }
     }
 
+    function syncContactsContentFromDom() {
+      const root = document.querySelector('[data-contacts-editor]');
+      if (!root || !contactsContentDraft) {
+        return;
+      }
+
+      Object.keys(CONTACTS_FIELD_LABELS).forEach((field) => {
+        const node = root.querySelector(`[data-field="${field}"]`);
+        if (!node) {
+          return;
+        }
+
+        contactsContentDraft[field] = String(node.value || '').trim();
+      });
+    }
+
+    function buildContactsField(field, multiline = false) {
+      const value = contactsContentDraft?.[field] || '';
+      const label = CONTACTS_FIELD_LABELS[field] || field;
+
+      if (multiline) {
+        return `
+          <div>
+            <label>${escapeHtml(label)}</label>
+            <textarea data-field="${escapeAttr(field)}">${escapeHtml(value)}</textarea>
+          </div>
+        `;
+      }
+
+      return `
+        <div>
+          <label>${escapeHtml(label)}</label>
+          <input data-field="${escapeAttr(field)}" value="${escapeAttr(value)}" />
+        </div>
+      `;
+    }
+
+    function renderContactsContentEditor() {
+      const content = document.getElementById('content');
+
+      if (!contactsContentDraft) {
+        content.innerHTML = '<div class="loading">Загрузка контактов...</div>';
+        return;
+      }
+
+      content.innerHTML = `
+        <div class="home-editor" data-contacts-editor>
+          <section class="home-editor-section">
+            <div class="home-editor-head">
+              <h3>Общие контакты (используются везде)</h3>
+              <div class="home-editor-actions">
+                <button type="button" class="btn-primary" onclick="saveContactsContent()">Сохранить контакты</button>
+              </div>
+            </div>
+            <div class="home-items">
+              <div class="home-item">
+                <div class="home-grid-two">
+                  ${buildContactsField('phoneRaw')}
+                  ${buildContactsField('phoneDisplay')}
+                </div>
+                <div class="home-grid-two">
+                  ${buildContactsField('email')}
+                  <div></div>
+                </div>
+                <div class="home-grid-two">
+                  ${buildContactsField('addressRuFull', true)}
+                  ${buildContactsField('addressEnFull', true)}
+                </div>
+                <div class="home-grid-two">
+                  ${buildContactsField('addressRuShort')}
+                  ${buildContactsField('addressEnShort')}
+                </div>
+                <div class="home-grid-two">
+                  ${buildContactsField('contactsLeadRu', true)}
+                  ${buildContactsField('contactsLeadEn', true)}
+                </div>
+                <div class="home-grid-two">
+                  ${buildContactsField('workingHoursRu')}
+                  ${buildContactsField('workingHoursEn')}
+                </div>
+                <div class="home-grid-two">
+                  ${buildContactsField('workingHoursRuShort')}
+                  ${buildContactsField('workingHoursEnShort')}
+                </div>
+                <div class="home-grid-two">
+                  ${buildContactsField('responseTimeRu')}
+                  ${buildContactsField('responseTimeEn')}
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      `;
+    }
+
+    async function loadContactsContentEditor() {
+      const content = document.getElementById('content');
+      content.innerHTML = '<div class="loading">Загрузка контактов...</div>';
+
+      try {
+        const response = await fetch(`${API_URL}/contacts-content`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch contacts content');
+        }
+
+        const payload = await response.json();
+        contactsContentDraft = deepClone(payload);
+        renderContactsContentEditor();
+      } catch (error) {
+        console.error('Ошибка при загрузке контактов:', error);
+        showNotification('Ошибка при загрузке контактов', 'error');
+        content.innerHTML = '<div class="empty-state"><p>Не удалось загрузить раздел контактов</p></div>';
+      }
+    }
+
+    async function saveContactsContent() {
+      if (!contactsContentDraft) {
+        showNotification('Некорректные данные контактов', 'error');
+        return;
+      }
+
+      syncContactsContentFromDom();
+
+      try {
+        const response = await fetch(`${API_URL}/contacts-content`, {
+          method: 'PUT',
+          headers: withCsrfHeader({ 'Content-Type': 'application/json' }),
+          body: JSON.stringify(contactsContentDraft)
+        });
+
+        const result = await parseApiResponse(response);
+
+        if (isAuthFailureStatus(response.status)) {
+          throw new Error('Сессия истекла. Обновите страницу и войдите снова.');
+        }
+
+        if (!response.ok) {
+          throw new Error(result.error || 'Failed to save contacts content');
+        }
+
+        contactsContentDraft = deepClone(result);
+        renderContactsContentEditor();
+        showNotification('Контакты сохранены', 'success');
+      } catch (error) {
+        console.error('Ошибка при сохранении контактов:', error);
+        showNotification(`Ошибка сохранения: ${error.message}`, 'error');
+      }
+    }
+
     function imageUploadHandler(quillInstance) {
       const input = document.createElement('input');
       input.setAttribute('type', 'file');
@@ -1459,6 +1627,13 @@
           option.textContent = section.labelRu;
           formSelect.appendChild(option);
         });
+
+        const contactsBtn = document.createElement('button');
+        contactsBtn.className = 'section-btn';
+        contactsBtn.dataset.section = 'contacts-content';
+        contactsBtn.textContent = 'Контакты: общие данные';
+        contactsBtn.onclick = () => selectSection('contacts-content');
+        list.appendChild(contactsBtn);
       } catch (error) {
         console.error('Ошибка при загрузке разделов:', error);
         showNotification('Ошибка при загрузке разделов: ' + error.message, 'error');
@@ -1474,6 +1649,13 @@
         document.getElementById('section-title').textContent = 'Контент главной страницы';
         document.getElementById('add-article-btn').style.display = 'none';
         loadHomeContentEditor();
+        return;
+      }
+
+      if (section === 'contacts-content') {
+        document.getElementById('section-title').textContent = 'Контакты: общие данные';
+        document.getElementById('add-article-btn').style.display = 'none';
+        loadContactsContentEditor();
         return;
       }
 

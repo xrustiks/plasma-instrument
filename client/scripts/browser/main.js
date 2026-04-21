@@ -8,6 +8,7 @@ import { initSearchForm } from './search/search-form.js';
 import { initSearchResults } from './search/search-results.js';
 import { initTestimonialLightbox } from './ui/testimonial-lightbox.js';
 import { initContactsModal } from './ui/contacts-modal.js';
+import { initContactsContent } from './contacts-content.js';
 import { initCmsContent } from './cms-content.js';
 import { initHomePageContent } from './home-content.js';
 import { layoutReady } from './render-site-layout.js';
@@ -17,6 +18,7 @@ import { initLazyLoad, initImageErrorHandling } from './ui/lazy-load.js';
 // Используем Promise.resolve для обеспечения последовательности выполнения, 
 // даже если layoutReady уже завершился
 Promise.resolve(layoutReady).finally(() => {
+    initContactsContent();
 	initHomePageContent();
 	initLazyLoad();
 	initImageErrorHandling();

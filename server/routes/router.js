@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import articlesRoutes from './articles-routes.js';
+import contactsContentRoutes from './contacts-content-routes.js';
 import healthRoutes from './health-routes.js';
 import homeContentRoutes from './home-content-routes.js';
 import sectionsRoutes from './sections-routes.js';
@@ -13,6 +14,7 @@ router.get('/', (req, res) => {
 		message: 'Plasma Instrument API',
 		routes: {
 			health: '/api/health',
+			contactsContent: '/api/contacts-content',
 			homeContent: '/api/home-content',
 			sections: '/api/sections',
 			articles: '/api/articles',
@@ -21,6 +23,7 @@ router.get('/', (req, res) => {
 	});
 });
 
+router.use('/contacts-content', contactsContentRoutes);
 router.use('/home-content', homeContentRoutes);
 router.use('/sections', sectionsRoutes);
 router.use('/articles', articlesRoutes);

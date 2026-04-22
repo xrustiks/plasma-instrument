@@ -42,10 +42,11 @@ export function initContactsModal() {
 
   // Close modal when clicking on contact links (they will handle navigation)
   const contactLinks = modal.querySelectorAll('.contact-link');
-  contactLinks.forEach(link => {
+  contactLinks.forEach((link) => {
     link.addEventListener('click', () => {
+      const href = link.getAttribute('href') || '';
       // Don't close immediately for tel: and mailto: links, let them handle naturally
-      if (!link.href.startsWith('tel:') && !link.href.startsWith('mailto:')) {
+      if (!href.startsWith('tel:') && !href.startsWith('mailto:')) {
         modal.classList.remove('active');
         document.body.style.overflow = '';
       }

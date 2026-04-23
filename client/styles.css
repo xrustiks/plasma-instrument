@@ -1658,6 +1658,7 @@ body.lightbox-open {
 
 .footer-col--brand p {
   max-width: 42ch;
+  font-size: 0.875rem;
 }
 
 .footer-col--contacts a {

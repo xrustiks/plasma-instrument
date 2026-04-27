@@ -412,18 +412,14 @@ a {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  color: #45677c;
-  font-size: 1.05rem;
-  font-weight: 700;
+  content: "";
 }
 
 .main-focus__diagram-way--left::after {
-  content: "\2192";
   right: -1.05rem;
 }
 
 .main-focus__diagram-way--right::before {
-  content: "\2190";
   left: -1.05rem;
 }
 

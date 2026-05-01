@@ -1992,6 +1992,31 @@ body.home-expressive-reveal .reveal.is-visible {
   }
 }
 
+@media (min-width: 769px) and (max-width: 980px) {
+  .partners-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(140px, 1fr);
+    gap: 0.9rem;
+    overflow-x: auto;
+    padding-bottom: 0.45rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .partners-grid .card {
+    min-width: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px !important;
+  }
+
+  .partners-grid .card img {
+    max-height: 84px !important;
+    width: auto;
+  }
+}
+
 .header.is-compact .nav-toggle {
   display: inline-flex;
   width: 44px;

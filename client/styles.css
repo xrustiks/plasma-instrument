@@ -40,17 +40,17 @@
 
 :root {
   --font-main: "Exo 2", Arial, sans-serif;
-  --bg: #c7d3dd;
-  --panel: #dde6ee;
-  --panel-soft: #d2deea;
-  --text: #0f1e2a;
-  --text-muted: #435564;
-  --line: #9eb2c1;
-  --accent: #0f4f77;
-  --accent-blue: #1f6da0;
-  --warm: #7a5b36;
+  --bg: #fafafa;
+  --panel: #fefefe;
+  --panel-soft: #fcfcfc;
+  --text: #1a1a1a;
+  --text-muted: #777777;
+  --line: #e5e5e5;
+  --accent: #333333;
+  --accent-blue: #555555;
+  --warm: #8b6f47;
   --radius: 10px;
-  --shadow: 0 16px 34px rgba(8, 19, 28, 0.2);
+  --shadow: 0 16px 34px rgba(0, 0, 0, 0.08);
 }
 
 * {
@@ -65,9 +65,7 @@ html {
 body {
   margin: 0;
   font-family: var(--font-main);
-  background:
-    radial-gradient(920px 340px at 8% -10%, rgba(26, 64, 92, 0.28), transparent 70%),
-    linear-gradient(180deg, #d8e2ea 0%, var(--bg) 44%, #bcc9d5 100%);
+  background-color: var(--bg);
   color: var(--text);
   line-height: 1.52;
   min-height: 100dvh;
@@ -83,21 +81,18 @@ body > main {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background:
-    radial-gradient(980px 360px at 8% -10%, rgba(32, 70, 96, 0.24), transparent 72%),
-    radial-gradient(720px 300px at 95% 0%, rgba(31, 109, 160, 0.14), transparent 76%),
-    linear-gradient(180deg, #d3dee7 0%, #c7d3dd 42%, #c2ced9 100%);
+  background-image: url('images/background.png');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .site-bg::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(16, 34, 47, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16, 34, 47, 0.08) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: linear-gradient(transparent 0%, black 18%, black 82%, transparent 100%);
+  background: none;
 }
 
 a {
@@ -117,8 +112,8 @@ a {
 
 .header-top {
   backdrop-filter: blur(10px);
-  background: rgba(204, 218, 230, 0.96);
-  border-bottom: 1px solid rgba(80, 109, 129, 0.48);
+  background: rgba(255, 255, 255, 0.98);
+  border-bottom: 1px solid rgba(200, 200, 200, 0.3);
 }
 
 .header-top__wrap {
@@ -153,8 +148,8 @@ a {
 }
 
 .header-nav {
-  background: rgba(196, 212, 224, 0.96);
-  border-bottom: 1px solid rgba(80, 109, 129, 0.52);
+  background: rgba(252, 252, 252, 0.96);
+  border-bottom: 1px solid rgba(200, 200, 200, 0.3);
 }
 
 .header-nav__wrap {
@@ -177,7 +172,7 @@ a {
   border-radius: 6px;
   object-fit: cover;
   display: block;
-  border: 1px solid rgba(93, 120, 139, 0.45);
+  border: 1px solid rgba(180, 180, 180, 0.4);
 }
 
 .brand strong {
@@ -252,7 +247,7 @@ a {
 }
 
 .search-input:focus {
-  border-color: rgba(31, 109, 160, 0.72);
+  border-color: rgba(150, 150, 150, 0.5);
 }
 
 .search-btn {
@@ -268,7 +263,7 @@ a {
 }
 
 .search-btn:hover {
-  background: rgba(31, 109, 160, 0.18);
+  background: rgba(200, 200, 200, 0.1);
   color: var(--accent);
 }
 
@@ -365,11 +360,11 @@ a {
 }
 
 .main-focus__stat {
-  background: rgba(234, 241, 246, 0.94);
-  border: 1px solid rgba(175, 192, 204, 0.95);
+  background: rgba(248, 248, 248, 0.94);
+  border: 1px solid rgba(210, 210, 210, 0.6);
   border-radius: 10px;
   padding: 0.9rem 1rem 1rem;
-  box-shadow: 0 12px 24px rgba(19, 34, 46, 0.06);
+  box-shadow: 0 12px 24px rgba(100, 100, 100, 0.04);
 }
 
 .main-focus__stat strong {
@@ -421,9 +416,9 @@ a {
   min-height: 2.45rem;
   padding: 0 1rem;
   border-radius: 8px;
-  border: 1px solid rgba(88, 117, 135, 0.45);
-  background: rgba(232, 240, 246, 0.9);
-  color: #2f5064;
+  border: 1px solid rgba(180, 180, 180, 0.4);
+  background: rgba(248, 248, 248, 0.9);
+  color: #3a3a3a;
   font-size: 0.74rem;
   letter-spacing: 0.08em;
   font-weight: 700;
@@ -479,8 +474,8 @@ a {
   min-height: 260px;
   border-radius: 10px;
   padding: clamp(1.35rem, 2.8vw, 2.2rem);
-  border: 1px solid rgba(146, 171, 189, 0.42);
-  box-shadow: 0 18px 34px rgba(18, 44, 61, 0.12);
+  border: 1px solid rgba(200, 200, 200, 0.4);
+  box-shadow: 0 18px 34px rgba(100, 100, 100, 0.08);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -492,7 +487,7 @@ a {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(130deg, rgba(255, 255, 255, 0.2), rgba(31, 109, 160, 0.08) 38%, rgba(255, 255, 255, 0) 60%);
+  background: linear-gradient(130deg, rgba(255, 255, 255, 0.3), rgba(200, 200, 200, 0.05) 38%, rgba(255, 255, 255, 0) 60%);
 }
 
 .main-focus__card--vacuum {
@@ -664,7 +659,7 @@ h2 {
   height: 12px;
   border-radius: 50%;
   border: 0;
-  background: rgba(31, 109, 160, 0.44);
+  background: rgba(150, 150, 150, 0.3);
   cursor: pointer;
 }
 
@@ -768,7 +763,7 @@ h2 {
   height: 2px;
   margin-top: 0.5rem;
   border-radius: 999px;
-  background: linear-gradient(90deg, rgba(31, 109, 160, 0.95), rgba(31, 109, 160, 0));
+  background: linear-gradient(90deg, rgba(150, 150, 150, 0.5), rgba(150, 150, 150, 0));
 }
 
 .cards-grid {
@@ -808,8 +803,8 @@ h2 {
 
 .card:hover {
   transform: translateY(-4px);
-  border-color: rgba(31, 109, 160, 0.64);
-  box-shadow: 0 14px 26px rgba(15, 35, 49, 0.18);
+  border-color: rgba(150, 150, 150, 0.5);
+  box-shadow: 0 14px 26px rgba(100, 100, 100, 0.1);
 }
 
 .card h3 {
@@ -899,8 +894,8 @@ h2 {
 
 .topic-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(31, 109, 160, 0.62);
-  box-shadow: 0 14px 26px rgba(15, 35, 49, 0.16);
+  border-color: rgba(150, 150, 150, 0.5);
+  box-shadow: 0 14px 26px rgba(100, 100, 100, 0.1);
 }
 
 .topic-card:focus-visible {
@@ -987,8 +982,8 @@ h2 {
 
 .svc-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(31, 109, 160, 0.58);
-  box-shadow: 0 14px 26px rgba(15, 35, 49, 0.15);
+  border-color: rgba(150, 150, 150, 0.5);
+  box-shadow: 0 14px 26px rgba(100, 100, 100, 0.1);
 }
 
 .svc-card:focus-visible {
@@ -1324,8 +1319,8 @@ body.lightbox-open {
 
 .about-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(31, 109, 160, 0.56);
-  box-shadow: 0 14px 28px rgba(15, 35, 49, 0.16);
+  border-color: rgba(150, 150, 150, 0.5);
+  box-shadow: 0 14px 28px rgba(100, 100, 100, 0.1);
 }
 
 .about-card__header {
@@ -1426,8 +1421,8 @@ body.lightbox-open {
   padding: 1.75rem 1.6rem;
   margin-bottom: 1rem;
   background:
-    radial-gradient(520px 180px at 90% -35%, rgba(31, 109, 160, 0.2), transparent 72%),
-    linear-gradient(135deg, rgba(221, 232, 241, 0.94) 0%, rgba(205, 220, 231, 0.9) 100%);
+    radial-gradient(520px 180px at 90% -35%, rgba(200, 200, 200, 0.08), transparent 72%),
+    linear-gradient(135deg, rgba(250, 250, 250, 0.94) 0%, rgba(242, 242, 242, 0.9) 100%);
 }
 
 .contacts-hero__eyebrow {
@@ -1647,8 +1642,8 @@ body.lightbox-open {
   gap: 2rem;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, rgba(15, 79, 119, 0.2) 0%, rgba(31, 109, 160, 0.14) 55%, rgba(122, 91, 54, 0.1) 100%);
-  border: 1px solid rgba(171, 188, 200, 0.66);
+  background: linear-gradient(135deg, rgba(240, 240, 240, 0.6) 0%, rgba(235, 235, 235, 0.5) 55%, rgba(245, 243, 240, 0.5) 100%);
+  border: 1px solid rgba(210, 210, 210, 0.5);
   border-radius: 10px;
 }
 
@@ -1669,8 +1664,8 @@ body.lightbox-open {
 }
 
 .footer {
-  border-top: 1px solid rgba(74, 103, 123, 0.5);
-  background: rgba(185, 203, 216, 0.98);
+  border-top: 1px solid rgba(200, 200, 200, 0.3);
+  background: rgba(252, 252, 252, 0.98);
   margin-top: 0;
   font-family: var(--font-main);
 }
@@ -1685,7 +1680,7 @@ body.lightbox-open {
 .footer h3 {
   margin: 0 0 0.55rem;
   font-size: 1rem;
-  color: #163245;
+  color: #2a2a2a;
   font-family: inherit;
 }
 
@@ -1701,7 +1696,7 @@ body.lightbox-open {
   border-radius: 6px;
   object-fit: cover;
   display: block;
-  border: 1px solid rgba(93, 120, 139, 0.5);
+  border: 1px solid rgba(180, 180, 180, 0.4);
 }
 
 .footer p,

@@ -315,7 +315,7 @@ a {
 }
 
 .section {
-  padding: 4.5rem 0;
+  padding: 2rem 0 4.5rem;
 }
 
 .main-focus {
@@ -2165,7 +2165,7 @@ body.nav-overlay-open .nav.open .nav-close {
 
 @media (max-width: 868px) {
   .section {
-    padding: 4rem 0;
+    padding: 1.5rem 0 4rem;
   }
 }
 

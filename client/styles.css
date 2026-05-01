@@ -65,9 +65,7 @@ html {
 body {
   margin: 0;
   font-family: var(--font-main);
-  background:
-    radial-gradient(920px 340px at 8% -10%, rgba(200, 200, 200, 0.08), transparent 70%),
-    linear-gradient(180deg, #ffffff 0%, var(--bg) 44%, #f8f8f8 100%);
+  background-color: var(--bg);
   color: var(--text);
   line-height: 1.52;
   min-height: 100dvh;
@@ -83,21 +81,18 @@ body > main {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background:
-    radial-gradient(980px 360px at 8% -10%, rgba(220, 220, 220, 0.12), transparent 72%),
-    radial-gradient(720px 300px at 95% 0%, rgba(200, 200, 200, 0.08), transparent 76%),
-    linear-gradient(180deg, #ffffff 0%, #fafafa 42%, #f5f5f5 100%);
+  background-image: url('images/backgroud.png');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .site-bg::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(180, 180, 180, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(180, 180, 180, 0.03) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: linear-gradient(transparent 0%, black 18%, black 82%, transparent 100%);
+  background: none;
 }
 
 a {

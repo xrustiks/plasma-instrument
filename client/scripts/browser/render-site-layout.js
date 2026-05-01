@@ -325,20 +325,35 @@ function parseTemplateToElement(html) {
 
 // Загружает HTML-шаблон компонента из указанного пути, используя кэш для оптимизации повторных загрузок
 async function loadComponentTemplate(base, componentName) {
-  const path = `${base}${COMPONENT_BASE}/${componentName}.html`;
+  const primaryPath = `${base}${COMPONENT_BASE}/${componentName}.html`;
+  const candidatePaths = [
+    primaryPath,
+    `./${COMPONENT_BASE}/${componentName}.html`,
+    `/${COMPONENT_BASE}/${componentName}.html`,
+    `client/${COMPONENT_BASE}/${componentName}.html`,
+    `/client/${COMPONENT_BASE}/${componentName}.html`
+  ];
 
-  if (COMPONENT_CACHE.has(path)) {
-    return COMPONENT_CACHE.get(path);
+  for (const path of candidatePaths) {
+    if (COMPONENT_CACHE.has(path)) {
+      return COMPONENT_CACHE.get(path);
+    }
+
+    try {
+      const response = await fetch(path, { cache: 'no-cache' });
+      if (!response.ok) {
+        continue;
+      }
+
+      const html = await response.text();
+      COMPONENT_CACHE.set(path, html);
+      return html;
+    } catch {
+      // Try the next fallback path.
+    }
   }
 
-  const response = await fetch(path, { cache: 'no-cache' });
-  if (!response.ok) {
-    throw new Error(`Failed to load ${componentName} component: ${response.status}`);
-  }
-
-  const html = await response.text();
-  COMPONENT_CACHE.set(path, html);
-  return html;
+  throw new Error(`Failed to load ${componentName} component from all known paths`);
 }
 
 // Основная функция для монтирования макета сайта, которая загружает и вставляет компоненты header и footer, а также нормализует ссылки на странице

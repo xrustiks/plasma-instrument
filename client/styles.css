@@ -1791,7 +1791,11 @@ body.home-expressive-reveal .reveal.is-visible {
 
 @media (max-width: 980px) {
   .main-focus {
-    padding-top: 5rem;
+    padding-top: 3.2rem;
+  }
+
+  .main-focus__intro h1 {
+    max-width: 100%;
   }
 
   .main-focus__stats {
@@ -1900,13 +1904,17 @@ body.home-expressive-reveal .reveal.is-visible {
 
 @media (max-width: 768px) {
   .main-focus {
-    padding-top: 4.2rem;
+    padding-top: 3.2rem;
     padding-bottom: 1.8rem;
   }
 
   .main-focus__intro h1 {
     max-width: 100%;
     font-size: clamp(2rem, 11vw, 3rem);
+  }
+
+  .main-focus__lead {
+    max-width: 100%;
   }
 
   .main-focus__stats {

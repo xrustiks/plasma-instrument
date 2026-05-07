@@ -387,26 +387,35 @@ a {
 }
 
 .main-focus__diagram {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  gap: 0.75rem;
-  align-items: center;
+  position: relative;
   margin: 1.2rem 0 1rem;
+  padding-top: 3rem;
 }
 
 .main-focus__diagram-center {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0.62rem 1rem;
   border-radius: 8px;
-  border: 1px solid rgba(80, 109, 126, 0.48);
-  background: linear-gradient(180deg, rgba(236, 242, 247, 0.96), rgba(225, 233, 240, 0.95));
-  color: #1d3d52;
+  border: 1px solid rgba(150, 161, 155, 0.58);
+  background: linear-gradient(180deg, rgba(239, 244, 241, 0.98), rgba(229, 236, 231, 0.96));
+  color: #4e5e56;
   font-size: 0.76rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-weight: 700;
+}
+
+.main-focus__diagram-ways {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: center;
 }
 
 .main-focus__diagram-way {
@@ -427,12 +436,18 @@ a {
 }
 
 .main-focus__diagram-way--left {
-  justify-self: end;
+  justify-self: center;
   text-align: right;
+  border-color: rgba(120, 158, 183, 0.58);
+  background: linear-gradient(180deg, rgba(229, 238, 245, 0.98), rgba(218, 230, 239, 0.96));
+  color: #24475d;
 }
 
 .main-focus__diagram-way--right {
-  justify-self: start;
+  justify-self: center;
+  border-color: rgba(183, 153, 116, 0.58);
+  background: linear-gradient(180deg, rgba(243, 236, 225, 0.98), rgba(233, 223, 206, 0.96));
+  color: #5a4327;
 }
 
 .main-focus__diagram-way--left::before,
@@ -445,6 +460,14 @@ a {
   border-left: 2px dashed rgba(82, 113, 131, 0.65);
   transform: translateX(-50%);
   pointer-events: none;
+}
+
+.main-focus__diagram-way--left::before {
+  border-left-color: rgba(110, 145, 168, 0.72);
+}
+
+.main-focus__diagram-way--right::after {
+  border-left-color: rgba(176, 145, 104, 0.72);
 }
 
 .main-focus__diagram-way--left::after,
@@ -1807,10 +1830,15 @@ body.home-expressive-reveal .reveal.is-visible {
     justify-content: flex-start;
     padding-left: 0.2rem;
     margin: 0.8rem 0 0.65rem;
+    padding-top: 0;
   }
 
   .main-focus__diagram-center {
     position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: fit-content;
   }
 
   .main-focus__diagram-center::before {
@@ -1839,6 +1867,10 @@ body.home-expressive-reveal .reveal.is-visible {
     display: none;
   }
 
+  .main-focus__diagram-ways {
+    display: none;
+  }
+
   .main-focus__grid {
     position: relative;
     grid-template-columns: 1fr;
@@ -1853,9 +1885,9 @@ body.home-expressive-reveal .reveal.is-visible {
   .main-focus__card::after {
     content: "";
     position: absolute;
-    left: -0.5rem;
+    left: -0.65rem;
     top: 1.45rem;
-    width: 0.5rem;
+    width: 0.65rem;
     border-top: 2px dashed rgba(82, 113, 131, 0.72);
     pointer-events: none;
   }

@@ -2295,6 +2295,11 @@ body.nav-overlay-open .nav.open .nav-close {
 }
 
 /* Modal Contacts Styles */
+html.modal-open,
+body.modal-open {
+  overflow: hidden;
+}
+
 .modal-overlay {
   display: none;
   position: fixed;
@@ -2304,6 +2309,8 @@ body.nav-overlay-open .nav.open .nav-close {
   align-items: center;
   justify-content: center;
   padding: 1rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   animation: fadeIn 0.2s ease-out;
 }
 
@@ -2326,6 +2333,10 @@ body.nav-overlay-open .nav.open .nav-close {
   box-shadow: 0 20px 60px rgba(7, 16, 24, 0.42);
   max-width: 500px;
   width: 100%;
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   position: relative;
   animation: slideUp 0.3s ease-out;
 }

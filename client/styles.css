@@ -444,83 +444,6 @@ a {
   font-weight: 700;
 }
 
-.main-focus__diagram-ways {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 0.75rem;
-  align-items: center;
-}
-
-.main-focus__diagram-way {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  min-height: 2.45rem;
-  padding: 0 1rem;
-  border-radius: 8px;
-  border: 1px solid rgba(180, 180, 180, 0.4);
-  background: rgba(248, 248, 248, 0.9);
-  color: #3a3a3a;
-  font-size: 0.74rem;
-  letter-spacing: 0.08em;
-  font-weight: 700;
-  line-height: 1.2;
-  text-transform: uppercase;
-}
-
-.main-focus__diagram-way--left {
-  justify-self: center;
-  text-align: right;
-  border-color: rgba(120, 158, 183, 0.58);
-  background: linear-gradient(180deg, rgba(229, 238, 245, 0.98), rgba(218, 230, 239, 0.96));
-  color: #24475d;
-}
-
-.main-focus__diagram-way--right {
-  justify-self: center;
-  border-color: rgba(183, 153, 116, 0.58);
-  background: linear-gradient(180deg, rgba(243, 236, 225, 0.98), rgba(233, 223, 206, 0.96));
-  color: #5a4327;
-}
-
-.main-focus__diagram-way--left::before,
-.main-focus__diagram-way--right::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: calc(100% + 0.1rem);
-  height: 1.55rem;
-  border-left: 2px dashed rgba(82, 113, 131, 0.65);
-  transform: translateX(-50%);
-  pointer-events: none;
-}
-
-.main-focus__diagram-way--left::before {
-  border-left-color: rgba(110, 145, 168, 0.72);
-}
-
-.main-focus__diagram-way--right::after {
-  border-left-color: rgba(176, 145, 104, 0.72);
-}
-
-.main-focus__diagram-way--left::after,
-.main-focus__diagram-way--right::before {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  content: "";
-}
-
-.main-focus__diagram-way--left::after {
-  right: -1.05rem;
-}
-
-.main-focus__diagram-way--right::before {
-  left: -1.05rem;
-}
-
 .main-focus__grid {
   position: relative;
   z-index: 2;
@@ -1899,14 +1822,6 @@ body.home-expressive-reveal .reveal.is-visible {
     border-left: 2px dashed rgba(82, 113, 131, 0.72);
     transform: translateY(0);
     pointer-events: none;
-  }
-
-  .main-focus__diagram-way {
-    display: none;
-  }
-
-  .main-focus__diagram-ways {
-    display: none;
   }
 
   .main-focus__grid {

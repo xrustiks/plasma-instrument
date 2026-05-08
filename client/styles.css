@@ -321,7 +321,7 @@ a {
 .main-focus__intro {
   display: grid;
   gap: 1rem;
-  margin-bottom: 1.1rem;
+  margin-bottom: 3.5rem;
   max-width: 92ch;
 }
 
@@ -388,8 +388,40 @@ a {
 
 .main-focus__diagram {
   position: relative;
-  margin: 1.2rem 0 1rem;
+  margin: 3rem 0 1rem;
   padding-top: 3rem;
+}
+
+@media (min-width: 981px) {
+  .main-focus__diagram {
+    --diagram-way-gap: 0.75rem;
+    --diagram-way-center-x: calc(25% + (var(--diagram-way-gap) / 4));
+    --diagram-way-center-y: calc(3rem + 1.225rem);
+  }
+
+  .main-focus__diagram::before,
+  .main-focus__diagram::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: var(--diagram-way-center-x);
+    height: var(--diagram-way-center-y);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .main-focus__diagram::before {
+    left: 50%;
+    transform: translateX(-100%);
+    border-top: 2px dashed rgba(82, 113, 131, 0.68);
+    border-left: 2px dashed rgba(82, 113, 131, 0.68);
+  }
+
+  .main-focus__diagram::after {
+    left: 50%;
+    border-top: 2px dashed rgba(82, 113, 131, 0.68);
+    border-right: 2px dashed rgba(82, 113, 131, 0.68);
+  }
 }
 
 .main-focus__diagram-center {
@@ -397,6 +429,7 @@ a {
   top: 0;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -412,6 +445,8 @@ a {
 }
 
 .main-focus__diagram-ways {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 0.75rem;
@@ -487,6 +522,8 @@ a {
 }
 
 .main-focus__grid {
+  position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
@@ -494,6 +531,7 @@ a {
 
 .main-focus__card {
   position: relative;
+  z-index: 2;
   min-height: 260px;
   border-radius: 10px;
   padding: clamp(1.35rem, 2.8vw, 2.2rem);

@@ -39,6 +39,8 @@ function validateContactsContent(payload) {
   const phoneRaw = normalizePhoneRaw(source.phoneRaw);
   const phoneDisplay = trimString(source.phoneDisplay);
   const email = validateEmail(source.email);
+  const telegramChannelUrl = trimString(source.telegramChannelUrl);
+  const telegramChannelDisplay = trimString(source.telegramChannelDisplay);
 
   const addressRuFull = trimString(source.addressRuFull);
   const addressEnFull = trimString(source.addressEnFull);
@@ -82,6 +84,8 @@ function validateContactsContent(payload) {
       phoneRaw,
       phoneDisplay,
       email,
+      telegramChannelUrl,
+      telegramChannelDisplay,
       addressRuFull,
       addressEnFull,
       addressRuShort,

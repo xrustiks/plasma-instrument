@@ -20,6 +20,7 @@ function applyTextBindings(payload, lang) {
   const textMap = {
     phoneDisplay: payload.phoneDisplay || '',
     email: payload.email || '',
+    telegramChannelDisplay: payload.telegramChannelDisplay || '',
     addressFull: pickByLang(payload, 'addressRuFull', 'addressEnFull', lang),
     addressShort: pickByLang(payload, 'addressRuShort', 'addressEnShort', lang),
     contactsLead: pickByLang(payload, 'contactsLeadRu', 'contactsLeadEn', lang),
@@ -41,6 +42,7 @@ function applyTextBindings(payload, lang) {
 function applyLinkBindings(payload) {
   const tel = payload.phoneRaw || '';
   const email = payload.email || '';
+  const telegramUrl = payload.telegramChannelUrl || '';
 
   document.querySelectorAll('[data-contact-link]').forEach((node) => {
     const key = node.getAttribute('data-contact-link') || '';
@@ -52,6 +54,11 @@ function applyLinkBindings(payload) {
 
     if (key === 'email') {
       node.setAttribute('href', `mailto:${email}`);
+      return;
+    }
+
+    if (key === 'telegram') {
+      node.setAttribute('href', telegramUrl);
     }
   });
 }

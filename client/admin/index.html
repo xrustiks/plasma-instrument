@@ -687,6 +687,8 @@
       phoneRaw: 'Телефон (для ссылки tel:)',
       phoneDisplay: 'Телефон (отображаемый текст)',
       email: 'Email',
+      telegramChannelUrl: 'Telegram канал (URL/ссылка)',
+      telegramChannelDisplay: 'Telegram канал (отображаемое название)',
       addressRuFull: 'Адрес полный (RU)',
       addressEnFull: 'Address full (EN)',
       addressRuShort: 'Адрес короткий (RU)',
@@ -1363,6 +1365,10 @@
                 <div class="home-grid-two">
                   ${buildContactsField('email')}
                   <div></div>
+                </div>
+                <div class="home-grid-two">
+                  ${buildContactsField('telegramChannelUrl')}
+                  ${buildContactsField('telegramChannelDisplay')}
                 </div>
                 <div class="home-grid-two">
                   ${buildContactsField('addressRuFull', true)}
